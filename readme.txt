@@ -159,6 +159,11 @@ You can find complete user and developer documentation (along with the FAQs) on 
 
 == Changelog ==
 
+= 2.5.3 =
+* 2020-12-17
+* UPDATE SUMMARY: Bug fixes
+* [FIX] Fixes a bug where using the Castos Player block, does not trigger a listen for the stats add on plugin
+
 = 2.5.2 =
 * 2020-12-17
 * UPDATE SUMMARY: Bug fixes for the 2.5 release
@@ -168,12 +173,13 @@ You can find complete user and developer documentation (along with the FAQs) on 
 * [FIX] Fixes various spelling errors in the plugin (props [ihatehandles](https://profiles.wordpress.org/ihatehandles))
 
 = 2.5.1 =
-* 2020-12-08
+* 2020-12-09
 * UPDATE SUMMARY: Podcast Episode bug fixes for the 2.5 release
 * [FIX] Fixes a bug where podcast_episode shortcode was broken and causing fatal errors
 * [FIX] Fixes a bug where the compact player added some unnecessary additional html tags
 
 = 2.5.0 =
+* 2020-12-08
 * UPDATE SUMMARY: Implements version 2 of the HTML5 player, and various smaller bug fixes
 * [UPDATE] Replace all regular instances of the HTML5 media player with the updated version
 * [UPDATE] Replaces the media player custom styling with options for either dark or light mode
