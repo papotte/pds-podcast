@@ -453,6 +453,20 @@ class Settings_Handler {
 					'default'     => '',
 				),
 				array(
+					'id'          => 'buzzsprout_enabled',
+					'label'       => __( 'Enable Buzzsprout fields ', 'simple-podcasting' ),
+					'description' => __( 'Turn this on to enable the Buzzsprout specific fields on each episode.', 'simple-podcasting' ),
+					'type'        => 'checkbox',
+					'default'     => '',
+				),
+				array(
+					'id'          => 'buzzsprout_channel_id',
+					'label'       => __( 'Buzzsprout podcast ID ', 'simple-podcasting' ),
+					'description' => __( 'Set this to get the Buzzsprout player to load automatically.', 'simple-podcasting' ),
+					'type'        => 'text',
+					'default'     => '',
+				),
+				array(
 					'id'          => 'itunes_fields_enabled',
 					'label'       => __( 'Enable iTunes fields ', 'simple-podcasting' ),
 					'description' => __( 'Turn this on to enable the iTunes iOS11 specific fields on each episode.', 'simple-podcasting' ),
