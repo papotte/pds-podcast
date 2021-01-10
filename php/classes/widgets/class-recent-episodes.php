@@ -33,7 +33,7 @@ class Recent_Episodes extends WP_Widget {
 		$this->widget_cssclass = 'widget_recent_entries widget_recent_episodes';
 		$this->widget_description = __( 'Display a list of your most recent podcast episodes.', 'simple-podcasting' );
 		$this->widget_idbase = 'ss_podcast';
-		$this->widget_title = __( 'Podcast: Recent Episodes', 'simple-podcasting' );
+		$this->widget_title = __( 'Simple Podcast: Recent Episodes', 'simple-podcasting' );
 
 		// Widget settings
 		$widget_ops = array(
