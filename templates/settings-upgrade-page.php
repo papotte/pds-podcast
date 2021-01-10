@@ -98,7 +98,7 @@
 <div class="wrap">
 	<div id="header">
 
-		<h1>Welcome to Seriously Simple Podcasting by Castos</h1>
+		<h1>Welcome to Simple Simple Podcasting by Castos</h1>
 	</div>
 	<div id="container2">
 		<div id="container1">
@@ -108,11 +108,11 @@
 			</div>
 			<div id="col2">
 
-				<p>Castos podcast hosting combines best in class media hosting with the workflow you know and love in Seriously Simple Podcasting. </p>
+				<p>Castos podcast hosting combines best in class media hosting with the workflow you know and love in Simple Simple Podcasting. </p>
 				<ul>
 					<li>Direct file upload from WordPress dashboard</li>
 					<li>Automatic republishing to YouTube</li>
-					<li>Seamless integration with Seriously Simple Podcasting plugin</li>
+					<li>Seamless integration with Simple Simple Podcasting plugin</li>
 					<li>Lightning fast episode downloads and real-time streaming</li>
 					<li>Automated Transcripts for all your episodes</li>
 					<li>Safe, secure file storage on a robust hosting platform</li>

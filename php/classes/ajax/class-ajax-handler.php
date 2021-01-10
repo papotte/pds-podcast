@@ -1,10 +1,10 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Ajax;
+namespace SimplePodcasting\Ajax;
 
-use SeriouslySimplePodcasting\Handlers\Castos_Handler;
-use SeriouslySimplePodcasting\Importers\Rss_Importer;
-use SeriouslySimplePodcasting\Handlers\Options_Handler;
+use SimplePodcasting\Handlers\Castos_Handler;
+use SimplePodcasting\Importers\Rss_Importer;
+use SimplePodcasting\Handlers\Options_Handler;
 
 class Ajax_Handler {
 
@@ -103,7 +103,7 @@ class Ajax_Handler {
 	}
 
 	/**
-	 * Validate the Seriously Simple Hosting api credentials
+	 * Validate the SimpleHosting api credentials
 	 */
 	public function validate_podmotor_api_credentials() {
 		// @todo add nonces

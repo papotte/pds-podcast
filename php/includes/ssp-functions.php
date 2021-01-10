@@ -1,6 +1,6 @@
 <?php
 
-use SeriouslySimplePodcasting\Handlers\Castos_Handler;
+use SimplePodcasting\Handlers\Castos_Handler;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,7 +17,7 @@ if ( ! function_exists( 'ssp_beta_check' ) ) {
 		 */
 		add_action( 'admin_notices', 'ssp_beta_notice' );
 		function ssp_beta_notice() {
-			$beta_notice = __( 'You are using the Seriously Simple Podcasting beta, connected to ', 'seriously-simple-podcasting' );
+			$beta_notice = __( 'You are using the Simple Simple Podcasting beta, connected to ', 'simple-podcasting' );
 			?>
 			<div class="notice notice-warning">
 				<p>
@@ -48,8 +48,8 @@ if ( ! function_exists( 'ssp_is_php_version_ok' ) ) {
 		 */
 		add_action( 'admin_notices', 'ssp_php_version_notice' );
 		function ssp_php_version_notice() {
-			$error_notice = __( 'The Seriously Simple Podcasting plugin requires PHP version 5.6 or higher. Please contact your web host to upgrade your PHP version or deactivate the plugin.', 'seriously-simple-podcasting' );
-			$error_notice_apology = __( 'We apologise for any inconvenience.', 'seriously-simple-podcasting' );
+			$error_notice = __( 'The Simple Simple Podcasting plugin requires PHP version 5.6 or higher. Please contact your web host to upgrade your PHP version or deactivate the plugin.', 'simple-podcasting' );
+			$error_notice_apology = __( 'We apologise for any inconvenience.', 'simple-podcasting' );
 			?>
 			<div class="error">
 				<p>
@@ -72,8 +72,8 @@ if ( ! function_exists( 'ssp_is_vendor_ok' ) ) {
 		}
 		add_action( 'admin_notices', 'ssp_vendor_notice' );
 		function ssp_vendor_notice() {
-			$error_notice         = __( 'The Seriously Simple Podcasting vendor directory is missing or broken, please re-download/reinstall the plugin.', 'seriously-simple-podcasting' );
-			$error_notice_apology = __( 'We apologise for any inconvenience.', 'seriously-simple-podcasting' );
+			$error_notice         = __( 'The Simple Simple Podcasting vendor directory is missing or broken, please re-download/reinstall the plugin.', 'simple-podcasting' );
+			$error_notice_apology = __( 'We apologise for any inconvenience.', 'simple-podcasting' );
 			?>
 			<div class="error">
 				<p>
@@ -90,7 +90,7 @@ if ( ! function_exists( 'ssp_is_vendor_ok' ) ) {
 
 if ( ! function_exists( 'ssp_get_upload_directory' ) ) {
 	/**
-	 * Gets the temporary Seriously Simple Podcasting upload directory
+	 * Gets the temporary Simple Simple Podcasting upload directory
 	 * Typically ../wp-content/uploads/ssp
 	 * If it does not already exist, attempts to create it
 	 *
@@ -158,7 +158,7 @@ if ( ! function_exists( 'is_podcast_download' ) ) {
 
 if ( ! function_exists( 'ss_get_podcast' ) ) {
 	/**
-	 * Wrapper function to get the podcast episodes from the SeriouslySimplePodcasting class.
+	 * Wrapper function to get the podcast episodes from the SimplePodcasting class.
 	 *
 	 * @param mixed $args Arguments
 	 *
@@ -279,7 +279,7 @@ if ( ! function_exists( 'ss_podcast' ) ) {
 					$template = str_replace( '%%CLASS%%', $class, $template );
 					$template = str_replace( '%%TITLE%%', $title, $template );
 
-					$meta     = $series->count . __( ' episodes', 'seriously-simple-podcasting' );
+					$meta     = $series->count . __( ' episodes', 'simple-podcasting' );
 					$template = str_replace( '%%META%%', $meta, $template );
 
 					$html .= $template;
@@ -745,7 +745,7 @@ if ( ! function_exists( 'ssp_get_importing_podcasts_count' ) ) {
 
 if ( ! function_exists( 'ssp_import_existing_podcasts' ) ) {
 	/**
-	 * Imports existing podcasts to Seriously Simple Hosting
+	 * Imports existing podcasts to Simple Simple Hosting
 	 *
 	 * @return bool
 	 */

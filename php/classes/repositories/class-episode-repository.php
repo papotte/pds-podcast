@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Repositories;
+namespace SimplePodcasting\Repositories;
 
 /**
  * Episode Repository
@@ -10,7 +10,7 @@ namespace SeriouslySimplePodcasting\Repositories;
  * not specific to processing/rendering a request to display and episode
  * should be moved here
  *
- * @package Seriously Simple Podcasting
+ * @package Simple Podcasting
  * @since 2.4.3
  */
 class Episode_Repository {

@@ -1,9 +1,9 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Integrations\Elementor\Widgets;
+namespace SimplePodcasting\Integrations\Elementor\Widgets;
 
 use Exception;
-use SeriouslySimplePodcasting\Controllers\Players_Controller;
+use SimplePodcasting\Controllers\Players_Controller;
 
 class Elementor_Subscribe_Buttons_Widget extends \Elementor\Widget_Base {
 
@@ -35,7 +35,7 @@ class Elementor_Subscribe_Buttons_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Subscribe Buttons', 'seriously-simple-podcasting' );
+		return __( 'Subscribe Buttons', 'simple-podcasting' );
 	}
 
 	public function get_icon() {
@@ -67,7 +67,7 @@ class Elementor_Subscribe_Buttons_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => __( 'Content', 'seriously-simple-podcasting' ),
+				'label' => __( 'Content', 'simple-podcasting' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -95,7 +95,7 @@ class Elementor_Subscribe_Buttons_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_elements',
 			[
-				'label'    => __( 'Select Podcast', 'seriously-simple-podcasting' ),
+				'label'    => __( 'Select Podcast', 'simple-podcasting' ),
 				'type'     => \Elementor\Controls_Manager::SELECT2,
 				'options'  => $series_options,
 				'multiple' => false,

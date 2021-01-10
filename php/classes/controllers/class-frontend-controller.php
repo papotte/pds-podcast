@@ -1,22 +1,22 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Controllers;
+namespace SimplePodcasting\Controllers;
 
-use SeriouslySimplePodcasting\Renderers\Renderer;
+use SimplePodcasting\Renderers\Renderer;
 use stdClass;
 use WP_Query;
 
-use SeriouslySimplePodcasting\ShortCodes\Player;
-use SeriouslySimplePodcasting\ShortCodes\Podcast;
-use SeriouslySimplePodcasting\ShortCodes\Podcast_Episode;
-use SeriouslySimplePodcasting\ShortCodes\Podcast_Playlist;
+use SimplePodcasting\ShortCodes\Player;
+use SimplePodcasting\ShortCodes\Podcast;
+use SimplePodcasting\ShortCodes\Podcast_Episode;
+use SimplePodcasting\ShortCodes\Podcast_Playlist;
 
-use SeriouslySimplePodcasting\Widgets\Playlist;
-use SeriouslySimplePodcasting\Widgets\Series;
-use SeriouslySimplePodcasting\Widgets\Recent_Episodes;
-use SeriouslySimplePodcasting\Widgets\Single_Episode;
+use SimplePodcasting\Widgets\Playlist;
+use SimplePodcasting\Widgets\Series;
+use SimplePodcasting\Widgets\Recent_Episodes;
+use SimplePodcasting\Widgets\Single_Episode;
 
-use SeriouslySimplePodcasting\Handlers\Options_Handler;
+use SimplePodcasting\Handlers\Options_Handler;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Hugh Lashbrooke
  * @category    Class
- * @package     SeriouslySimplePodcasting/Controllers
+ * @package     SimplePodcasting/Controllers
  * @since       1.0
  */
 class Frontend_Controller extends Controller {
@@ -132,7 +132,7 @@ class Frontend_Controller extends Controller {
 		/**
 		 * If we're rendering a SSP Block, which includes the HTML5 player, also enqueue the player scripts
 		 */
-		if ( has_block( 'seriously-simple-podcasting/castos-player' ) || has_block( 'seriously-simple-podcasting/podcast-list' ) ) {
+		if ( has_block( 'simple-podcasting/castos-player' ) || has_block( 'simple-podcasting/podcast-list' ) ) {
 			wp_enqueue_script( 'ssp-castos-player' );
 			wp_enqueue_style( 'ssp-castos-player' );
 		}
@@ -238,7 +238,7 @@ class Frontend_Controller extends Controller {
 		/**
 		 * Check if this post is using the HTML5 player block
 		 */
-		if ( has_block( 'seriously-simple-podcasting/castos-player' ) ) {
+		if ( has_block( 'simple-podcasting/castos-player' ) ) {
 			$show_player = false;
 		}
 
@@ -505,20 +505,20 @@ class Frontend_Controller extends Controller {
 			switch( $key ) {
 
 				case 'link':
-					$podcast_display .= '<a href="' . esc_url( $data ) . '" title="' . get_the_title() . ' " class="podcast-meta-download">' . __( 'Download file' , 'seriously-simple-podcasting' ) . '</a>';
+					$podcast_display .= '<a href="' . esc_url( $data ) . '" title="' . get_the_title() . ' " class="podcast-meta-download">' . __( 'Download file' , 'simple-podcasting' ) . '</a>';
 					break;
 
 				case 'new_window':
 					$play_link = add_query_arg( 'ref', 'new_window', $link );
-					$podcast_display .= '<a href="' . esc_url( $play_link ) . '" target="_blank" title="' . get_the_title() . ' " class="podcast-meta-new-window">' . __( 'Play in new window' , 'seriously-simple-podcasting' ) . '</a>';
+					$podcast_display .= '<a href="' . esc_url( $play_link ) . '" target="_blank" title="' . get_the_title() . ' " class="podcast-meta-new-window">' . __( 'Play in new window' , 'simple-podcasting' ) . '</a>';
 					break;
 
 				case 'duration':
-					$podcast_display .= '<span class="podcast-meta-duration">' . __( 'Duration' , 'seriously-simple-podcasting' ) . ': ' . $data . '</span>';
+					$podcast_display .= '<span class="podcast-meta-duration">' . __( 'Duration' , 'simple-podcasting' ) . ': ' . $data . '</span>';
 					break;
 
 				case 'date_recorded':
-					$podcast_display .= '<span class="podcast-meta-date">' . __( 'Recorded on' , 'seriously-simple-podcasting' ) . ' ' . date_i18n( get_option( 'date_format' ), strtotime( $data ) ) . '</span>';
+					$podcast_display .= '<span class="podcast-meta-date">' . __( 'Recorded on' , 'simple-podcasting' ) . ' ' . date_i18n( get_option( 'date_format' ), strtotime( $data ) ) . '</span>';
 					break;
 
 				// Allow for custom items to be added, but only allow a small amount of HTML tags
@@ -590,7 +590,7 @@ class Frontend_Controller extends Controller {
 			}
 
 			if ( ! empty( $subscribe_display ) ) {
-				$subscribe_display = '<p>' . __( 'Subscribe:', 'seriously-simple-podcasting' ) . ' ' . $subscribe_display . '</p>';
+				$subscribe_display = '<p>' . __( 'Subscribe:', 'simple-podcasting' ) . ' ' . $subscribe_display . '</p>';
 				$subscribe_display = apply_filters( 'ssp_include_podcast_subscribe_links', $subscribe_display );
 				if ( $subscribe_display && ! empty( $subscribe_display ) ) {
 					$meta_display .= $subscribe_display;
@@ -1034,7 +1034,7 @@ class Frontend_Controller extends Controller {
 	}
 
 	/**
-	 * Public action which is triggered from the Seriously Simple Hosting queue
+	 * Public action which is triggered from the Simple Simple Hosting queue
 	 * Imports episodes to Serioulsy Simple Hosting
 	 */
 	public function import_existing_podcast_to_podmotor(){
@@ -1285,7 +1285,7 @@ class Frontend_Controller extends Controller {
 		// Allow generator tags to be hidden if necessary
 		if ( apply_filters( 'ssp_show_generator_tag', true, $type ) ) {
 
-			$generator = 'Seriously Simple Podcasting ' . esc_attr( $this->version );
+			$generator = 'Simple Simple Podcasting ' . esc_attr( $this->version );
 
 			switch ( $type ) {
 				case 'html':
@@ -1326,7 +1326,7 @@ class Frontend_Controller extends Controller {
 		$html = '';
 
 		if( apply_filters( 'ssp_show_global_feed_tag', true ) ) {
-			$html = '<link rel="alternate" type="application/rss+xml" title="' . __( 'Podcast RSS feed', 'seriously-simple-podcasting' ) . '" href="' . esc_url( $feed_url ) . '" />';
+			$html = '<link rel="alternate" type="application/rss+xml" title="' . __( 'Podcast RSS feed', 'simple-podcasting' ) . '" href="' . esc_url( $feed_url ) . '" />';
 		}
 
 		// Check if this is a series taxonomy archive and display series-specific RSS feed tag
@@ -1341,7 +1341,7 @@ class Frontend_Controller extends Controller {
 					$series_feed_url = $feed_url . '&podcast_series=' . $current_obj->slug;
 				}
 
-				$html .= "\n" . '<link rel="alternate" type="application/rss+xml" title="' . sprintf( __( '%s RSS feed', 'seriously-simple-podcasting' ), $current_obj->name ) . '" href="' . esc_url( $series_feed_url ) . '" />';
+				$html .= "\n" . '<link rel="alternate" type="application/rss+xml" title="' . sprintf( __( '%s RSS feed', 'simple-podcasting' ), $current_obj->name ) . '" href="' . esc_url( $series_feed_url ) . '" />';
 
 			}
 
@@ -1389,13 +1389,13 @@ class Frontend_Controller extends Controller {
 	}
 
 	public function load_localisation () {
-		load_plugin_textdomain( 'seriously-simple-podcasting', false, basename( dirname( $this->file ) ) . '/languages/' );
+		load_plugin_textdomain( 'simple-podcasting', false, basename( dirname( $this->file ) ) . '/languages/' );
 	}
 
 	/**
 	 * Show single podcast episode with specified content items
-	 * This is used in the SeriouslySimplePodcasting\Widgets\Single_Episode widget
-	 * as well as the SeriouslySimplePodcasting\ShortCodes\Podcast_Episode shortcode
+	 * This is used in the SimplePodcasting\Widgets\Single_Episode widget
+	 * as well as the SimplePodcasting\ShortCodes\Podcast_Episode shortcode
 	 *
 	 * @param  integer $episode_id    ID of episode post
 	 * @param  array   $content_items Ordered array of content items to display

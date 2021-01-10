@@ -1,11 +1,11 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Handlers;
+namespace SimplePodcasting\Handlers;
 
 /**
  * SSP Options Handler
  *
- * @package Seriously Simple Podcasting
+ * @package Simple Podcasting
  */
 class Options_Handler {
 
@@ -91,10 +91,10 @@ class Options_Handler {
 		);
 
 		$options['subscribe'] = array(
-			'title'       => __( 'Distribution options', 'seriously-simple-podcasting' ),
+			'title'       => __( 'Distribution options', 'simple-podcasting' ),
 			'description' => sprintf(
 				/* translators: %s: URL to feed details */
-				__( 'Here you can change the available options which power the Distribution URLs that appear below the player on your website. The Distribution URLS are edited under <a href="%s">Settings -> Feed Details</a><p>Select which Distribution links you want to display to your site visitors:</p>', 'seriously-simple-podcasting' ),
+				__( 'Here you can change the available options which power the Distribution URLs that appear below the player on your website. The Distribution URLS are edited under <a href="%s">Settings -> Feed Details</a><p>Select which Distribution links you want to display to your site visitors:</p>', 'simple-podcasting' ),
 				$feed_details_url
 			),
 			'fields'      => $subscribe_options_array,
@@ -117,7 +117,7 @@ class Options_Handler {
 		$subscribe_field_options[] = array(
 			'id'          => 'subscribe_options',
 			// translators: %s: Service title eg iTunes
-			'label'       => __( 'Distribution options', 'seriously-simple-podcasting' ),
+			'label'       => __( 'Distribution options', 'simple-podcasting' ),
 			// translators: %s: Service title eg iTunes
 			'description' => '',
 			'type'        => 'checkbox_multi',

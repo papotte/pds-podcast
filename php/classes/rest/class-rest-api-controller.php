@@ -1,15 +1,15 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Rest;
+namespace SimplePodcasting\Rest;
 
-use SeriouslySimplePodcasting\Controllers\Episode_Controller;
-use SeriouslySimplePodcasting\Handlers\Options_Handler;
-use SeriouslySimplePodcasting\Repositories\Episode_Repository;
+use SimplePodcasting\Controllers\Episode_Controller;
+use SimplePodcasting\Handlers\Options_Handler;
+use SimplePodcasting\Repositories\Episode_Repository;
 
 /**
- * Extending the WP REST API for Seriously Simple Podcasting
+ * Extending the WP REST API for Simple Podcasting
  *
- * @package Seriously Simple Podcasting
+ * @package Simple Podcasting
  * @since 1.19.12
  */
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Controllers;
+namespace SimplePodcasting\Controllers;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Jonathan Bossenger
  * @category    Class
- * @package     SeriouslySimplePodcasting/Controllers
+ * @package     SimplePodcasting/Controllers
  * @since       1.0
  */
 class Import_Controller {
@@ -81,7 +81,7 @@ class Import_Controller {
 			</tbody>
 		</table>
 		<p class="submit">
-			<input id="ssp-settings-submit" name="Submit" type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Begin Import Now', 'seriously-simple-podcasting' ) ) ?>"/>
+			<input id="ssp-settings-submit" name="Submit" type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Begin Import Now', 'simple-podcasting' ) ) ?>"/>
 		</p>
 		<?php
 		$html = ob_get_clean();

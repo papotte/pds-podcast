@@ -1,20 +1,20 @@
 <?php
 /**
- * Plugin Name: Seriously Simple Podcasting
- * Version: 2.5.2
- * Plugin URI: https://castos.com/seriously-simple-podcasting/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019
- * Description: Podcasting the way it's meant to be. No mess, no fuss - just you and your content taking over the world.
- * Author: Castos
- * Author URI: https://castos.com/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019
+ * Plugin Name: Simple Podcasting
+ * Version: 3.0.0
+ * Plugin URI: https://github.com/papotte/simple-podcasting
+ * Description: Based on Simple Podcasing
+ * Author: papotte
+ * Author URI: https://github.com/papotte
  * Requires PHP: 5.6
  * Requires at least: 4.4
  * Tested up to: 5.5.3
  *
- * Text Domain: seriously-simple-podcasting
+ * Text Domain: simple-podcasting
  *
- * @package Seriously Simple Podcasting
+ * @package Simple Podcasting
  *
- * GitHub Plugin URI: https://github.com/CastosHQ/Seriously-Simple-Podcasting
+ * GitHub Plugin URI: https://github.com/papotte/simple-podcasting
  *
  */
 
@@ -23,14 +23,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use SeriouslySimplePodcasting\Blocks\Castos_Blocks;
-use SeriouslySimplePodcasting\Controllers\Admin_Controller;
-use SeriouslySimplePodcasting\Controllers\Frontend_Controller;
-use SeriouslySimplePodcasting\Controllers\Settings_Controller;
-use SeriouslySimplePodcasting\Controllers\Options_Controller;
-use SeriouslySimplePodcasting\Rest\Rest_Api_Controller;
-use SeriouslySimplePodcasting\Controllers\Players_Controller;
-use SeriouslySimplePodcasting\Integrations\Elementor\Elementor_Widgets;
+use SimplePodcasting\Blocks\Castos_Blocks;
+use SimplePodcasting\Controllers\Admin_Controller;
+use SimplePodcasting\Controllers\Frontend_Controller;
+use SimplePodcasting\Controllers\Settings_Controller;
+use SimplePodcasting\Controllers\Options_Controller;
+use SimplePodcasting\Rest\Rest_Api_Controller;
+use SimplePodcasting\Controllers\Players_Controller;
+use SimplePodcasting\Integrations\Elementor\Elementor_Widgets;
 
 define( 'SSP_VERSION', '2.5.2' );
 define( 'SSP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

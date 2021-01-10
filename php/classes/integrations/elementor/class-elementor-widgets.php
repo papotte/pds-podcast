@@ -1,12 +1,12 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Integrations\Elementor;
+namespace SimplePodcasting\Integrations\Elementor;
 
-use SeriouslySimplePodcasting\Integrations\Elementor\Widgets\Elementor_Episode_List_Widget;
-use SeriouslySimplePodcasting\Integrations\Elementor\Widgets\Elementor_Recent_Episodes_Widget;
-use SeriouslySimplePodcasting\Integrations\Elementor\Widgets\Elementor_Html_Player_Widget;
-use SeriouslySimplePodcasting\Integrations\Elementor\Widgets\Elementor_Media_Player_Widget;
-use SeriouslySimplePodcasting\Integrations\Elementor\Widgets\Elementor_Subscribe_Buttons_Widget;
+use SimplePodcasting\Integrations\Elementor\Widgets\Elementor_Episode_List_Widget;
+use SimplePodcasting\Integrations\Elementor\Widgets\Elementor_Recent_Episodes_Widget;
+use SimplePodcasting\Integrations\Elementor\Widgets\Elementor_Html_Player_Widget;
+use SimplePodcasting\Integrations\Elementor\Widgets\Elementor_Media_Player_Widget;
+use SimplePodcasting\Integrations\Elementor\Widgets\Elementor_Subscribe_Buttons_Widget;
 
 final class Elementor_Widgets {
 

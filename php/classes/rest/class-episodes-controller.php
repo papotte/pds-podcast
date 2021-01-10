@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Rest;
+namespace SimplePodcasting\Rest;
 
 use WP_REST_Controller;
 use WP_REST_Posts_Controller;
@@ -16,7 +16,7 @@ use WP_Query;
  *    from the request parameters.
  *
  * @author Jonathan Bossenger
- * @package Seriously Simple Podcasting
+ * @package Simple Podcasting
  * @since 1.19.12
  */
 

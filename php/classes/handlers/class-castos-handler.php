@@ -1,8 +1,8 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Handlers;
+namespace SimplePodcasting\Handlers;
 
-use SeriouslySimplePodcasting\Helpers\Log_Helper;
+use SimplePodcasting\Helpers\Log_Helper;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -251,8 +251,8 @@ class Castos_Handler {
 	}
 
 	/**
-	 * Upload Podcast episode data to Seriously Simple Hosting
-	 * Should only happen once the file has been uploaded to Seriously Simple Hosting Storage
+	 * Upload Podcast episode data to SimpleHosting
+	 * Should only happen once the file has been uploaded to SimpleHosting Storage
 	 *
 	 * @param $post
 	 *

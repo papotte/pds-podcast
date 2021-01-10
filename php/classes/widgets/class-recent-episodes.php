@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Widgets;
+namespace SimplePodcasting\Widgets;
 
 use WP_Widget;
 use WP_Query;
@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Seriously Simple Podcasting Recent Podcast Episodes Widget
+ * Simple Podcasting Recent Podcast Episodes Widget
  *
  * @author    Hugh Lashbrooke
- * @package   SeriouslySimplePodcasting
- * @category  SeriouslySimplePodcasting/Widgets
+ * @package   SimplePodcasting
+ * @category  SimplePodcasting/Widgets
  * @since     1.9.0
  */
 class Recent_Episodes extends WP_Widget {
@@ -31,9 +31,9 @@ class Recent_Episodes extends WP_Widget {
 	public function __construct() {
 		// Widget variable settings
 		$this->widget_cssclass = 'widget_recent_entries widget_recent_episodes';
-		$this->widget_description = __( 'Display a list of your most recent podcast episodes.', 'seriously-simple-podcasting' );
+		$this->widget_description = __( 'Display a list of your most recent podcast episodes.', 'simple-podcasting' );
 		$this->widget_idbase = 'ss_podcast';
-		$this->widget_title = __( 'Podcast: Recent Episodes', 'seriously-simple-podcasting' );
+		$this->widget_title = __( 'Podcast: Recent Episodes', 'simple-podcasting' );
 
 		// Widget settings
 		$widget_ops = array(
@@ -73,7 +73,7 @@ class Recent_Episodes extends WP_Widget {
 
 		ob_start();
 
-		$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : __( 'Recent Episodes', 'seriously-simple-podcasting' );
+		$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : __( 'Recent Episodes', 'simple-podcasting' );
 
 		/** This filter is documented in wp-includes/default-widgets.php */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
@@ -139,14 +139,14 @@ class Recent_Episodes extends WP_Widget {
 		$number    = isset( $instance['number'] ) ? absint( $instance['number'] ) : 5;
 		$show_date = isset( $instance['show_date'] ) ? (bool) $instance['show_date'] : false;
 ?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'seriously-simple-podcasting' ); ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'simple-podcasting' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of episodes to show:', 'seriously-simple-podcasting' ); ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of episodes to show:', 'simple-podcasting' ); ?></label>
 		<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $number; ?>" size="3" /></p>
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_date ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display episode date?', 'seriously-simple-podcasting' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display episode date?', 'simple-podcasting' ); ?></label></p>
 <?php
 	}
 } // End Class

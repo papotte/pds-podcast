@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Handlers;
+namespace SimplePodcasting\Handlers;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Hugh Lashbrooke
  * @category    Class
- * @package     SeriouslySimplePodcasting/Controllers
+ * @package     SimplePodcasting/Controllers
  * @since       1.0
  */
 class Admin_Notifications_Handler {
@@ -63,7 +63,7 @@ class Admin_Notifications_Handler {
 	public function castos_api_episode_success() {
 		?>
 		<div class="notice notice-info">
-			<p><?php _e( 'Your episode was successfully synced to your Castos account', 'seriously-simple-podcasting' ); ?></p>
+			<p><?php _e( 'Your episode was successfully synced to your Castos account', 'simple-podcasting' ); ?></p>
 		</div>
 		<?php
 	}
@@ -74,7 +74,7 @@ class Admin_Notifications_Handler {
 	public function castos_api_episode_error() {
 		?>
 		<div class="notice notice-error">
-			<p><?php _e( 'An error occurred syncing your episode to your Castos account. Please contact Castos support at hello@castos.com.', 'seriously-simple-podcasting' ); ?></p>
+			<p><?php _e( 'An error occurred syncing your episode to your Castos account. Please contact Castos support at hello@castos.com.', 'simple-podcasting' ); ?></p>
 		</div>
 		<?php
 	}
@@ -91,11 +91,11 @@ class Admin_Notifications_Handler {
 	}
 
 	/**
-	 * Check if there are existing podcasts to be uploaded to Seriously Simple Hosting
+	 * Check if there are existing podcasts to be uploaded to Simple Hosting
 	 */
 	public function check_existing_podcasts() {
 		/**
-		 * Only trigger this if we're connected to Seriously Simple Hosting
+		 * Only trigger this if we're connected to Simple Hosting
 		 */
 		if ( ! ssp_is_connected_to_castos() ) {
 			return;
@@ -150,7 +150,7 @@ class Admin_Notifications_Handler {
 	 */
 	public function show_revalidate_api_credentials_for_20() {
 		/**
-		 * Only trigger this if we're connected to Seriously Simple Hosting
+		 * Only trigger this if we're connected to Simple Hosting
 		 */
 		if ( ! ssp_is_connected_to_castos() ) {
 			return;
@@ -178,7 +178,7 @@ class Admin_Notifications_Handler {
 		$revalidate_api_credentials_link = sprintf(
 			wp_kses(
 				// translators: Placeholder is the url to trigger the action
-				__( 'In order to ensure that your WordPress site continues to connect to Castos, please click <a href="%s">this link</a> to re-validate your API credentials.', 'seriously-simple-podcasting' ),
+				__( 'In order to ensure that your WordPress site continues to connect to Castos, please click <a href="%s">this link</a> to re-validate your API credentials.', 'simple-podcasting' ),
 				array(
 					'a' => array(
 						'href' => array(),
@@ -188,7 +188,7 @@ class Admin_Notifications_Handler {
 			esc_url( $revalidate_api_credentials_url )
 		);
 
-		$message = __( 'You\'ve recently upgraded Seriously Simple Podcasting to version 2.0 (or newer). This update includes some changes to how the plugin interacts with your Castos account.', 'seriously-simple-podcasting' );
+		$message = __( 'You\'ve recently upgraded Simple Podcasting to version 2.0 (or newer). This update includes some changes to how the plugin interacts with your Castos account.', 'simple-podcasting' );
 
 		?>
 		<div class="notice notice-info">
@@ -228,7 +228,7 @@ class Admin_Notifications_Handler {
 	 * Show API credentials valid message
 	 */
 	public function api_credentials_revalidated() {
-		$message = __( 'Castos API credentials validated.', 'seriously-simple-podcasting' );
+		$message = __( 'Castos API credentials validated.', 'simple-podcasting' );
 		?>
 		<div class="notice notice-info is-dismissible">
 			<p><?php echo $message; ?></p>
@@ -240,7 +240,7 @@ class Admin_Notifications_Handler {
 	 * Show API credentials invalid message
 	 */
 	public function api_credentials_invalid() {
-		$message = __( 'Castos API credentials could not be validated. Please check your credentials from the Hosting tab of the Seriously Simple Podcasting Settings', 'seriously-simple-podcasting' );
+		$message = __( 'Castos API credentials could not be validated. Please check your credentials from the Hosting tab of the Simple Podcasting Settings', 'simple-podcasting' );
 		?>
 		<div class="notice notice-error is-dismissible">
 			<p><?php echo $message; ?></p>
@@ -338,11 +338,11 @@ class Admin_Notifications_Handler {
 
 		$ignore_message_url = add_query_arg( array( 'ssp_dismiss_categories_update' => 'true' ) );
 
-		$message            = __( 'Seriously Simple Podcasting\'s feed categories have been updated.', 'seriously-simple-podcasting' );
+		$message            = __( 'Simple Podcasting\'s feed categories have been updated.', 'simple-podcasting' );
 		$feed_settings_link = sprintf(
 			wp_kses(
 				// translators: Placeholder is the url to the Feed details
-				__( 'Please check your <a href="%s">Feed details</a>  to update your categories.', 'seriously-simple-podcasting' ),
+				__( 'Please check your <a href="%s">Feed details</a>  to update your categories.', 'simple-podcasting' ),
 				array(
 					'a' => array(
 						'href' => array(),
@@ -354,7 +354,7 @@ class Admin_Notifications_Handler {
 		$ignore_message_link = sprintf(
 			wp_kses(
 				// translators: Placeholder is the url to dismiss the message
-				__( 'Alternatively you can <a href="%s">dismiss this message</a>.', 'seriously-simple-podcasting' ),
+				__( 'Alternatively you can <a href="%s">dismiss this message</a>.', 'simple-podcasting' ),
 				array(
 					'a' => array(
 						'href' => array(),
@@ -408,7 +408,7 @@ class Admin_Notifications_Handler {
 		$second_line_themes_link = sprintf(
 			wp_kses(
 				// translators: Placeholder is the url to Second Line Themes
-				__( 'Looking for a dedicated podcast theme to use with Seriously Simple Podcasting? Check out  <a href="%s" target="_blank">Second Line Themes.</a> ', 'seriously-simple-podcasting' ),
+				__( 'Looking for a dedicated podcast theme to use with Simple Podcasting? Check out  <a href="%s" target="_blank">Second Line Themes.</a> ', 'simple-podcasting' ),
 				array(
 					'a' => array(
 						'href'   => array(),
@@ -474,7 +474,7 @@ class Admin_Notifications_Handler {
 		$distribution_links_update = sprintf(
 			wp_kses(
 				// translators: Placeholder is the url to the Plugin Options
-				__( 'Seriously Simple Podcasting has updated the process of managing your Subscribe/Distribution links, and needs to perform a data upgrade. Please visit the <a href="%s">Plugin Options</a> to perform this upgrade.', 'seriously-simple-podcasting' ),
+				__( 'Simple Podcasting has updated the process of managing your Subscribe/Distribution links, and needs to perform a data upgrade. Please visit the <a href="%s">Plugin Options</a> to perform this upgrade.', 'simple-podcasting' ),
 				array(
 					'a' => array(
 						'href'   => array(),
@@ -499,7 +499,7 @@ class Admin_Notifications_Handler {
 		$distribution_backup = sprintf(
 			wp_kses(
 				// translators: Placeholder is the url to download the current options
-				__( 'Seriously Simple Podcasting has updated the process of managing your Subscribe/Distribution links, we recommend you download your current subscribe links by using <a href="%s">this link</a>.', 'seriously-simple-podcasting' ),
+				__( 'Simple Podcasting has updated the process of managing your Subscribe/Distribution links, we recommend you download your current subscribe links by using <a href="%s">this link</a>.', 'simple-podcasting' ),
 				array(
 					'a' => array(
 						'href'   => array(),
@@ -513,7 +513,7 @@ class Admin_Notifications_Handler {
 		$distribution_upgrade = sprintf(
 			wp_kses(
 				// translators: Placeholders are the url to run the upgrade, and the url to the relevant help document
-				__( 'Once you have downloaded your subscribe links, you can run the upgrade by clicking <a href="%1$s">this link</a>. You can read more about this upgrade <a href="%2$s">here</a>', 'seriously-simple-podcasting' ),
+				__( 'Once you have downloaded your subscribe links, you can run the upgrade by clicking <a href="%1$s">this link</a>. You can read more about this upgrade <a href="%2$s">here</a>', 'simple-podcasting' ),
 				array(
 					'a' => array(
 						'href'   => array(),
@@ -556,7 +556,7 @@ class Admin_Notifications_Handler {
 		$elementor_templates_link = sprintf(
 			wp_kses(
 			// translators: Placeholder is the url to dismiss the message
-				__( 'Using Elementor? Seriously Simple Podcasting now has built in Elementor templates to build podcast specific pages. <a href="%s">Click here to install them now.</a> ', 'seriously-simple-podcasting' ),
+				__( 'Using Elementor? Simple Podcasting now has built in Elementor templates to build podcast specific pages. <a href="%s">Click here to install them now.</a> ', 'simple-podcasting' ),
 				array(
 					'a' => array(
 						'href'   => array(),
@@ -571,7 +571,7 @@ class Admin_Notifications_Handler {
 		$ignore_message_link = sprintf(
 			wp_kses(
 			// translators: Placeholder is the url to dismiss the message
-				__( 'Alternatively you can <a href="%s">dismiss this message</a>.', 'seriously-simple-podcasting' ),
+				__( 'Alternatively you can <a href="%s">dismiss this message</a>.', 'simple-podcasting' ),
 				array(
 					'a' => array(
 						'href' => array(),
