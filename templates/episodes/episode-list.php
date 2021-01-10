@@ -8,7 +8,7 @@ foreach ( $episodes as $podcastEpisode ) {
 	$episode = [];
 	$player_style = get_option( 'ss_podcasting_player_style', 'standard' );
 	?>
-		<article class="podcast-<?php echo $podcastEpisode->ID ?> podcast type-podcast">
+		<article class="podcast-<?php echo $podcastEpisode->ID ?> podcast type-podcast EPISODES_LIST">
 			<h5>
 				<a class="entry-title-link" rel="bookmark" href="<?php echo $podcastEpisode->guid ?>">
 					<?php echo $podcastEpisode->post_title; ?>

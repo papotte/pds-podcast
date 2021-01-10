@@ -10,7 +10,7 @@ while ( $episodes->have_posts() ) : $episodes->the_post();
 		$media_player = $player->render_html_player( get_post()->ID );
 	}
 	?>
-	<article class="podcast-<?php echo get_post()->ID ?> podcast type-podcast">
+	<article class="podcast-<?php echo get_post()->ID ?> podcast type-podcast ALL_EPISODES_LIST">
 		<h2>
 			<a class="entry-title-link" rel="bookmark" href="<?php echo get_post()->guid ?>">
 				<?php echo get_post()->post_title; ?>
