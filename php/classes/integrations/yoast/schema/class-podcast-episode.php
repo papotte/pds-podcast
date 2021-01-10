@@ -5,7 +5,7 @@
  * @package Yoast\WP\SEO\Generators\Schema
  */
 
-namespace SeriouslySimplePodcasting\Integrations\Yoast\Schema;
+namespace SimplePodcasting\Integrations\Yoast\Schema;
 
 use Yoast\WP\SEO\Generators\Schema\Abstract_Schema_Piece;
 

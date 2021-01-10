@@ -3,15 +3,15 @@
  * Podcast RSS feed template
  *
  * @package WordPress
- * @subpackage SeriouslySimplePodcasting
+ * @subpackage SimplePodcasting
  *
  * Refactoring history:
  * Moved the data preparation to the feed controller
- * @see \SeriouslySimplePodcasting\Controllers\Feed_Controller::load_feed_template()
+ * @see \SimplePodcasting\Controllers\Feed_Controller::load_feed_template()
  *
  * @var $stylesheet_url
  * @var $title
- * @var \SeriouslySimplePodcasting\Controllers\Frontend_Controller $ss_podcasting
+ * @var \SimplePodcasting\Controllers\Frontend_Controller $ss_podcasting
  * @var $podcast_series
  * @var $description
  * @var $language

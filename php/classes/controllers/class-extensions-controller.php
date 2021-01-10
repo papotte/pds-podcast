@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Controllers;
+namespace SimplePodcasting\Controllers;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,12 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Jonathan Bossenger
  * @category    Class
- * @package     SeriouslySimplePodcasting/Controllers
+ * @package     SimplePodcasting/Controllers
  * @since       1.0
  */
 class Extensions_Controller extends Controller {
 
-	public function render_seriously_simple_sidebar() {
+	public function render_simple_sidebar() {
 		$image_dir = $this->assets_url . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR;
 		ob_start();
 		include $this->template_path . DIRECTORY_SEPARATOR . 'settings-sidebar.php';
@@ -25,27 +25,27 @@ class Extensions_Controller extends Controller {
 		return ob_get_clean();
 	}
 
-	public function render_seriously_simple_extensions() {
+	public function render_simple_extensions() {
 		add_thickbox();
 
 		$image_dir  = $this->assets_url . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR;
 
 		$extensions = array(
 			'connect'     => array(
-				'title'       => __( 'NEW - Castos Podcast Hosting', 'seriously-simple-podcasting' ),
+				'title'       => __( 'NEW - Castos Podcast Hosting', 'simple-podcasting' ),
 				'image'       => $image_dir . 'castos-icon-extension.jpg',
 				'url'         => SSP_CASTOS_APP_URL,
-				'description' => __( 'Host your podcast media files safely and securely in a CDN-powered cloud platform designed specifically to connect beautifully with Seriously Simple Podcasting.  Faster downloads, better live streaming, and take back security for your web server with Castos.', 'seriously-simple-podcasting' ),
-				'button_text' => __( 'Get Castos Hosting', 'seriously-simple-podcasting' ),
+				'description' => __( 'Host your podcast media files safely and securely in a CDN-powered cloud platform designed specifically to connect beautifully with Simple Podcasting.  Faster downloads, better live streaming, and take back security for your web server with Castos.', 'simple-podcasting' ),
+				'button_text' => __( 'Get Castos Hosting', 'simple-podcasting' ),
 				'new_window'  => true,
 			),
 			'stats'       => array(
-				'title'       => __( 'Seriously Simple Podcasting Stats', 'seriously-simple-podcasting' ),
+				'title'       => __( 'Simple Podcasting Stats', 'simple-podcasting' ),
 				'image'       => $image_dir . 'ssp-stats.jpg',
 				'url'         => add_query_arg(
 					array(
 						'tab'       => 'plugin-information',
-						'plugin'    => 'seriously-simple-stats',
+						'plugin'    => 'simple-stats',
 						'TB_iframe' => 'true',
 						'width'     => '772',
 						'height'    => '859',
@@ -54,15 +54,15 @@ class Extensions_Controller extends Controller {
 						'plugin-install.php'
 					)
 				),
-				'description' => __( 'Seriously Simple Stats offers integrated analytics for your podcast, giving you access to incredibly useful information about who is listening to your podcast and how they are accessing it.', 'seriously-simple-podcasting' ),
+				'description' => __( 'Simple Simple Stats offers integrated analytics for your podcast, giving you access to incredibly useful information about who is listening to your podcast and how they are accessing it.', 'simple-podcasting' ),
 			),
 			'transcripts' => array(
-				'title'       => __( 'Seriously Simple Podcasting Transcripts', 'seriously-simple-podcasting' ),
+				'title'       => __( 'Simple Podcasting Transcripts', 'simple-podcasting' ),
 				'image'       => $image_dir . 'ssp-transcripts.jpg',
 				'url'         => add_query_arg(
 					array(
 						'tab'       => 'plugin-information',
-						'plugin'    => 'seriously-simple-transcripts',
+						'plugin'    => 'simple--transcripts',
 						'TB_iframe' => 'true',
 						'width'     => '772',
 						'height'    => '859',
@@ -71,15 +71,15 @@ class Extensions_Controller extends Controller {
 						'plugin-install.php'
 					)
 				),
-				'description' => __( 'Seriously Simple Transcripts gives you a simple and automated way for you to add downloadable transcripts to your podcast episodes. It’s an easy way for you to provide episode transcripts to your listeners without taking up valuable space in your episode content.', 'seriously-simple-podcasting' ),
+				'description' => __( 'Simple Simple Transcripts gives you a simple and automated way for you to add downloadable transcripts to your podcast episodes. It’s an easy way for you to provide episode transcripts to your listeners without taking up valuable space in your episode content.', 'simple-podcasting' ),
 			),
 			'speakers'    => array(
-				'title'       => __( 'Seriously Simple Podcasting Speakers', 'seriously-simple-podcasting' ),
+				'title'       => __( 'Simple Simple Podcasting Speakers', 'simple-podcasting' ),
 				'image'       => $image_dir . 'ssp-speakers.jpg',
 				'url'         => add_query_arg(
 					array(
 						'tab'       => 'plugin-information',
-						'plugin'    => 'seriously-simple-speakers',
+						'plugin'    => 'simple--speakers',
 						'TB_iframe' => 'true',
 						'width'     => '772',
 						'height'    => '859',
@@ -88,15 +88,15 @@ class Extensions_Controller extends Controller {
 						'plugin-install.php'
 					)
 				),
-				'description' => __( 'Does your podcast have a number of different speakers? Or maybe a different guest each week? Perhaps you have unique hosts for each episode? If any of those options describe your podcast then Seriously Simple Speakers is the add-on for you!', 'seriously-simple-podcasting' ),
+				'description' => __( 'Does your podcast have a number of different speakers? Or maybe a different guest each week? Perhaps you have unique hosts for each episode? If any of those options describe your podcast then Simple Simple Speakers is the add-on for you!', 'simple-podcasting' ),
 			),
 			'genesis'     => array(
-				'title'       => __( 'Seriously Simple Podcasting Genesis Support ', 'seriously-simple-podcasting' ),
+				'title'       => __( 'Simple Simple Podcasting Genesis Support ', 'simple-podcasting' ),
 				'image'       => $image_dir . 'ssp-genesis.jpg',
 				'url'         => add_query_arg(
 					array(
 						'tab'       => 'plugin-information',
-						'plugin'    => 'seriously-simple-podcasting-genesis-support',
+						'plugin'    => 'simple-podcasting-genesis-support',
 						'TB_iframe' => 'true',
 						'width'     => '772',
 						'height'    => '859',
@@ -105,25 +105,25 @@ class Extensions_Controller extends Controller {
 						'plugin-install.php'
 					)
 				),
-				'description' => __( 'The Genesis compatibility add-on for Seriously Simple Podcasting gives you full support for the Genesis theme framework. It adds support to the podcast post type for the features that Genesis requires. If you are using Genesis and Seriously Simple Podcasting together then this plugin will make your website look and work much more smoothly.', 'seriously-simple-podcasting' ),
+				'description' => __( 'The Genesis compatibility add-on for Simple Simple Podcasting gives you full support for the Genesis theme framework. It adds support to the podcast post type for the features that Genesis requires. If you are using Genesis and Simple Simple Podcasting together then this plugin will make your website look and work much more smoothly.', 'simple-podcasting' ),
 			),
 			'second-line' => array(
-				'title'       => __( 'Second Line Themes', 'seriously-simple-podcasting' ),
+				'title'       => __( 'Second Line Themes', 'simple-podcasting' ),
 				'image'       => $image_dir . 'second-line-themes.png',
 				'url'         => 'https://secondlinethemes.com/?utm_source=ssp-settings',
-				'description' => __( 'Looking for a dedicated podcast theme to use with Seriously Simple Podcasting? Check out SecondLineThemes!', 'seriously-simple-podcasting' ),
+				'description' => __( 'Looking for a dedicated podcast theme to use with Simple Simple Podcasting? Check out SecondLineThemes!', 'simple-podcasting' ),
 				'new_window'  => true,
-				'button_text' => __( 'Get Second Line Themes', 'seriously-simple-podcasting' ),
+				'button_text' => __( 'Get Second Line Themes', 'simple-podcasting' ),
 			),
 		);
 
 		if ( ssp_is_elementor_ok() ) {
 			$elementor_templates = array(
-				'title'       => __( 'Elementor Templates', 'seriously-simple-podcasting' ),
+				'title'       => __( 'Elementor Templates', 'simple-podcasting' ),
 				'image'       => $image_dir . 'elementor.jpg',
 				'url'         => wp_nonce_url( admin_url( 'edit.php?post_type=podcast&page=podcast_settings&tab=extensions&elementor_import_templates=true' ), '', 'import_template_nonce' ),
-				'description' => __( 'Looking for a custom elementor template to use with Seriously Simple Podcasting? Click here to import all of them righ now!', 'seriously-simple-podcasting' ),
-				'button_text' => __( 'Import Templates', 'seriously-simple-podcasting' ),
+				'description' => __( 'Looking for a custom elementor template to use with Simple Simple Podcasting? Click here to import all of them righ now!', 'simple-podcasting' ),
+				'button_text' => __( 'Import Templates', 'simple-podcasting' ),
 				'new_window'  => 'redirect'
 			);
 			$extensions = array_slice($extensions, 0, 1, true) + array("elementor-templates" =>  $elementor_templates) + array_slice($extensions, 1, count($extensions)-1, true);

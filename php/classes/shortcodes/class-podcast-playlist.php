@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\ShortCodes;
+namespace SimplePodcasting\ShortCodes;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -8,11 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Seriously Simple Podcasting Recent Podcast Episodes Widget
+ * Simple Podcasting Recent Podcast Episodes Widget
  *
  * @author        Hugh Lashbrooke
- * @package    SeriouslySimplePodcasting
- * @category    SeriouslySimplePodcasting/Shortcodes
+ * @package    SimplePodcasting
+ * @category    SimplePodcasting/Shortcodes
  * @since        1.15.0
  */
 class Podcast_Playlist {

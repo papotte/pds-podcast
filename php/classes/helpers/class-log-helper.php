@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Helpers;
+namespace SimplePodcasting\Helpers;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

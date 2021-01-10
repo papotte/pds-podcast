@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Widgets;
+namespace SimplePodcasting\Widgets;
 
 use WP_Widget;
 
@@ -10,11 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Seriously Simple Podcasting Single Podcast Episode Widget
+ * Simple Podcasting Single Podcast Episode Widget
  *
  * @author    Hugh Lashbrooke
- * @package   SeriouslySimplePodcasting
- * @category  SeriouslySimplePodcasting/Widgets
+ * @package   SimplePodcasting
+ * @category  SimplePodcasting/Widgets
  * @since     1.9.0
  */
 class Single_Episode extends WP_Widget {
@@ -30,9 +30,9 @@ class Single_Episode extends WP_Widget {
 	public function __construct() {
 		// Widget variable settings
 		$this->widget_cssclass = 'widget_podcast_episode';
-		$this->widget_description = __( 'Display a single podcast episode.', 'seriously-simple-podcasting' );
+		$this->widget_description = __( 'Display a single podcast episode.', 'simple-podcasting' );
 		$this->widget_idbase = 'ss_podcast';
-		$this->widget_title = __( 'Podcast: Single Episode', 'seriously-simple-podcasting' );
+		$this->widget_title = __( 'Podcast: Single Episode', 'simple-podcasting' );
 
 		// Widget settings
 		$widget_ops = array(
@@ -178,12 +178,12 @@ class Single_Episode extends WP_Widget {
 		// Get all podcast episodes
 		$episode_ids = (array) ssp_episode_ids();
 ?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'seriously-simple-podcasting' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" placeholder="<?php _e( 'Use episode title', 'seriously-simple-podcasting' ); ?>" value="<?php echo $title; ?>" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'simple-podcasting' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" placeholder="<?php _e( 'Use episode title', 'simple-podcasting' ); ?>" value="<?php echo $title; ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'episode_id' ); ?>"><?php _e( 'Episode:', 'seriously-simple-podcasting' ); ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'episode_id' ); ?>"><?php _e( 'Episode:', 'simple-podcasting' ); ?></label>
 		<select id="<?php echo $this->get_field_id( 'episode_id' ); ?>" name="<?php echo $this->get_field_name( 'episode_id' ); ?>">
-			<option value="0"><?php _e( '- Latest episode -', 'seriously-simple-podcasting' ); ?></option>
+			<option value="0"><?php _e( '- Latest episode -', 'simple-podcasting' ); ?></option>
 			<?php
 			foreach ( $episode_ids as $id ) {
 				echo '<option value="' . esc_attr( $id ) . '" ' . selected( $episode_id, $id, false ) . '>' . get_the_title( $id ) . '</option>' . "\n";
@@ -193,19 +193,19 @@ class Single_Episode extends WP_Widget {
 		</p>
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_title ); ?> id="<?php echo $this->get_field_id( 'show_title' ); ?>" name="<?php echo $this->get_field_name( 'show_title' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'show_title' ); ?>"><?php _e( 'Display episode title inside widget?', 'seriously-simple-podcasting' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'show_title' ); ?>"><?php _e( 'Display episode title inside widget?', 'simple-podcasting' ); ?></label></p>
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_excerpt ); ?> id="<?php echo $this->get_field_id( 'show_excerpt' ); ?>" name="<?php echo $this->get_field_name( 'show_excerpt' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'show_excerpt' ); ?>"><?php _e( 'Display episode excerpt?', 'seriously-simple-podcasting' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'show_excerpt' ); ?>"><?php _e( 'Display episode excerpt?', 'simple-podcasting' ); ?></label></p>
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_content ); ?> id="<?php echo $this->get_field_id( 'show_content' ); ?>" name="<?php echo $this->get_field_name( 'show_content' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'show_content' ); ?>"><?php _e( 'Display full episode content?', 'seriously-simple-podcasting' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'show_content' ); ?>"><?php _e( 'Display full episode content?', 'simple-podcasting' ); ?></label></p>
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_player ); ?> id="<?php echo $this->get_field_id( 'show_player' ); ?>" name="<?php echo $this->get_field_name( 'show_player' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'show_player' ); ?>"><?php _e( 'Display episode audio player?', 'seriously-simple-podcasting' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'show_player' ); ?>"><?php _e( 'Display episode audio player?', 'simple-podcasting' ); ?></label></p>
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_details ); ?> id="<?php echo $this->get_field_id( 'show_details' ); ?>" name="<?php echo $this->get_field_name( 'show_details' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'show_details' ); ?>"><?php _e( 'Display episode details?', 'seriously-simple-podcasting' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'show_details' ); ?>"><?php _e( 'Display episode details?', 'simple-podcasting' ); ?></label></p>
 <?php
 	}
 } // End Class

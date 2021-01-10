@@ -1,8 +1,8 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Integrations\Elementor\Widgets;
+namespace SimplePodcasting\Integrations\Elementor\Widgets;
 
-use SeriouslySimplePodcasting\Controllers\Episode_Controller;
+use SimplePodcasting\Controllers\Episode_Controller;
 use WP_Query;
 
 class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
@@ -11,7 +11,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Episode List', 'seriously-simple-podcasting' );
+		return __( 'Episode List', 'simple-podcasting' );
 	}
 
 	public function get_icon() {
@@ -44,7 +44,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => __( 'Content', 'seriously-simple-podcasting' ),
+				'label' => __( 'Content', 'simple-podcasting' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -52,7 +52,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_featured_image',
 			[
-				'label'   => __( 'Show Featured Image', 'seriously-simple-podcasting' ),
+				'label'   => __( 'Show Featured Image', 'simple-podcasting' ),
 				'type'    => \Elementor\Controls_Manager::SWITCHER,
 				'default' => 'yes'
 			]
@@ -60,7 +60,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_episode_player',
 			[
-				'label'   => __( 'Show Episode Player', 'seriously-simple-podcasting' ),
+				'label'   => __( 'Show Episode Player', 'simple-podcasting' ),
 				'type'    => \Elementor\Controls_Manager::SWITCHER,
 				'default' => 'yes'
 			]
@@ -68,7 +68,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_episode_excerpt',
 			[
-				'label'   => __( 'Show Episode Excerpt', 'seriously-simple-podcasting' ),
+				'label'   => __( 'Show Episode Excerpt', 'simple-podcasting' ),
 				'type'    => \Elementor\Controls_Manager::SWITCHER,
 				'default' => 'yes'
 			]

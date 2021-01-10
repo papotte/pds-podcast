@@ -1,11 +1,11 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Handlers;
+namespace SimplePodcasting\Handlers;
 
 /**
  * SSP Roles Handler
  *
- * @package Seriously Simple Podcasting
+ * @package Simple Podcasting
  * @since 2.6.3
  */
 class Images_Handler {

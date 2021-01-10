@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Renderers;
+namespace SimplePodcasting\Renderers;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

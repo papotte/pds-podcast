@@ -24,10 +24,10 @@ class CastosPlayer extends Component {
 			const playerBackgroundClass = 'player__artwork player__artwork-' + episodeId;
 			const playButtonClass = 'play-btn play-btn-' + episodeId;
 			const pauseButtonClass = 'pause-btn pause-btn-' + episodeId + ' hide';
-			const loaderSVG = "/wp-content/plugins/seriously-simple-podcasting/assets/css/images/player/images/icon-loader.svg"; // @todo might need to sort out path
+			const loaderSVG = "/wp-content/plugins/simple-podcasting/assets/css/images/player/images/icon-loader.svg"; // @todo might need to sort out path
 			const loaderClass = 'loader loader-' + episodeId + ' hide';
 			const audioElementClass = 'clip clip-' + episodeId;
-			const progressClass = 'ssp-progress progress-' + episodeId;
+			const progressClass = 'progress progress-' + episodeId;
 			const playProgressClass = 'progress__filled progress__filled-' + episodeId;
 			const playbackClass = 'playback playback-' + episodeId;
 			const muteClass = 'player-btn__volume player-btn__volume-' + episodeId;

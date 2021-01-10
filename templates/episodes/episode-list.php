@@ -1,7 +1,7 @@
 
 <?php
 
-use SeriouslySimplePodcasting\Controllers\Players_Controller;
+use SimplePodcasting\Controllers\Players_Controller;
 
 foreach ( $episodes as $podcastEpisode ) {
 	$player = new Players_Controller($file, $version);

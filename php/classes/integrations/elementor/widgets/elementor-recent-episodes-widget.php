@@ -1,8 +1,8 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Integrations\Elementor\Widgets;
+namespace SimplePodcasting\Integrations\Elementor\Widgets;
 
-use SeriouslySimplePodcasting\Controllers\Episode_Controller;
+use SimplePodcasting\Controllers\Episode_Controller;
 
 class Elementor_Recent_Episodes_Widget extends \Elementor\Widget_Base {
 	public function get_name() {
@@ -10,7 +10,7 @@ class Elementor_Recent_Episodes_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Recent Episodes', 'seriously-simple-podcasting' );
+		return __( 'Recent Episodes', 'simple-podcasting' );
 	}
 
 	public function get_icon() {

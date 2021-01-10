@@ -1,11 +1,11 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Controllers;
+namespace SimplePodcasting\Controllers;
 
 // Exit if accessed directly.
-use SeriouslySimplePodcasting\Handlers\Roles_Handler;
-use SeriouslySimplePodcasting\Handlers\Settings_Handler;
-use SeriouslySimplePodcasting\Renderers\Renderer;
+use SimplePodcasting\Handlers\Roles_Handler;
+use SimplePodcasting\Handlers\Settings_Handler;
+use SimplePodcasting\Renderers\Renderer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Sergey Zakharchenko
  * @category    Class
- * @package     SeriouslySimplePodcasting/Controllers
+ * @package     SimplePodcasting/Controllers
  * @since       5.7.0
  */
 class Onboarding_Controller extends Controller {

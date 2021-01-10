@@ -13,9 +13,9 @@ $steps = array(
 );
 ?>
 <div class="ssp-onboarding__logo">
-	<img alt="Seriously Simple Podcasting" src="<?php echo SSP_PLUGIN_URL . '/assets/admin/img/logo.png'; ?>">
+	<img alt="Simple Podcasting" src="<?php echo SSP_PLUGIN_URL . '/assets/admin/img/logo.png'; ?>">
 	<div class="ssp-onboarding__logo-text">
-		<span class="ssp-onboarding__logo-title">Seriously Simple Podcasting</span>
+		<span class="ssp-onboarding__logo-title">Simple Podcasting</span>
 		<span class="ssp-onboarding__logo-label">By Castos</span>
 	</div>
 </div>

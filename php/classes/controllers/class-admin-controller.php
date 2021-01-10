@@ -1,16 +1,16 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Controllers;
+namespace SimplePodcasting\Controllers;
 
-use SeriouslySimplePodcasting\Handlers\Admin_Notifications_Handler;
-use SeriouslySimplePodcasting\Handlers\CPT_Podcast_Handler;
-use SeriouslySimplePodcasting\Handlers\Roles_Handler;
-use SeriouslySimplePodcasting\Handlers\Settings_Handler;
-use SeriouslySimplePodcasting\Handlers\Upgrade_Handler;
-use SeriouslySimplePodcasting\Ajax\Ajax_Handler;
-use SeriouslySimplePodcasting\Handlers\Castos_Handler;
-use SeriouslySimplePodcasting\Helpers\Log_Helper;
-use SeriouslySimplePodcasting\Renderers\Renderer;
+use SimplePodcasting\Handlers\Admin_Notifications_Handler;
+use SimplePodcasting\Handlers\CPT_Podcast_Handler;
+use SimplePodcasting\Handlers\Roles_Handler;
+use SimplePodcasting\Handlers\Settings_Handler;
+use SimplePodcasting\Handlers\Upgrade_Handler;
+use SimplePodcasting\Ajax\Ajax_Handler;
+use SimplePodcasting\Handlers\Castos_Handler;
+use SimplePodcasting\Helpers\Log_Helper;
+use SimplePodcasting\Renderers\Renderer;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Hugh Lashbrooke
  * @category    Class
- * @package     SeriouslySimplePodcasting/Controllers
+ * @package     SimplePodcasting/Controllers
  * @since       1.0
  */
 class Admin_Controller extends Controller {
@@ -312,11 +312,11 @@ class Admin_Controller extends Controller {
 		$image_width   = "auto";
 		$image_height  = "auto";
 
-		$series_img_title = __( 'Series Image', 'seriously-simple-podcasting' );
-		$upload_btn_text  = __( 'Choose series image', 'seriously-simple-podcasting' );
-		$upload_btn_value = __( 'Add Image', 'seriously-simple-podcasting' );
-		$upload_btn_title = __( 'Choose an image file', 'seriously-simple-podcasting' );
-		$series_img_desc  = __( "Set an image as the artwork for the series. No image will be set if not provided.", 'seriously-simple-podcasting' );
+		$series_img_title = __( 'Series Image', 'simple-podcasting' );
+		$upload_btn_text  = __( 'Choose series image', 'simple-podcasting' );
+		$upload_btn_value = __( 'Add Image', 'simple-podcasting' );
+		$upload_btn_title = __( 'Choose an image file', 'simple-podcasting' );
+		$series_img_desc  = __( "Set an image as the artwork for the series. No image will be set if not provided.", 'simple-podcasting' );
 		$series_img_form_label = <<<HTML
 <label>{$series_img_title}</label>
 HTML;
@@ -412,8 +412,8 @@ HTML;
 	 */
 	public function register_custom_column_headings( $defaults ) {
 		$new_columns = apply_filters( 'ssp_admin_columns_episodes', array(
-			'series' => __( 'Series', 'seriously-simple-podcasting' ),
-			'image'  => __( 'Image', 'seriously-simple-podcasting' ),
+			'series' => __( 'Series', 'simple-podcasting' ),
+			'image'  => __( 'Image', 'simple-podcasting' ),
 		) );
 
 		// remove date column
@@ -467,9 +467,9 @@ HTML;
 		unset( $columns['description'] );
 		unset( $columns['posts'] );
 
-		$columns['series_image']    = __( 'Series Image', 'seriously-simple-podcasting' );
-		$columns['series_feed_url'] = __( 'Series feed URL', 'seriously-simple-podcasting' );
-		$columns['posts']           = __( 'Episodes', 'seriously-simple-podcasting' );
+		$columns['series_image']    = __( 'Series Image', 'simple-podcasting' );
+		$columns['series_feed_url'] = __( 'Series feed URL', 'simple-podcasting' );
+		$columns['posts']           = __( 'Episodes', 'simple-podcasting' );
 		$columns = apply_filters( 'ssp_admin_columns_series', $columns );
 
 		return $columns;
@@ -543,16 +543,16 @@ HTML;
 
 		$messages[ $this->token ] = array(
 			0  => '',
-			1  => sprintf( __( 'Episode updated. %sView episode%s.', 'seriously-simple-podcasting' ), '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', '</a>' ),
-			2  => __( 'Custom field updated.', 'seriously-simple-podcasting' ),
-			3  => __( 'Custom field deleted.', 'seriously-simple-podcasting' ),
-			4  => __( 'Episode updated.', 'seriously-simple-podcasting' ),
-			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Episode restored to revision from %s.', 'seriously-simple-podcasting' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6  => sprintf( __( 'Episode published. %sView episode%s.', 'seriously-simple-podcasting' ), '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', '</a>' ),
-			7  => __( 'Episode saved.', 'seriously-simple-podcasting' ),
-			8  => sprintf( __( 'Episode submitted. %sPreview episode%s.', 'seriously-simple-podcasting' ), '<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">', '</a>' ),
-			9  => sprintf( __( 'Episode scheduled for: %1$s. %2$sPreview episode%3$s.', 'seriously-simple-podcasting' ), '<strong>' . date_i18n( __( 'M j, Y @ G:i', 'seriously-simple-podcasting' ), strtotime( $post->post_date ) ) . '</strong>', '<a target="_blank" href="' . esc_url( get_permalink( $post_ID ) ) . '">', '</a>' ),
-			10 => sprintf( __( 'Episode draft updated. %sPreview episode%s.', 'seriously-simple-podcasting' ), '<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">', '</a>' ),
+			1  => sprintf( __( 'Episode updated. %sView episode%s.', 'simple-podcasting' ), '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', '</a>' ),
+			2  => __( 'Custom field updated.', 'simple-podcasting' ),
+			3  => __( 'Custom field deleted.', 'simple-podcasting' ),
+			4  => __( 'Episode updated.', 'simple-podcasting' ),
+			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Episode restored to revision from %s.', 'simple-podcasting' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6  => sprintf( __( 'Episode published. %sView episode%s.', 'simple-podcasting' ), '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', '</a>' ),
+			7  => __( 'Episode saved.', 'simple-podcasting' ),
+			8  => sprintf( __( 'Episode submitted. %sPreview episode%s.', 'simple-podcasting' ), '<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">', '</a>' ),
+			9  => sprintf( __( 'Episode scheduled for: %1$s. %2$sPreview episode%3$s.', 'simple-podcasting' ), '<strong>' . date_i18n( __( 'M j, Y @ G:i', 'simple-podcasting' ), strtotime( $post->post_date ) ) . '</strong>', '<a target="_blank" href="' . esc_url( get_permalink( $post_ID ) ) . '">', '</a>' ),
+			10 => sprintf( __( 'Episode draft updated. %sPreview episode%s.', 'simple-podcasting' ), '<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">', '</a>' ),
 		);
 
 		return $messages;
@@ -579,13 +579,13 @@ HTML;
 	 */
 	public function meta_box_setup( $post ) {
 		global $pagenow;
-		add_meta_box( 'podcast-episode-data', __( 'Podcast Episode Details', 'seriously-simple-podcasting' ), array(
+		add_meta_box( 'podcast-episode-data', __( 'Podcast Episode Details', 'simple-podcasting' ), array(
 			$this,
 			'meta_box_content'
 		), $post->post_type, 'normal', 'high' );
 
 		if ( 'post.php' == $pagenow && 'publish' == $post->post_status && function_exists( 'get_post_embed_html' ) ) {
-			add_meta_box( 'episode-embed-code', __( 'Episode Embed Code', 'seriously-simple-podcasting' ), array(
+			add_meta_box( 'episode-embed-code', __( 'Episode Embed Code', 'simple-podcasting' ), array(
 				$this,
 				'embed_code_meta_box_content'
 			), $post->post_type, 'side', 'low' );
@@ -609,8 +609,8 @@ HTML;
 		$embed_code = get_post_embed_html( 500, 350, $post );
 
 		// Generate markup for meta box
-		$html = '<p><em>' . __( 'Customise the size of your episode embed below, then copy the HTML to your clipboard.', 'seriously-simple-podcasting' ) . '</em></p>';
-		$html .= '<p><label for="episode_embed_code_width">' . __( 'Width:', 'seriously-simple-podcasting' ) . '</label> <input id="episode_embed_code_width" class="episode_embed_code_size_option" type="number" value="500" length="3" min="0" step="1" /> &nbsp;&nbsp;&nbsp;&nbsp;<label for="episode_embed_code_height">' . __( 'Height:', 'seriously-simple-podcasting' ) . '</label> <input id="episode_embed_code_height" class="episode_embed_code_size_option" type="number" value="350" length="3" min="0" step="1" /></p>';
+		$html = '<p><em>' . __( 'Customise the size of your episode embed below, then copy the HTML to your clipboard.', 'simple-podcasting' ) . '</em></p>';
+		$html .= '<p><label for="episode_embed_code_width">' . __( 'Width:', 'simple-podcasting' ) . '</label> <input id="episode_embed_code_width" class="episode_embed_code_size_option" type="number" value="500" length="3" min="0" step="1" /> &nbsp;&nbsp;&nbsp;&nbsp;<label for="episode_embed_code_height">' . __( 'Height:', 'simple-podcasting' ) . '</label> <input id="episode_embed_code_height" class="episode_embed_code_size_option" type="number" value="350" length="3" min="0" step="1" /></p>';
 		$html .= '<p><textarea readonly id="episode_embed_code">' . esc_textarea( $embed_code ) . '</textarea></p>';
 
 		echo $html;
@@ -628,11 +628,11 @@ HTML;
 
 		$html = '';
 
-		$html .= '<input type="hidden" name="seriouslysimple_' . $this->token . '_nonce" id="seriouslysimple_' . $this->token . '_nonce" value="' . wp_create_nonce( plugin_basename( $this->dir ) ) . '" />';
+		$html .= '<input type="hidden" name="simple_' . $this->token . '_nonce" id="simple_' . $this->token . '_nonce" value="' . wp_create_nonce( plugin_basename( $this->dir ) ) . '" />';
 
 		if ( 0 < count( $field_data ) ) {
 
-			$html .= '<input id="seriouslysimple_post_id" type="hidden" value="' . $post_id . '" />';
+			$html .= '<input id="simple_post_id" type="hidden" value="' . $post_id . '" />';
 
 			foreach ( $field_data as $k => $v ) {
 				$data  = $v['default'];
@@ -653,7 +653,7 @@ HTML;
 
 				switch ( $v['type'] ) {
 					case 'file':
-						$upload_button = '<input type="button" class="button" id="upload_' . esc_attr( $k ) . '_button" value="' . __( 'Upload File', 'seriously-simple-podcasting' ) . '" data-uploader_title="' . __( 'Choose a file', 'seriously-simple-podcasting' ) . '" data-uploader_button_text="' . __( 'Insert podcast file', 'seriously-simple-podcasting' ) . '" />';
+						$upload_button = '<input type="button" class="button" id="upload_' . esc_attr( $k ) . '_button" value="' . __( 'Upload File', 'simple-podcasting' ) . '" data-uploader_title="' . __( 'Choose a file', 'simple-podcasting' ) . '" data-uploader_button_text="' . __( 'Insert podcast file', 'simple-podcasting' ) . '" />';
 						if ( ssp_is_connected_to_castos() ) {
 							$upload_button = '<div id="ssp_upload_container" style="display: inline;">';
 							$upload_button .= '  <button id="ssp_select_file" href="javascript:">Select file</button>';
@@ -664,7 +664,7 @@ HTML;
 									<label class="ssp-episode-details-label" for="' . esc_attr( $k ) . '">' . wp_kses_post( $v['name'] ) . '</label>';
 
 						if ( ssp_is_connected_to_castos() ) {
-							$html .= '<div id="ssp_upload_notification">' . __( 'An error has occurred with the file upload functionality. Please check your site for any plugin or theme conflicts.', 'seriously-simple-podcasting' ) . '</div>';
+							$html .= '<div id="ssp_upload_notification">' . __( 'An error has occurred with the file upload functionality. Please check your site for any plugin or theme conflicts.', 'simple-podcasting' ) . '</div>';
 						}
 
 						$html .= '<input name="' . esc_attr( $k ) . '" type="text" id="upload_' . esc_attr( $k ) . '" value="' . esc_attr( $data ) . '" />
@@ -678,8 +678,8 @@ HTML;
 									<span class="ssp-episode-details-label">' . wp_kses_post( $v['name'] ) . '</span><br/>
 									<img id="' . esc_attr( $k ) . '_preview" src="' . esc_attr( $data ) . '" style="max-width:200px;height:auto;margin:20px 0;" />
 									<br/>
-									<input id="' . esc_attr( $k ) . '_button" type="button" class="button" value="' . __( 'Upload new image', 'seriously-simple-podcasting' ) . '" />
-									<input id="' . esc_attr( $k ) . '_delete" type="button" class="button" value="' . __( 'Remove image', 'seriously-simple-podcasting' ) . '" />
+									<input id="' . esc_attr( $k ) . '_button" type="button" class="button" value="' . __( 'Upload new image', 'simple-podcasting' ) . '" />
+									<input id="' . esc_attr( $k ) . '_delete" type="button" class="button" value="' . __( 'Remove image', 'simple-podcasting' ) . '" />
 									<input id="' . esc_attr( $k ) . '" type="hidden" name="' . esc_attr( $k ) . '" value="' . esc_attr( $data ) . '"/>
 									<br/>
 									<span class="description">' . wp_kses_post( $v['description'] ) . '</span>
@@ -787,7 +787,7 @@ HTML;
 		}
 
 		// Security check
-		if ( ! isset( $_POST[ 'seriouslysimple_' . $this->token . '_nonce' ] ) || ! ( isset( $_POST[ 'seriouslysimple_' . $this->token . '_nonce' ] ) && wp_verify_nonce( $_POST[ 'seriouslysimple_' . $this->token . '_nonce' ], plugin_basename( $this->dir ) ) ) ) {
+		if ( ! isset( $_POST[ 'simple_' . $this->token . '_nonce' ] ) || ! ( isset( $_POST[ 'simple_' . $this->token . '_nonce' ] ) && wp_verify_nonce( $_POST[ 'simple_' . $this->token . '_nonce' ], plugin_basename( $this->dir ) ) ) ) {
 			return $post_id;
 		}
 
@@ -959,7 +959,7 @@ HTML;
 		$num_posts = count( ssp_episodes( - 1, '', false, 'glance' ) );
 
 		$post_type_object = get_post_type_object( $this->token );
-		$text = _n( '%s Episode', '%s Episodes', $num_posts, 'seriously-simple-podcasting' );
+		$text = _n( '%s Episode', '%s Episodes', $num_posts, 'simple-podcasting' );
 		$text = sprintf( $text, number_format_i18n( $num_posts ) );
 
 		if ( $post_type_object && current_user_can( $post_type_object->cap->edit_posts ) ) {
@@ -986,9 +986,9 @@ HTML;
 		if ( ! isset( $plugin_data['slug'] ) || $this->plugin_slug != $plugin_data['slug'] ) {
 			return $plugin_meta;
 		}
-		$plugin_meta['docs']   = '<a href="https://support.castos.com/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019" target="_blank">' . __( 'Documentation', 'seriously-simple-podcasting' ) . '</a>';
-		$plugin_meta['addons'] = '<a href="https://castos.com/add-ons/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019" target="_blank">' . __( 'Add-ons', 'seriously-simple-podcasting' ) . '</a>';
-		$plugin_meta['review'] = '<a href="https://wordpress.org/support/view/plugin-reviews/' . $plugin_data['slug'] . '?rate=5#postform" target="_blank">' . __( 'Write a review', 'seriously-simple-podcasting' ) . '</a>';
+		$plugin_meta['docs']   = '<a href="https://support.castos.com/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019" target="_blank">' . __( 'Documentation', 'simple-podcasting' ) . '</a>';
+		$plugin_meta['addons'] = '<a href="https://castos.com/add-ons/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019" target="_blank">' . __( 'Add-ons', 'simple-podcasting' ) . '</a>';
+		$plugin_meta['review'] = '<a href="https://wordpress.org/support/view/plugin-reviews/' . $plugin_data['slug'] . '?rate=5#postform" target="_blank">' . __( 'Write a review', 'simple-podcasting' ) . '</a>';
 		return $plugin_meta;
 	}
 
@@ -1001,7 +1001,7 @@ HTML;
 	 */
 	public function enter_title_here( $title ) {
 		if ( get_post_type() == $this->token ) {
-			$title = __( 'Enter episode title here', 'seriously-simple-podcasting' );
+			$title = __( 'Enter episode title here', 'simple-podcasting' );
 		}
 
 		return $title;
@@ -1262,7 +1262,7 @@ HTML;
 
 			// Change the footer text
 			if ( ! get_option( 'ssp_admin_footer_text_rated' ) ) {
-				$footer_text = sprintf( __( 'If you like %1$sSeriously Simple Podcasting%2$s please leave a %3$s&#9733;&#9733;&#9733;&#9733;&#9733;%4$s rating. A huge thank you in advance!', 'seriously-simple-podcasting' ), '<strong>', '</strong>', '<a href="https://wordpress.org/support/plugin/seriously-simple-podcasting/reviews/?rate=5#new-post" target="_blank" class="ssp-rating-link" data-rated="' . __( 'Thanks!', 'seriously-simple-podcasting' ) . '">', '</a>' );
+				$footer_text = sprintf( __( 'If you like %1$sSimple Podcasting%2$s please leave a %3$s&#9733;&#9733;&#9733;&#9733;&#9733;%4$s rating. A huge thank you in advance!', 'simple-podcasting' ), '<strong>', '</strong>', '<a href="https://wordpress.org/support/plugin/simple-podcasting/reviews/?rate=5#new-post" target="_blank" class="ssp-rating-link" data-rated="' . __( 'Thanks!', 'simple-podcasting' ) . '">', '</a>' );
 				$footer_text .= sprintf("<script type='text/javascript'>
 					(function($){
 					  $('a.ssp-rating-link').click(function() {
@@ -1271,7 +1271,7 @@ HTML;
 					})})(jQuery);
 				</script>", wp_create_nonce( 'ssp_rated' ) );
 			} else {
-				$footer_text = sprintf( __( '%1$sThank you for publishing with %2$sSeriously Simple Podcasting%3$s.%4$s', 'seriously-simple-podcasting' ), '<span id="footer-thankyou">', '<a href="http://www.seriouslysimplepodcasting.com/" target="_blank">', '</a>', '</span>' );
+				$footer_text = sprintf( __( '%1$sThank you for publishing with %2$sSimple Podcasting%3$s.%4$s', 'simple-podcasting' ), '<span id="footer-thankyou">', '<a href="http://www.simplepodcasting.com/" target="_blank">', '</a>', '</span>' );
 			}
 
 		}
@@ -1437,7 +1437,7 @@ HTML;
 		}
 
 		// The user has submitted the Import your podcast setting
-		$trigger_import_submit = __( 'Trigger import', 'seriously-simple-podcasting' );
+		$trigger_import_submit = __( 'Trigger import', 'simple-podcasting' );
 		if ( $trigger_import_submit === $submit ) {
 			$import = sanitize_text_field( $_POST['ss_podcasting_podmotor_import'] );
 			if ( 'on' === $import ) {
@@ -1456,7 +1456,7 @@ HTML;
 		}
 
 		// The user has submitted the external import form
-		$begin_import_submit = __( 'Begin Import Now', 'seriously-simple-podcasting' );
+		$begin_import_submit = __( 'Begin Import Now', 'simple-podcasting' );
 		if ( $begin_import_submit === $submit ) {
 			$external_rss = wp_strip_all_tags(
 				stripslashes(
@@ -1489,7 +1489,7 @@ HTML;
 	public function trigger_import_error() {
 		?>
 		<div class="notice notice-info is-dismissible">
-			<p><?php esc_attr_e( 'An error occurred starting your podcast import. Please contact support at hello@castos.com.', 'seriously-simple-podcasting' ); ?></p>
+			<p><?php esc_attr_e( 'An error occurred starting your podcast import. Please contact support at hello@castos.com.', 'simple-podcasting' ); ?></p>
 		</div>
 		<?php
 	}
@@ -1500,7 +1500,7 @@ HTML;
 	public function trigger_import_success() {
 		?>
 		<div class="notice notice-info is-dismissible">
-			<p><?php esc_attr_e( 'Your podcast import triggered successfully, please check your email for details.', 'seriously-simple-podcasting' ); ?></p>
+			<p><?php esc_attr_e( 'Your podcast import triggered successfully, please check your email for details.', 'simple-podcasting' ); ?></p>
 		</div>
 		<?php
 	}
@@ -1511,7 +1511,7 @@ HTML;
 	public function import_form_success() {
 		?>
 		<div class="notice notice-info is-dismissible">
-			<p><?php esc_attr_e( 'Thanks, your external RSS feed will start importing', 'seriously-simple-podcasting' ); ?></p>
+			<p><?php esc_attr_e( 'Thanks, your external RSS feed will start importing', 'simple-podcasting' ); ?></p>
 		</div>
 		<?php
 	}

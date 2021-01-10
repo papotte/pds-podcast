@@ -1,14 +1,14 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Controllers;
+namespace SimplePodcasting\Controllers;
 
-use SeriouslySimplePodcasting\Handlers\Settings_Handler;
-use SeriouslySimplePodcasting\Handlers\Series_Handler;
+use SimplePodcasting\Handlers\Settings_Handler;
+use SimplePodcasting\Handlers\Series_Handler;
 
 /**
  * SSP Settings
  *
- * @package Seriously Simple Podcasting
+ * @package Simple Podcasting
  */
 
 // Exit if accessed directly.
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Hugh Lashbrooke
  * @category    Class
- * @package     SeriouslySimplePodcasting/Controllers
+ * @package     SimplePodcasting/Controllers
  * @since       2.0
  */
 class Settings_Controller extends Controller {
@@ -152,18 +152,18 @@ class Settings_Controller extends Controller {
 	 * @return void
 	 */
 	public function add_menu_item() {
-		add_submenu_page( 'edit.php?post_type=podcast', __( 'Podcast Settings', 'seriously-simple-podcasting' ), __( 'Settings', 'seriously-simple-podcasting' ), 'manage_podcast', 'podcast_settings', array(
+		add_submenu_page( 'edit.php?post_type=podcast', __( 'Podcast Settings', 'simple-podcasting' ), __( 'Settings', 'simple-podcasting' ), 'manage_podcast', 'podcast_settings', array(
 			$this,
 			'settings_page',
 		) );
 
-		add_submenu_page( 'edit.php?post_type=podcast', __( 'Extensions', 'seriously-simple-podcasting' ), __( 'Extensions', 'seriously-simple-podcasting' ), 'manage_podcast', 'podcast_settings&tab=extensions', array(
+		add_submenu_page( 'edit.php?post_type=podcast', __( 'Extensions', 'simple-podcasting' ), __( 'Extensions', 'simple-podcasting' ), 'manage_podcast', 'podcast_settings&tab=extensions', array(
 			$this,
 			'settings_page',
 		) );
 
 		/* @todo Add Back In When Doing New Analytics Pages */
-		/* add_submenu_page( 'edit.php?post_type=podcast', __( 'Analytics', 'seriously-simple-podcasting' ), __( 'Analytics', 'seriously-simple-podcasting' ), 'manage_podcast', 'podcast_settings&view=analytics', array(
+		/* add_submenu_page( 'edit.php?post_type=podcast', __( 'Analytics', 'simple-podcasting' ), __( 'Analytics', 'simple-podcasting' ), 'manage_podcast', 'podcast_settings&view=analytics', array(
 			 $this,
 			 'settings_page',
 		 ) );*/
@@ -177,7 +177,7 @@ class Settings_Controller extends Controller {
 	 * @return array $links Modified links
 	 */
 	public function add_plugin_links( $links ) {
-		$settings_link = '<a href="edit.php?post_type=podcast&page=podcast_settings">' . __( 'Settings', 'seriously-simple-podcasting' ) . '</a>';
+		$settings_link = '<a href="edit.php?post_type=podcast&page=podcast_settings">' . __( 'Settings', 'simple-podcasting' ) . '</a>';
 		array_push( $links, $settings_link );
 
 		return $links;
@@ -366,12 +366,12 @@ class Settings_Controller extends Controller {
 			}
 
 			if ( $feed_url ) {
-				$html .= '<p><a class="view-feed-link" href="' . esc_url( $feed_url ) . '" target="_blank"><span class="dashicons dashicons-rss"></span>' . __( 'View feed', 'seriously-simple-podcasting' ) . '</a></p>' . "\n";
+				$html .= '<p><a class="view-feed-link" href="' . esc_url( $feed_url ) . '" target="_blank"><span class="dashicons dashicons-rss"></span>' . __( 'View feed', 'simple-podcasting' ) . '</a></p>' . "\n";
 			}
 		}
 
 		if ( 'extensions' === $section['id'] ) {
-			$html .= $this->extensions_controller->render_seriously_simple_extensions();
+			$html .= $this->extensions_controller->render_simple_extensions();
 		}
 
 		echo $html;
@@ -457,7 +457,7 @@ class Settings_Controller extends Controller {
 			case 'text_secret':
 				$placeholder = $field['placeholder'];
 				if ( $data ) {
-					$placeholder = __( 'Password stored securely', 'seriously-simple-podcasting' );
+					$placeholder = __( 'Password stored securely', 'simple-podcasting' );
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="text" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $placeholder ) . '" value="" class="' . $class . '"' . $data_attrs . '/>' . "\n";
 				break;
@@ -523,8 +523,8 @@ class Settings_Controller extends Controller {
 				break;
 			case 'image':
 				$html .= '<img id="' . esc_attr( $default_option_name ) . '_preview" src="' . esc_attr( $data ) . '" style="max-width:400px;height:auto;"' . $data_attrs . ' /><br/>' . "\n";
-				$html .= '<input id="' . esc_attr( $default_option_name ) . '_button" type="button" class="button" value="' . __( 'Upload new image', 'seriously-simple-podcasting' ) . '" />' . "\n";
-				$html .= '<input id="' . esc_attr( $default_option_name ) . '_delete" type="button" class="button" value="' . __( 'Remove image', 'seriously-simple-podcasting' ) . '" />' . "\n";
+				$html .= '<input id="' . esc_attr( $default_option_name ) . '_button" type="button" class="button" value="' . __( 'Upload new image', 'simple-podcasting' ) . '" />' . "\n";
+				$html .= '<input id="' . esc_attr( $default_option_name ) . '_delete" type="button" class="button" value="' . __( 'Remove image', 'simple-podcasting' ) . '" />' . "\n";
 				$html .= '<input id="' . esc_attr( $default_option_name ) . '" type="hidden" name="' . esc_attr( $option_name ) . '" value="' . esc_attr( $data ) . '"/><br/>' . "\n";
 				break;
 			case 'feed_link':
@@ -550,7 +550,7 @@ class Settings_Controller extends Controller {
 				$html .= esc_url( $url ) . "\n";
 				break;
 			case 'podcast_url':
-				$slug        = apply_filters( 'ssp_archive_slug', _x( SSP_CPT_PODCAST, 'Podcast URL slug', 'seriously-simple-podcasting' ) );
+				$slug        = apply_filters( 'ssp_archive_slug', _x( SSP_CPT_PODCAST, 'Podcast URL slug', 'simple-podcasting' ) );
 				$podcast_url = $this->home_url . $slug;
 
 				$html .= '<a href="' . esc_url( $podcast_url ) . '" target="_blank">' . $podcast_url . '</a>';
@@ -637,7 +637,7 @@ class Settings_Controller extends Controller {
 		// Build page HTML
 		$html = '<div class="wrap" id="podcast_settings">' . "\n";
 
-		$html .= '<h1>' . __( 'Podcast Settings', 'seriously-simple-podcasting' ) . '</h1>' . "\n";
+		$html .= '<h1>' . __( 'Podcast Settings', 'simple-podcasting' ) . '</h1>' . "\n";
 
 		$tab = 'general';
 		if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
@@ -688,7 +688,7 @@ class Settings_Controller extends Controller {
 
 		if ( isset( $_GET['settings-updated'] ) ) {
 			$html .= '<br/><div class="updated notice notice-success is-dismissible">
-									<p>' . sprintf( __( '%1$s settings updated.', 'seriously-simple-podcasting' ), '<b>' . str_replace( '-', ' ', ucwords( $tab ) ) . '</b>' ) . '</p>
+									<p>' . sprintf( __( '%1$s settings updated.', 'simple-podcasting' ), '<b>' . str_replace( '-', ' ', ucwords( $tab ) ) . '</b>' ) . '</p>
 								</div>';
 		}
 
@@ -696,7 +696,7 @@ class Settings_Controller extends Controller {
 			$sapi_type = php_sapi_name();
 			if ( strpos( $sapi_type, 'fcgi' ) !== false ) {
 				$html .= '<br/><div class="update-nag">
-									<p>' . sprintf( __( 'It looks like your server has FastCGI enabled, which will prevent the feed password protection feature from working. You can fix this by following %1$sthis quick guide%2$s.', 'seriously-simple-podcasting' ), '<a href="http://www.seriouslysimplepodcasting.com/documentation/why-does-the-feed-password-protection-feature-not-work/" target="_blank">', '</a>' ) . '</p>
+									<p>' . sprintf( __( 'It looks like your server has FastCGI enabled, which will prevent the feed password protection feature from working. You can fix this by following %1$sthis quick guide%2$s.', 'simple-podcasting' ), '<a href="http://www.simplepodcasting.com/documentation/why-does-the-feed-password-protection-feature-not-work/" target="_blank">', '</a>' ) . '</p>
 								</div>';
 			}
 		}
@@ -718,13 +718,13 @@ class Settings_Controller extends Controller {
 				}
 
 				$html .= '<div class="feed-series-list-container">' . "\n";
-				$html .= '<span id="feed-series-toggle" class="series-open" title="' . __( 'Toggle series list display', 'seriously-simple-podcasting' ) . '"></span>' . "\n";
+				$html .= '<span id="feed-series-toggle" class="series-open" title="' . __( 'Toggle series list display', 'simple-podcasting' ) . '"></span>' . "\n";
 
 				$html .= '<ul id="feed-series-list" class="subsubsub series-open">' . "\n";
 				$html .= '<li><a href="' . add_query_arg( array(
 						'feed-series'      => 'default',
 						'settings-updated' => false
-					) ) . '" class="' . $series_class . '">' . __( 'Default feed', 'seriously-simple-podcasting' ) . '</a></li>';
+					) ) . '" class="' . $series_class . '">' . __( 'Default feed', 'simple-podcasting' ) . '</a></li>';
 
 				foreach ( $series as $s ) {
 
@@ -785,7 +785,7 @@ class Settings_Controller extends Controller {
 		if ( isset( $tab ) && 'castos-hosting' === $tab ) {
 			// Validate button
 			$html .= '<p class="submit">' . "\n";
-			$html .= '<input id="validate_api_credentials" type="button" class="button-primary" value="' . esc_attr( __( 'Validate Credentials', 'seriously-simple-podcasting' ) ) . '" />' . "\n";
+			$html .= '<input id="validate_api_credentials" type="button" class="button-primary" value="' . esc_attr( __( 'Validate Credentials', 'simple-podcasting' ) ) . '" />' . "\n";
 			$html .= '<span class="validate-api-credentials-message"></span>' . "\n";
 			$html .= '</p>' . "\n";
 		}
@@ -796,7 +796,7 @@ class Settings_Controller extends Controller {
 			// Submit button
 			$html .= '<p class="submit">' . "\n";
 			$html .= '<input type="hidden" name="tab" value="' . esc_attr( $tab ) . '" />' . "\n";
-			$html .= '<input id="ssp-settings-submit" name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Settings', 'seriously-simple-podcasting' ) ) . '" />' . "\n";
+			$html .= '<input id="ssp-settings-submit" name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Settings', 'simple-podcasting' ) ) . '" />' . "\n";
 			$html .= '</p>' . "\n";
 		}
 
@@ -805,7 +805,7 @@ class Settings_Controller extends Controller {
 			if ( ssp_is_connected_to_castos() ) {
 				$html .= '<p class="submit">' . "\n";
 				$html .= '<input type="hidden" name="tab" value="' . esc_attr( $tab ) . '" />' . "\n";
-				$html .= '<input id="ssp-settings-submit" name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Trigger import', 'seriously-simple-podcasting' ) ) . '" />' . "\n";
+				$html .= '<input id="ssp-settings-submit" name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Trigger import', 'simple-podcasting' ) ) . '" />' . "\n";
 				$html .= '</p>' . "\n";
 			}
 
@@ -820,7 +820,7 @@ class Settings_Controller extends Controller {
 
 		$html .= '</div>' . "\n";
 
-		$html .= $this->extensions_controller->render_seriously_simple_sidebar();
+		$html .= $this->extensions_controller->render_simple_sidebar();
 
 		$html .= '</div>' . "\n";
 

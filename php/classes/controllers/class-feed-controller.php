@@ -1,6 +1,6 @@
 <?php
 
-namespace SeriouslySimplePodcasting\Controllers;
+namespace SimplePodcasting\Controllers;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Jonathan Bossenger
  * @category    Class
- * @package     SeriouslySimplePodcasting/Controllers
+ * @package     SimplePodcasting/Controllers
  * @since       1.20.7
  */
 class Feed_Controller extends Controller {
@@ -155,7 +155,7 @@ class Feed_Controller extends Controller {
 		if ( ! $give_access ) {
 
 			// Set default message
-			$message = __( 'You are not permitted to view this podcast feed.', 'seriously-simple-podcasting' );
+			$message = __( 'You are not permitted to view this podcast feed.', 'simple-podcasting' );
 
 			// Check message option from plugin settings
 			$message_option = get_option( 'ss_podcasting_protection_no_access_message' );

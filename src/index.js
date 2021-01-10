@@ -13,8 +13,8 @@ import EditPodcastList from "./components/EditPodcastList";
 /**
  * Standard Audio Player Block
  */
-registerBlockType('seriously-simple-podcasting/audio-player', {
-	title: __('Audio Player', 'seriously-simple-podcasting'),
+registerBlockType('simple-podcasting/audio-player', {
+	title: __('Audio Player', 'simple-podcasting'),
 	icon: 'controls-volumeon',
 	category: 'layout',
 	supports: {
@@ -42,8 +42,8 @@ registerBlockType('seriously-simple-podcasting/audio-player', {
 /**
  * Castos Player block
  */
-registerBlockType('seriously-simple-podcasting/castos-player', {
-	title: __('Castos Player', 'seriously-simple-podcasting'),
+registerBlockType('simple-podcasting/castos-player', {
+	title: __('Castos Player', 'simple-podcasting'),
 	icon: 'controls-volumeon',
 	category: 'layout',
 	supports: {
@@ -98,8 +98,8 @@ registerBlockType('seriously-simple-podcasting/castos-player', {
 /**
  * Podcast list block
  */
-registerBlockType('seriously-simple-podcasting/podcast-list', {
-	title: __('Podcast List', 'seriously-simple-podcasting'),
+registerBlockType('simple-podcasting/podcast-list', {
+	title: __('Podcast List', 'simple-podcasting'),
 	icon: 'megaphone',
 	category: 'widgets',
 	supports: {
