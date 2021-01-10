@@ -273,45 +273,52 @@ class Frontend_Controller extends Controller
 	public function episode_meta($episode_id = 0, $context = 'content')
 	{
 
-		$meta = '';
 
 		if (!$episode_id) {
-			return $meta;
+			return '';
 		}
+		$is_buzzsprout_enabled = get_option('ss_podcasting_buzzsprout_enabled');
 
-		$file = $this->get_enclosure($episode_id);
+		$meta = '<div class="podcast_player">';
 
-		if ($file) {
+		if ($is_buzzsprout_enabled && $is_buzzsprout_enabled == 'on') {
+			$meta .= $this->get_buzzsprout_player($episode_id);
+			$meta .= '</div>';
+		} else {
+			$file = $this->get_enclosure($episode_id);
 
-			if (get_option('permalink_structure')) {
-				$file = $this->get_episode_download_link($episode_id);
+			if ($file) {
+
+				if (get_option('permalink_structure')) {
+					$file = $this->get_episode_download_link($episode_id);
+				}
+
+				// Hide audio player in `ss_podcast` shortcode by default
+				$show_player = true;
+				if ('shortcode' === $context) {
+					$show_player = false;
+				}
+
+				// Show audio player if requested
+				$player_style = get_option('ss_podcasting_player_style');
+
+				$show_player = $this->validate_media_player($episode_id, $show_player);
+
+				// Allow media player to be dynamically hidden/displayed
+				$show_player = apply_filters('ssp_show_media_player', $show_player, $context);
+
+				if ($show_player) {
+					$meta .= $this->load_media_player($file, $episode_id, $player_style);
+					$meta .= '</div>';
+				}
+
+				if (apply_filters('ssp_show_episode_details', true, $episode_id, $context)) {
+					$meta .= $this->episode_meta_details($episode_id, $context);
+				}
+
 			}
-
-			// Hide audio player in `ss_podcast` shortcode by default
-			$show_player = true;
-			if ('shortcode' === $context) {
-				$show_player = false;
-			}
-
-			// Show audio player if requested
-			$player_style = get_option('ss_podcasting_player_style');
-
-			$show_player = $this->validate_media_player($episode_id, $show_player);
-
-			// Allow media player to be dynamically hidden/displayed
-			$show_player = apply_filters('ssp_show_media_player', $show_player, $context);
-
-			if ($show_player) {
-				$meta .= '<div class="podcast_player">' . $this->load_media_player($file, $episode_id, $player_style) . '</div>';
-			}
-
-			if (apply_filters('ssp_show_episode_details', true, $episode_id, $context)) {
-				$meta .= $this->episode_meta_details($episode_id, $context);
-			}
-
+			$meta = apply_filters('ssp_episode_meta', $meta, $episode_id, $context);
 		}
-
-		$meta = apply_filters('ssp_episode_meta', $meta, $episode_id, $context);
 		return $meta;
 	}
 
@@ -1436,6 +1443,42 @@ class Frontend_Controller extends Controller
 		load_plugin_textdomain('simple-podcasting', false, basename(dirname($this->file)) . '/languages/');
 	}
 
+	public function get_buzzsprout_player($episode_id)
+	{
+		$buzzsproutChannel = get_option('ss_podcasting_buzzsprout_channel_id');
+
+		$player = '';
+
+		if ($buzzsproutChannel) {
+			$buzzsproutId = get_post_meta($episode_id, 'buzzsprout_id', true);
+			$buzzsproutName = get_post_meta($episode_id, 'buzzsprout_slug', true);
+			$containerName = 'buzzsprout-player-' . $buzzsproutId;
+
+			$player .= '<div id="' . $containerName . '" class="podcast_player"></div>';
+			$player .= '<script src="https://www.buzzsprout.com/' . $buzzsproutChannel . '/' . $buzzsproutId . '.js?container_id=' . $containerName . '&player=small" type="text/javascript" charset="utf-8"></script>' . "\n";
+		}
+		return $player;
+	}
+
+	public function get_player($episode_id, $style)
+	{
+		$is_buzzsprout_enabled = get_option('ss_podcasting_buzzsprout_enabled');
+
+		$player = '<div class="podcast_player">';
+
+		if ($is_buzzsprout_enabled && $is_buzzsprout_enabled == 'on') {
+			$player .= $this->get_buzzsprout_player($episode_id);
+		} else {
+			$file = $this->get_enclosure($episode_id);
+			if (get_option('permalink_structure')) {
+				$file = $this->get_episode_download_link($episode_id);
+			}
+			$player .= $this->media_player($file, $episode_id, $style);
+		}
+		$player .= '</div>' . "\n";
+		return $player;
+	}
+
 	/**
 	 * Show single podcast episode with specified content items
 	 * This is used in the SimplePodcasting\Widgets\Single_Episode widget
@@ -1490,11 +1533,7 @@ class Frontend_Controller extends Controller
 						break;
 
 					case 'player':
-						$file = $this->get_enclosure($episode_id);
-						if (get_option('permalink_structure')) {
-							$file = $this->get_episode_download_link($episode_id);
-						}
-						$html .= '<div class="podcast_player">' . $this->media_player($file, $episode_id, "large") . '</div>' . "\n";
+						$html .= $this->get_player($episode_id, "large");
 						break;
 
 					case 'details':
@@ -1532,11 +1571,7 @@ class Frontend_Controller extends Controller
 						break;
 
 					case 'player':
-						$file = $this->get_enclosure($episode_id);
-						if (get_option('permalink_structure')) {
-							$file = $this->get_episode_download_link($episode_id);
-						}
-						$html .= '<div class="podcast_player">' . $this->media_player($file, $episode_id, $style) . '</div>' . "\n";
+						$html .= $this->get_player($episode_id, $style);
 						break;
 
 					case 'details':
