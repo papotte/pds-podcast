@@ -33,7 +33,7 @@ class Series extends WP_Widget {
 		$this->widget_cssclass = 'widget_podcast_series';
 		$this->widget_description = __( 'Display a list of episodes from a single series.', 'simple-podcasting' );
 		$this->widget_idbase = 'ss_podcast';
-		$this->widget_title = __( 'Podcast: Series', 'simple-podcasting' );
+		$this->widget_title = __( 'Simple Podcast: Series', 'simple-podcasting' );
 
 		// Widget settings
 		$widget_ops = array(

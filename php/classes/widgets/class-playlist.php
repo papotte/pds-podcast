@@ -32,7 +32,7 @@ class Playlist extends WP_Widget {
 		$this->widget_cssclass = 'widget_podcast_playlist';
 		$this->widget_description = __( 'Display a playlist of episodes.', 'simple-podcasting' );
 		$this->widget_idbase = 'ss_podcast';
-		$this->widget_title = __( 'Podcast: Playlist', 'simple-podcasting' );
+		$this->widget_title = __( 'Simple Podcast: Playlist', 'simple-podcasting' );
 
 		// Widget settings
 		$widget_ops = array(
