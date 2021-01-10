@@ -794,7 +794,7 @@ class Frontend_Controller extends Controller
 
 			$meta = $this->episode_meta($post->ID, $content);
 
-			$excerpt = $meta . $excerpt;
+			$excerpt = $excerpt . $meta;
 
 		}
 
@@ -1639,7 +1639,7 @@ class Frontend_Controller extends Controller
 					$player .= $this->episode_meta_details($episode->ID, 'content');
 				}
 				?>
-				<article class="podcast-<?php echo $episode->ID ?> podcast type-podcast">
+				<article class="podcast-<?php echo $episode->ID ?> podcast type-podcast FRONTEND_CONTROLLER">
 					<h2>
 						<a class="entry-title-link" rel="bookmark" href="<?php echo esc_url(get_permalink()); ?>">
 							<?php echo the_title(); ?>
@@ -1651,9 +1651,6 @@ class Frontend_Controller extends Controller
 							   aria-hidden="true" tabindex="-1">
 								<?php echo the_post_thumbnail('full'); ?>
 							</a>
-						<?php } ?>
-						<?php if (!empty($player)) { ?>
-							<p><?php echo $player; ?></p>
 						<?php } ?>
 						<?php if (isset($attributes['excerpt'])) { ?>
 							<p><?php echo get_the_excerpt(); ?></p>
