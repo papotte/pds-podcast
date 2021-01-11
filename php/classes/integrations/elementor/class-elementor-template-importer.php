@@ -1,6 +1,6 @@
 <?php
 
-namespace SimplePodcasting\Integrations\Elementor;
+namespace PdSPodcast\Integrations\Elementor;
 
 use Elementor\TemplateLibrary\Manager;
 
@@ -19,7 +19,7 @@ if ( ! did_action( 'elementor/loaded' ) ) {
  *
  * @author      Jonathan Bossenger
  * @category    Class
- * @package     SimplePodcasting/Classes
+ * @package     PdSPodcast/Classes
  * @since       1.19.18
  */
 class Elementor_Template_Importer {
@@ -108,7 +108,7 @@ class Elementor_Template_Importer {
 	 */
 	public function no_new_templates_to_import() {
 		$class   = 'notice notice-success is-dismissible';
-		$message = __( 'There are no new templates to be imported!', 'simple-podcasting' );
+		$message = __( 'There are no new templates to be imported!', 'pds-podcast' );
 		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
 	}
 
@@ -117,7 +117,7 @@ class Elementor_Template_Importer {
 	 */
 	public function nonce_admin_message() {
 		$class   = 'notice notice-error';
-		$message = __( 'Unfortunately that action is not allow at this time.', 'simple-podcasting' );
+		$message = __( 'Unfortunately that action is not allow at this time.', 'pds-podcast' );
 		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
 	}
 

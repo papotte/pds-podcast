@@ -1,6 +1,6 @@
 <?php
 
-namespace SimplePodcasting\Importers;
+namespace PdSPodcast\Importers;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Jonathan Bossenger
  * @category    Class
- * @package     SimplePodcasting/Classes
+ * @package     PdSPodcast/Classes
  * @since       1.19.18
  */
 class Rss_Importer {

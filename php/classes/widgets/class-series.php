@@ -1,6 +1,6 @@
 <?php
 
-namespace SimplePodcasting\Widgets;
+namespace PdSPodcast\Widgets;
 
 use WP_Widget;
 use WP_Query;
@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Simple Simple Podcasting Podcast Series Widget
+ * PdS Podcast Podcast Series Widget
  *
  * @author    Hugh Lashbrooke
- * @package   SimplePodcasting
- * @category  SimplePodcasting/Widgets
+ * @package   PdSPodcast
+ * @category  PdSPodcast/Widgets
  * @since     1.9.0
  */
 class Series extends WP_Widget {
@@ -31,9 +31,9 @@ class Series extends WP_Widget {
 	public function __construct() {
 		// Widget variable settings
 		$this->widget_cssclass = 'widget_podcast_series';
-		$this->widget_description = __( 'Display a list of episodes from a single series.', 'simple-podcasting' );
+		$this->widget_description = __( 'Display a list of episodes from a single series.', 'pds-podcast' );
 		$this->widget_idbase = 'ss_podcast';
-		$this->widget_title = __( 'Simple Podcast: Series', 'simple-podcasting' );
+		$this->widget_title = __( 'PdS Podcast: Series', 'pds-podcast' );
 
 		// Widget settings
 		$widget_ops = array(
@@ -171,10 +171,10 @@ class Series extends WP_Widget {
 		// Get all podcast series
 		$series = get_terms( 'series' );
 ?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'simple-podcasting' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" placeholder="<?php _e( 'Use series title', 'simple-podcasting' ); ?>" value="<?php echo $title; ?>" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'pds-podcast' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" placeholder="<?php _e( 'Use series title', 'pds-podcast' ); ?>" value="<?php echo $title; ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'series_id' ); ?>"><?php _e( 'Series:', 'simple-podcasting' ); ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'series_id' ); ?>"><?php _e( 'Series:', 'pds-podcast' ); ?></label>
 		<select id="<?php echo $this->get_field_id( 'series_id' ); ?>" name="<?php echo $this->get_field_name( 'series_id' ); ?>">
 			<?php
 			foreach ( $series as $s ) {
@@ -184,18 +184,18 @@ class Series extends WP_Widget {
 		</select>
 		</p>
 
-		<p><label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of episodes to show:', 'simple-podcasting' ); ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of episodes to show:', 'pds-podcast' ); ?></label>
 		<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $number; ?>" size="3" /></p>
 
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_title ); ?> id="<?php echo $this->get_field_id( 'show_title' ); ?>" name="<?php echo $this->get_field_name( 'show_title' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'show_title' ); ?>"><?php _e( 'Display series title inside widget?', 'simple-podcasting' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'show_title' ); ?>"><?php _e( 'Display series title inside widget?', 'pds-podcast' ); ?></label></p>
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_desc ); ?> id="<?php echo $this->get_field_id( 'show_desc' ); ?>" name="<?php echo $this->get_field_name( 'show_desc' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'show_desc' ); ?>"><?php _e( 'Display series description?', 'simple-podcasting' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'show_desc' ); ?>"><?php _e( 'Display series description?', 'pds-podcast' ); ?></label></p>
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_date ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display episode date?', 'simple-podcasting' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display episode date?', 'pds-podcast' ); ?></label></p>
 <?php
 	}
 } // End Class

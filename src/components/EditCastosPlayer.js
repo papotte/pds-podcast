@@ -90,7 +90,7 @@ class EditCastosPlayer extends Component {
 				<Toolbar>
 					<Button
 						className="components-icon-button components-toolbar__control"
-						label={__('Select Podcast', 'simple-podcasting')}
+						label={__('Select Podcast', 'pds-podcast')}
 						onClick={switchToEditing}
 						icon="edit"
 					/>

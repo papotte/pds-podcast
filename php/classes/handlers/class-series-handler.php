@@ -1,11 +1,11 @@
 <?php
 
-namespace SimplePodcasting\Handlers;
+namespace PdSPodcast\Handlers;
 
 /**
  * SSP Series Handler
  *
- * @package Simple Podcasting
+ * @package PdS Podcast
  */
 class Series_Handler {
 

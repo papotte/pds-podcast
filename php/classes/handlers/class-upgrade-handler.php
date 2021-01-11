@@ -1,6 +1,6 @@
 <?php
 
-namespace SimplePodcasting\Handlers;
+namespace PdSPodcast\Handlers;
 
 class Upgrade_Handler {
 

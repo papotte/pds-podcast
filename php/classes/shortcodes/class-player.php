@@ -1,6 +1,6 @@
 <?php
 
-namespace SimplePodcasting\ShortCodes;
+namespace PdSPodcast\ShortCodes;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -8,11 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Simple Podcasting HTML 5 media player
+ * PdS Podcast HTML 5 media player
  *
  * @author     Jonathan Bossenger
- * @package    SimplePodcasting
- * @category   SimplePodcasting/Shortcodes
+ * @package    PdSPodcast
+ * @category   PdSPodcast/Shortcodes
  * @since      1.19.6
  */
 class Player {

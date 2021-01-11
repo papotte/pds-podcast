@@ -1,9 +1,9 @@
 <?php
 
-namespace SimplePodcasting\Controllers;
+namespace PdSPodcast\Controllers;
 
-use SimplePodcasting\Handlers\Castos_Handler;
-use SimplePodcasting\Helpers\Log_Helper;
+use PdSPodcast\Handlers\Castos_Handler;
+use PdSPodcast\Helpers\Log_Helper;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * SSP Episode Controller
  *
- * @package Simple Podcasting
+ * @package PdS Podcasting
  */
 class Cron_Controller {
 	public function __construct() {

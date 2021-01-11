@@ -1,15 +1,15 @@
 <?php
 
-namespace SimplePodcasting\Controllers;
+namespace PdSPodcast\Controllers;
 
-use SimplePodcasting\Renderers\Renderer;
-use SimplePodcasting\Controllers\Players_Controller;
+use PdSPodcast\Renderers\Renderer;
+use PdSPodcast\Controllers\Players_Controller;
 use WP_Query;
 
 /**
  * SSP Episode Controller
  *
- * @package Simple Podcasting
+ * @package PdS Podcast
  */
 class Episode_Controller extends Controller {
 

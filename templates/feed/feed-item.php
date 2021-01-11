@@ -28,7 +28,7 @@
  * @var WP_Query $qry
  */
 
-use SimplePodcasting\Controllers\Frontend_Controller;
+use PdSPodcast\Controllers\Frontend_Controller;
 
 // Audio file
 $audio_file = $ss_podcasting->get_enclosure( get_the_ID() );

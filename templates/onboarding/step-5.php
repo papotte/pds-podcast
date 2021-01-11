@@ -29,7 +29,7 @@
 
 			<div class="ssp-onboarding__links-item">
 				<h2>Creating your first episode</h2>
-				<p>Get started by creating your first episode with Simple Podcasting.</p>
+				<p>Get started by creating your first episode with PdS Podcasting.</p>
 				<a href="<?php echo admin_url('post-new.php?post_type=podcast') ?>" class="button"><span>Let’s Start</span></a>
 			</div>
 		</div>

@@ -1,10 +1,10 @@
 <?php
 
-namespace SimplePodcasting\Controllers;
+namespace PdSPodcast\Controllers;
 
-use SimplePodcasting\Handlers\Options_Handler;
-use SimplePodcasting\Renderers\Renderer;
-use SimplePodcasting\Repositories\Episode_Repository;
+use PdSPodcast\Handlers\Options_Handler;
+use PdSPodcast\Renderers\Renderer;
+use PdSPodcast\Repositories\Episode_Repository;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Danilo Radovic
  * @category    Class
- * @package     SimplePodcasting/Controllers
+ * @package     PdSPodcast/Controllers
  * @since       2.3
  */
 class Players_Controller extends Controller {

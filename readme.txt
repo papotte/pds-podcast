@@ -1,4 +1,4 @@
-=== Simple Podcasting ===
+=== PdS Podcast ===
 Contributors: papotte
 Tags: podcast, audio, video, vodcast, rss, mp3, mp4, feed, itunes, podcasting, media, stitcher, google play, playlist
 Requires at least: 4.4

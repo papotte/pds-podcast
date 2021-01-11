@@ -8,9 +8,9 @@ class PlayerMeta extends Component {
 		const openLink = download + '?ref=new_window';
 		return (
 			<p className={className}>
-				<a href={downloadLink} title={title} className="podcast-meta-download">{__('Download File', 'simple-podcasting')}</a> |&nbsp;
-				<a href={openLink} target="_blank" title={title} className="podcast-meta-new-window">{__('Play in new window', 'simple-podcasting')}</a> |&nbsp;
-				<span className="podcast-meta-duration">{__('Duration', 'simple-podcasting')}: {duration}</span>
+				<a href={downloadLink} title={title} className="podcast-meta-download">{__('Download File', 'pds-podcast')}</a> |&nbsp;
+				<a href={openLink} target="_blank" title={title} className="podcast-meta-new-window">{__('Play in new window', 'pds-podcast')}</a> |&nbsp;
+				<span className="podcast-meta-duration">{__('Duration', 'pds-podcast')}: {duration}</span>
 			</p>
 		);
 	}

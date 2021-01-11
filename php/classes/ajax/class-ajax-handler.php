@@ -1,10 +1,10 @@
 <?php
 
-namespace SimplePodcasting\Ajax;
+namespace PdSPodcast\Ajax;
 
-use SimplePodcasting\Handlers\Castos_Handler;
-use SimplePodcasting\Importers\Rss_Importer;
-use SimplePodcasting\Handlers\Options_Handler;
+use PdSPodcast\Handlers\Castos_Handler;
+use PdSPodcast\Importers\Rss_Importer;
+use PdSPodcast\Handlers\Options_Handler;
 
 class Ajax_Handler {
 

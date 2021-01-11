@@ -57,40 +57,40 @@ class EditPodcastList extends Component {
 
 		const controls = (
 			<InspectorControls key="inspector-controls">
-				<PanelBody key="panel-1" title={__('Featured Image', 'simple-podcasting')}>
+				<PanelBody key="panel-1" title={__('Featured Image', 'pds-podcast')}>
 					<PanelRow>
 						<label htmlFor="featured-image-form-toggle">
-							{__('Show Featured Image', 'simple-podcasting')}
+							{__('Show Featured Image', 'pds-podcast')}
 						</label>
 						<FormToggle
 							id="high-contrast-form-toggle"
-							label={__('Show Featured Image', 'simple-podcasting')}
+							label={__('Show Featured Image', 'pds-podcast')}
 							checked={featuredImage}
 							onChange={toggleFeaturedImage}
 						/>
 					</PanelRow>
 				</PanelBody>
-				<PanelBody key="panel-2" title={__('Podcast Player', 'simple-podcasting')}>
+				<PanelBody key="panel-2" title={__('Podcast Player', 'pds-podcast')}>
 					<PanelRow>
 						<label htmlFor="podcast-player-form-toggle">
-							{__('Show Podcast Player', 'simple-podcasting')}
+							{__('Show Podcast Player', 'pds-podcast')}
 						</label>
 						<FormToggle
 							id="podcast-player-form-toggle"
-							label={__('Show Podcast Player', 'simple-podcasting')}
+							label={__('Show Podcast Player', 'pds-podcast')}
 							checked={player}
 							onChange={togglePlayer}
 						/>
 					</PanelRow>
 				</PanelBody>
-				<PanelBody key="panel-3" title={__('Podcast Excerpt', 'simple-podcasting')}>
+				<PanelBody key="panel-3" title={__('Podcast Excerpt', 'pds-podcast')}>
 					<PanelRow>
 						<label htmlFor="podcast-excerpt-form-toggle">
-							{__('Show Podcast Excerpt', 'simple-podcasting')}
+							{__('Show Podcast Excerpt', 'pds-podcast')}
 						</label>
 						<FormToggle
 							id="podcast-excerpt-form-toggle"
-							label={__('Show Podcast Excerpt', 'simple-podcasting')}
+							label={__('Show Podcast Excerpt', 'pds-podcast')}
 							checked={excerpt}
 							onChange={toggleExcerpt}
 						/>

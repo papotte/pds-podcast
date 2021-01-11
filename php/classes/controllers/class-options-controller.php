@@ -1,8 +1,8 @@
 <?php
 
-namespace SimplePodcasting\Controllers;
+namespace PdSPodcast\Controllers;
 
-use SimplePodcasting\Handlers\Options_Handler;
+use PdSPodcast\Handlers\Options_Handler;
 
 class Options_Controller extends Controller {
 
@@ -219,7 +219,7 @@ class Options_Controller extends Controller {
 		$message .= '<p>You have successfully upgraded your Subscribe/Distribution options</p>';
 		?>
 		<div class="notice notice-success is-dismissible">
-			<p><?php _e( $message, 'simple-podcasting' ); ?></p>
+			<p><?php _e( $message, 'pds-podcast' ); ?></p>
 		</div>
 		<?php
 	}
@@ -347,10 +347,11 @@ class Options_Controller extends Controller {
 	 * @return void
 	 */
 	public function add_menu_item() {
+		/*
 		add_submenu_page(
 			'edit.php?post_type=podcast',
-			__( 'Podcast Options', 'simple-podcasting' ),
-			__( 'Options', 'simple-podcasting' ),
+			__( 'Podcast Options', 'pds-podcast' ),
+			__( 'Options', 'pds-podcast' ),
 			'manage_podcast',
 			'podcast_options',
 			array(
@@ -358,6 +359,7 @@ class Options_Controller extends Controller {
 				'options_page',
 			)
 		);
+		*/
 	}
 
 	/**
@@ -386,7 +388,7 @@ class Options_Controller extends Controller {
 		// Build page HTML
 		$html = '<div class="wrap" id="podcast_options">' . "\n";
 
-		$html .= '<h1>' . __( 'Podcast Options', 'simple-podcasting' ) . '</h1>' . "\n";
+		$html .= '<h1>' . __( 'Podcast Options', 'pds-podcast' ) . '</h1>' . "\n";
 
 		$tab = 'subscribe';
 
@@ -431,7 +433,7 @@ class Options_Controller extends Controller {
 		if ( isset( $_GET['options-updated'] ) ) {
 			$html .= '<br/>
 						<div class="updated notice notice-success is-dismissible">
-							<p>' . sprintf( __( '%1$s Options updated.', 'simple-podcasting' ), '<b>' . str_replace( '-', ' ', ucwords( $tab ) ) . '</b>' ) . '</p>
+							<p>' . sprintf( __( '%1$s Options updated.', 'pds-podcast' ), '<b>' . str_replace( '-', ' ', ucwords( $tab ) ) . '</b>' ) . '</p>
 						</div>';
 		}
 
@@ -448,7 +450,7 @@ class Options_Controller extends Controller {
 		// Submit button
 		$html .= '<p class="submit">' . "\n";
 		$html .= '<input type="hidden" name="tab" value="' . esc_attr( $tab ) . '" />' . "\n";
-		$html .= '<input id="ssp-options-submit" name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Options', 'simple-podcasting' ) ) . '" />' . "\n";
+		$html .= '<input id="ssp-options-submit" name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Options', 'pds-podcast' ) ) . '" />' . "\n";
 		$html .= '</p>' . "\n";
 
 		$html .= '</form>' . "\n";
@@ -512,7 +514,7 @@ class Options_Controller extends Controller {
 			case 'text_secret':
 				$placeholder = $field['placeholder'];
 				if ( $data ) {
-					$placeholder = __( 'Password stored securely', 'simple-podcasting' );
+					$placeholder = __( 'Password stored securely', 'pds-podcast' );
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="text" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $placeholder ) . '" value="" class="' . $class . '"/>' . "\n";
 				break;
@@ -578,8 +580,8 @@ class Options_Controller extends Controller {
 				break;
 			case 'image':
 				$html .= '<img id="' . esc_attr( $default_option_name ) . '_preview" src="' . esc_attr( $data ) . '" style="max-width:400px;height:auto;" /><br/>' . "\n";
-				$html .= '<input id="' . esc_attr( $default_option_name ) . '_button" type="button" class="button" value="' . __( 'Upload new image', 'simple-podcasting' ) . '" />' . "\n";
-				$html .= '<input id="' . esc_attr( $default_option_name ) . '_delete" type="button" class="button" value="' . __( 'Remove image', 'simple-podcasting' ) . '" />' . "\n";
+				$html .= '<input id="' . esc_attr( $default_option_name ) . '_button" type="button" class="button" value="' . __( 'Upload new image', 'pds-podcast' ) . '" />' . "\n";
+				$html .= '<input id="' . esc_attr( $default_option_name ) . '_delete" type="button" class="button" value="' . __( 'Remove image', 'pds-podcast' ) . '" />' . "\n";
 				$html .= '<input id="' . esc_attr( $default_option_name ) . '" type="hidden" name="' . esc_attr( $option_name ) . '" value="' . esc_attr( $data ) . '"/><br/>' . "\n";
 				break;
 			case 'feed_link':
@@ -605,7 +607,7 @@ class Options_Controller extends Controller {
 				$html .= esc_url( $url ) . "\n";
 				break;
 			case 'podcast_url':
-				$slug        = apply_filters( 'ssp_archive_slug', _x( SSP_CPT_PODCAST, 'Podcast URL slug', 'simple-podcasting' ) );
+				$slug        = apply_filters( 'ssp_archive_slug', _x( SSP_CPT_PODCAST, 'Podcast URL slug', 'pds-podcast' ) );
 				$podcast_url = $this->home_url . $slug;
 
 				$html .= '<a href="' . esc_url( $podcast_url ) . '" target="_blank">' . $podcast_url . '</a>';

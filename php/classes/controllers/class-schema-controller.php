@@ -1,11 +1,11 @@
 <?php
 
-namespace SimplePodcasting\Controllers;
+namespace PdSPodcast\Controllers;
 
 
 
-use SimplePodcasting\Integrations\Yoast\Schema\PodcastEpisode;
-use SimplePodcasting\Integrations\Yoast\Schema\PodcastSeries;
+use PdSPodcast\Integrations\Yoast\Schema\PodcastEpisode;
+use PdSPodcast\Integrations\Yoast\Schema\PodcastSeries;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Schema controller
  *
  * @author      Sergey Zakharchenko
- * @package     SimplePodcasting/Controllers
+ * @package     PdSPodcast/Controllers
  * @since       2.7.3
  */
 class Schema_Controller extends Controller {

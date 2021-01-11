@@ -1,8 +1,8 @@
 <?php
 
-namespace SimplePodcasting\Integrations\Elementor\Widgets;
+namespace PdSPodcast\Integrations\Elementor\Widgets;
 
-use SimplePodcasting\Controllers\Players_Controller;
+use PdSPodcast\Controllers\Players_Controller;
 
 class Elementor_Media_Player_Widget extends \Elementor\Widget_Base {
 
@@ -11,7 +11,7 @@ class Elementor_Media_Player_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Media Player', 'simple-podcasting' );
+		return __( 'Media Player', 'pds-podcast' );
 	}
 
 	public function get_icon() {
@@ -47,7 +47,7 @@ class Elementor_Media_Player_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => __( 'Content', 'simple-podcasting' ),
+				'label' => __( 'Content', 'pds-podcast' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -56,7 +56,7 @@ class Elementor_Media_Player_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_elements',
 			[
-				'label' => __( 'Select Episode', 'simple-podcasting' ),
+				'label' => __( 'Select Episode', 'pds-podcast' ),
 				'type' => \Elementor\Controls_Manager::SELECT2,
 				'options' => $episode_options,
 				'default' => '-1'

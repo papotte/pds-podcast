@@ -1,11 +1,11 @@
 <?php
 
-namespace SimplePodcasting\Handlers;
+namespace PdSPodcast\Handlers;
 
 /**
  * SSP Roles Handler
  *
- * @package Simple Podcasting
+ * @package PdS Podcasting
  */
 class Roles_Handler {
 
@@ -42,7 +42,7 @@ class Roles_Handler {
 	 * Adds podcast_editor role for managing the episodes
 	 */
 	public function add_podcast_editor_role() {
-		$role_title = __( 'Podcast Editor', '-simple-podcasting' );
+		$role_title = __( 'Podcast Editor', 'pds-podcast' );
 		$this->maybe_add_podcast_role( self::PODCAST_EDITOR, $role_title );
 	}
 
@@ -50,7 +50,7 @@ class Roles_Handler {
 	 * Adds podcast_manager role for managing the episodes and podcast settings
 	 */
 	public function add_podcast_manager_role() {
-		$role_title = __( 'Podcast Manager', '-simple-podcasting' );
+		$role_title = __( 'Podcast Manager', 'pds-podcast' );
 		$additional_caps = array(
 			self::MANAGE_PODCAST => true,
 			'manage_podcast_tax' => true,

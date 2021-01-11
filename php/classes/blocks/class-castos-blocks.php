@@ -1,10 +1,10 @@
 <?php
 
-namespace SimplePodcasting\Blocks;
+namespace PdSPodcast\Blocks;
 
-use SimplePodcasting\Controllers\Controller;
-use SimplePodcasting\Handlers\Admin_Notifications_Handler;
-use SimplePodcasting\Player\Media_Player;
+use PdSPodcast\Controllers\Controller;
+use PdSPodcast\Handlers\Admin_Notifications_Handler;
+use PdSPodcast\Player\Media_Player;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Jonathan Bossenger
  * @category    Class
- * @package     SimplePodcasting/Blocks
+ * @package     PdSPodcast/Blocks
  * @since       2.0.4
  */
 class Castos_Blocks extends Controller {
@@ -106,7 +106,7 @@ class Castos_Blocks extends Controller {
 		);
 
 		register_block_type(
-			'simple-podcasting/castos-player',
+			'pds-podcast/castos-player',
 			array(
 				'editor_script' => 'ssp-block-script',
 				'editor_style'  => 'ssp-castos-player',
@@ -114,14 +114,14 @@ class Castos_Blocks extends Controller {
 		);
 
 		register_block_type(
-			'simple-podcasting/audio-player',
+			'pds-podcast/audio-player',
 			array(
 				'editor_script' => 'ssp-block-script',
 			)
 		);
 
 		register_block_type(
-			'simple-podcasting/podcast-list',
+			'pds-podcast/podcast-list',
 			array(
 				'editor_script'   => 'ssp-block-script',
 				'editor_style'  => 'ssp-block-style',
