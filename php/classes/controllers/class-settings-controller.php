@@ -659,7 +659,7 @@ class Settings_Controller extends Controller
 			$tab = $_GET['tab'];
 		}
 
-		$html .= '<div id="main-settings">' . "\n";
+		$html .= '<div id="pds-settings">' . "\n";
 
 		// Show page tabs
 		if (is_array($this->settings) && 1 < count($this->settings)) {

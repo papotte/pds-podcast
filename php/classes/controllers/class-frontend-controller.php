@@ -841,11 +841,8 @@ class Frontend_Controller extends Controller
 		}
 
 		if ($show_player && in_array($post->post_type, $podcast_post_types) && !is_feed() && !isset($_GET['feed'])) {
-
 			$meta = $this->episode_meta($post->ID, $content);
-
 			$excerpt = $excerpt . $meta;
-
 		}
 
 		return $excerpt;
