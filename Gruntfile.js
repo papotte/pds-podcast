@@ -78,18 +78,33 @@ module.exports = function (a) {
 				]
 			}
 		},
+		zip: {
+			'pds-podcast.zip': [
+				'assets/**',
+				'build/**',
+				'php/**',
+				'templates/**',
+				'vendor/composer/*',
+				'vendor/autoload.php',
+				'*.php',
+				'README.md',
+				'readme.txt',
+				'LICENSE'
+			]
+		}
 	});
 	a.loadNpmTasks('grunt-contrib-cssmin');
 	a.loadNpmTasks('grunt-contrib-uglify');
 	a.loadNpmTasks('grunt-contrib-sass');
 	a.loadNpmTasks('grunt-contrib-watch');
+	a.loadNpmTasks('grunt-zip');
 	a.registerTask('default',['sass', 'watch']);
-/*
-	a.loadNpmTasks("grunt-wp-i18n");
-	a.loadNpmTasks("grunt-wp-readme-to-markdown");
-	a.registerTask("default", ["i18n", "readme"]);
-	a.registerTask("i18n", ["addtextdomain", "makepot"]);
-	a.registerTask("readme", ["wp_readme_to_markdown"]);
-*/
+	/*
+		a.loadNpmTasks("grunt-wp-i18n");
+		a.loadNpmTasks("grunt-wp-readme-to-markdown");
+		a.registerTask("default", ["i18n", "readme"]);
+		a.registerTask("i18n", ["addtextdomain", "makepot"]);
+		a.registerTask("readme", ["wp_readme_to_markdown"]);
+	*/
 	a.util.linefeed = "\n"
 };

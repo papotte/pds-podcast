@@ -10,6 +10,8 @@
     "grunt-contrib-sass": "^2.0.0",
     "grunt-contrib-uglify": "^5.0.0",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-zip": "^0.18.2",
+    "gulp-zip": "^5.0.2",
     "grunt-sass": "^3.1.0"
   },
   "description": "[PdS Podcast](https://github.com/pds-podcast/",
@@ -20,7 +22,9 @@
     "start": "grunt && wp-scripts start",
     "build": "wp-scripts build",
     "postinstall": "rm -rf vendor/ && composer install && wp-scripts build",
-    "predeploy": "rm -rf vendor/ && composer install --prefer-dist --no-dev && grunt uglify && grunt cssmin && wp-scripts build"
+    "predeploy": "rm -rf vendor/ && composer install --prefer-dist --no-dev && grunt uglify && grunt cssmin && wp-scripts build",
+    "zip": "grunt zip",
+    "package": "rm -rf vendor/ && composer install --prefer-dist --no-dev && grunt uglify && grunt cssmin && wp-scripts build && grunt zip"
   },
   "repository": {
     "type": "git",
