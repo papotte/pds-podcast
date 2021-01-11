@@ -51,7 +51,8 @@ module.exports = function (a) {
 			}
 		},
 		zip: {
-			'pds-podcast.zip': ['assets/*',
+			'pds-podcast.zip': [
+				'assets/**',
 				'build/**',
 				'php/**',
 				'templates/**',
