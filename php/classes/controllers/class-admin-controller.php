@@ -1,12 +1,12 @@
 <?php
 
-namespace SimplePodcasting\Controllers;
+namespace PdSPodcast\Controllers;
 
-use SimplePodcasting\Handlers\Admin_Notifications_Handler;
-use SimplePodcasting\Handlers\Upgrade_Handler;
-use SimplePodcasting\Ajax\Ajax_Handler;
-use SimplePodcasting\Handlers\Castos_Handler;
-use SimplePodcasting\Helpers\Log_Helper;
+use PdSPodcast\Handlers\Admin_Notifications_Handler;
+use PdSPodcast\Handlers\Upgrade_Handler;
+use PdSPodcast\Ajax\Ajax_Handler;
+use PdSPodcast\Handlers\Castos_Handler;
+use PdSPodcast\Helpers\Log_Helper;
 
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
  *
  * @author      Hugh Lashbrooke
  * @category    Class
- * @package     SimplePodcasting/Controllers
+ * @package     PdSPodcast/Controllers
  * @since       1.0
  */
 class Admin_Controller extends Controller
@@ -209,24 +209,24 @@ class Admin_Controller extends Controller
 	{
 
 		$labels = array(
-			'name' => _x('Podcast', 'post type general name', 'simple-podcasting'),
-			'singular_name' => _x('Podcast', 'post type singular name', 'simple-podcasting'),
-			'add_new' => _x('Add New', 'podcast', 'simple-podcasting'),
-			'add_new_item' => sprintf(__('Add New %s', 'simple-podcasting'), __('Episode', 'simple-podcasting')),
-			'edit_item' => sprintf(__('Edit %s', 'simple-podcasting'), __('Episode', 'simple-podcasting')),
-			'new_item' => sprintf(__('New %s', 'simple-podcasting'), __('Episode', 'simple-podcasting')),
-			'all_items' => sprintf(__('All %s', 'simple-podcasting'), __('Episodes', 'simple-podcasting')),
-			'view_item' => sprintf(__('View %s', 'simple-podcasting'), __('Episode', 'simple-podcasting')),
-			'search_items' => sprintf(__('Search %a', 'simple-podcasting'), __('Episodes', 'simple-podcasting')),
-			'not_found' => sprintf(__('No %s Found', 'simple-podcasting'), __('Episodes', 'simple-podcasting')),
-			'not_found_in_trash' => sprintf(__('No %s Found In Trash', 'simple-podcasting'), __('Episodes', 'simple-podcasting')),
+			'name' => _x('Podcast', 'post type general name', 'pds-podcast'),
+			'singular_name' => _x('Podcast', 'post type singular name', 'pds-podcast'),
+			'add_new' => _x('Add New', 'podcast', 'pds-podcast'),
+			'add_new_item' => sprintf(__('Add New %s', 'pds-podcast'), __('Episode', 'pds-podcast')),
+			'edit_item' => sprintf(__('Edit %s', 'pds-podcast'), __('Episode', 'pds-podcast')),
+			'new_item' => sprintf(__('New %s', 'pds-podcast'), __('Episode', 'pds-podcast')),
+			'all_items' => sprintf(__('All %s', 'pds-podcast'), __('Episodes', 'pds-podcast')),
+			'view_item' => sprintf(__('View %s', 'pds-podcast'), __('Episode', 'pds-podcast')),
+			'search_items' => sprintf(__('Search %a', 'pds-podcast'), __('Episodes', 'pds-podcast')),
+			'not_found' => sprintf(__('No %s Found', 'pds-podcast'), __('Episodes', 'pds-podcast')),
+			'not_found_in_trash' => sprintf(__('No %s Found In Trash', 'pds-podcast'), __('Episodes', 'pds-podcast')),
 			'parent_item_colon' => '',
-			'menu_name' => __('Podcast', 'simple-podcasting'),
-			'filter_items_list' => sprintf(__('Filter %s list', 'simple-podcasting'), __('Episode', 'simple-podcasting')),
-			'items_list_navigation' => sprintf(__('%s list navigation', 'simple-podcasting'), __('Episode', 'simple-podcasting')),
-			'items_list' => sprintf(__('%s list', 'simple-podcasting'), __('Episode', 'simple-podcasting')),
+			'menu_name' => __('Podcast', 'pds-podcast'),
+			'filter_items_list' => sprintf(__('Filter %s list', 'pds-podcast'), __('Episode', 'pds-podcast')),
+			'items_list_navigation' => sprintf(__('%s list navigation', 'pds-podcast'), __('Episode', 'pds-podcast')),
+			'items_list' => sprintf(__('%s list', 'pds-podcast'), __('Episode', 'pds-podcast')),
 		);
-		$slug = apply_filters('ssp_archive_slug', __('podcast', 'simple-podcasting'));
+		$slug = apply_filters('ssp_archive_slug', __('podcast', 'pds-podcast'));
 		$args = array(
 			'labels' => $labels,
 			'public' => true,
@@ -274,25 +274,25 @@ class Admin_Controller extends Controller
 		$podcast_post_types = ssp_post_types(true);
 
 		$series_labels = array(
-			'name' => __('Podcast Series', 'simple-podcasting'),
-			'singular_name' => __('Series', 'simple-podcasting'),
-			'search_items' => __('Search Series', 'simple-podcasting'),
-			'all_items' => __('All Series', 'simple-podcasting'),
-			'parent_item' => __('Parent Series', 'simple-podcasting'),
-			'parent_item_colon' => __('Parent Series:', 'simple-podcasting'),
-			'edit_item' => __('Edit Series', 'simple-podcasting'),
-			'update_item' => __('Update Series', 'simple-podcasting'),
-			'add_new_item' => __('Add New Series', 'simple-podcasting'),
-			'new_item_name' => __('New Series Name', 'simple-podcasting'),
-			'menu_name' => __('Series', 'simple-podcasting'),
-			'view_item' => __('View Series', 'simple-podcasting'),
-			'popular_items' => __('Popular Series', 'simple-podcasting'),
-			'separate_items_with_commas' => __('Separate series with commas', 'simple-podcasting'),
-			'add_or_remove_items' => __('Add or remove Series', 'simple-podcasting'),
-			'choose_from_most_used' => __('Choose from the most used Series', 'simple-podcasting'),
-			'not_found' => __('No Series Found', 'simple-podcasting'),
-			'items_list_navigation' => __('Series list navigation', 'simple-podcasting'),
-			'items_list' => __('Series list', 'simple-podcasting'),
+			'name' => __('Podcast Series', 'pds-podcast'),
+			'singular_name' => __('Series', 'pds-podcast'),
+			'search_items' => __('Search Series', 'pds-podcast'),
+			'all_items' => __('All Series', 'pds-podcast'),
+			'parent_item' => __('Parent Series', 'pds-podcast'),
+			'parent_item_colon' => __('Parent Series:', 'pds-podcast'),
+			'edit_item' => __('Edit Series', 'pds-podcast'),
+			'update_item' => __('Update Series', 'pds-podcast'),
+			'add_new_item' => __('Add New Series', 'pds-podcast'),
+			'new_item_name' => __('New Series Name', 'pds-podcast'),
+			'menu_name' => __('Series', 'pds-podcast'),
+			'view_item' => __('View Series', 'pds-podcast'),
+			'popular_items' => __('Popular Series', 'pds-podcast'),
+			'separate_items_with_commas' => __('Separate series with commas', 'pds-podcast'),
+			'add_or_remove_items' => __('Add or remove Series', 'pds-podcast'),
+			'choose_from_most_used' => __('Choose from the most used Series', 'pds-podcast'),
+			'not_found' => __('No Series Found', 'pds-podcast'),
+			'items_list_navigation' => __('Series list navigation', 'pds-podcast'),
+			'items_list' => __('Series list', 'pds-podcast'),
 		);
 
 		$series_args = array(
@@ -309,22 +309,22 @@ class Admin_Controller extends Controller
 		register_taxonomy(apply_filters('ssp_series_taxonomy', 'series'), $podcast_post_types, $series_args);
 
 		$labels = array(
-			'name' => __('Tags', 'simple-podcasting'),
-			'singular_name' => __('Tag', 'simple-podcasting'),
-			'search_items' => __('Search Tags', 'simple-podcasting'),
-			'popular_items' => __('Popular Tags', 'simple-podcasting'),
-			'all_items' => __('All Tags', 'simple-podcasting'),
+			'name' => __('Tags', 'pds-podcast'),
+			'singular_name' => __('Tag', 'pds-podcast'),
+			'search_items' => __('Search Tags', 'pds-podcast'),
+			'popular_items' => __('Popular Tags', 'pds-podcast'),
+			'all_items' => __('All Tags', 'pds-podcast'),
 			'parent_item' => null,
 			'parent_item_colon' => null,
-			'edit_item' => __('Edit Tag', 'simple-podcasting'),
-			'update_item' => __('Update Tag', 'simple-podcasting'),
-			'add_new_item' => __('Add New Tag', 'simple-podcasting'),
-			'new_item_name' => __('New Tag Name', 'simple-podcasting'),
-			'separate_items_with_commas' => __('Separate tags with commas', 'simple-podcasting'),
-			'add_or_remove_items' => __('Add or remove tags', 'simple-podcasting'),
-			'choose_from_most_used' => __('Choose from the most used tags', 'simple-podcasting'),
-			'not_found' => __('No tags found.', 'simple-podcasting'),
-			'menu_name' => __('Tags', 'simple-podcasting'),
+			'edit_item' => __('Edit Tag', 'pds-podcast'),
+			'update_item' => __('Update Tag', 'pds-podcast'),
+			'add_new_item' => __('Add New Tag', 'pds-podcast'),
+			'new_item_name' => __('New Tag Name', 'pds-podcast'),
+			'separate_items_with_commas' => __('Separate tags with commas', 'pds-podcast'),
+			'add_or_remove_items' => __('Add or remove tags', 'pds-podcast'),
+			'choose_from_most_used' => __('Choose from the most used tags', 'pds-podcast'),
+			'not_found' => __('No tags found.', 'pds-podcast'),
+			'menu_name' => __('Tags', 'pds-podcast'),
 		);
 
 		$args = array(
@@ -390,11 +390,11 @@ class Admin_Controller extends Controller
 			$media_id = '';
 		}
 
-		$series_img_title = __('Series Image', 'simple-podcasting');
-		$upload_btn_text = __('Choose series image', 'simple-podcasting');
-		$upload_btn_value = __('Add Image', 'simple-podcasting');
-		$upload_btn_title = __('Choose an image file', 'simple-podcasting');
-		$series_img_desc = __("Set an image as the artwork for the series. No image will be set if not provided.", 'simple-podcasting');
+		$series_img_title = __('Series Image', 'pds-podcast');
+		$upload_btn_text = __('Choose series image', 'pds-podcast');
+		$upload_btn_value = __('Add Image', 'pds-podcast');
+		$upload_btn_title = __('Choose an image file', 'pds-podcast');
+		$series_img_desc = __("Set an image as the artwork for the series. No image will be set if not provided.", 'pds-podcast');
 		$series_img_form_label = <<<HTML
 <label>{$series_img_title}</label>
 HTML;
@@ -498,7 +498,7 @@ HTML;
 
 		// Add 'filesize_raw' as this is not included in the displayed field options
 		$fields['filesize_raw'] = array(
-			'meta_description' => __('The raw file size of the podcast episode media file in bytes.', 'simple-podcasting'),
+			'meta_description' => __('The raw file size of the podcast episode media file in bytes.', 'pds-podcast'),
 		);
 
 		foreach ($fields as $key => $data) {
@@ -525,8 +525,8 @@ HTML;
 	public function register_custom_column_headings($defaults)
 	{
 		$new_columns = apply_filters('ssp_admin_columns_episodes', array(
-			'series' => __('Series', 'simple-podcasting'),
-			'image' => __('Image', 'simple-podcasting'),
+			'series' => __('Series', 'pds-podcast'),
+			'image' => __('Image', 'pds-podcast'),
 		));
 
 		// remove date column
@@ -582,9 +582,9 @@ HTML;
 		unset($columns['description']);
 		unset($columns['posts']);
 
-		$columns['series_image'] = __('Series Image', 'simple-podcasting');
-		$columns['series_feed_url'] = __('Series feed URL', 'simple-podcasting');
-		$columns['posts'] = __('Episodes', 'simple-podcasting');
+		$columns['series_image'] = __('Series Image', 'pds-podcast');
+		$columns['series_feed_url'] = __('Series feed URL', 'pds-podcast');
+		$columns['posts'] = __('Episodes', 'pds-podcast');
 		$columns = apply_filters('ssp_admin_columns_series', $columns);
 
 		return $columns;
@@ -651,16 +651,16 @@ HTML;
 
 		$messages[$this->token] = array(
 			0 => '',
-			1 => sprintf(__('Episode updated. %sView episode%s.', 'simple-podcasting'), '<a href="' . esc_url(get_permalink($post_ID)) . '">', '</a>'),
-			2 => __('Custom field updated.', 'simple-podcasting'),
-			3 => __('Custom field deleted.', 'simple-podcasting'),
-			4 => __('Episode updated.', 'simple-podcasting'),
-			5 => isset($_GET['revision']) ? sprintf(__('Episode restored to revision from %s.', 'simple-podcasting'), wp_post_revision_title((int)$_GET['revision'], false)) : false,
-			6 => sprintf(__('Episode published. %sView episode%s.', 'simple-podcasting'), '<a href="' . esc_url(get_permalink($post_ID)) . '">', '</a>'),
-			7 => __('Episode saved.', 'simple-podcasting'),
-			8 => sprintf(__('Episode submitted. %sPreview episode%s.', 'simple-podcasting'), '<a target="_blank" href="' . esc_url(add_query_arg('preview', 'true', get_permalink($post_ID))) . '">', '</a>'),
-			9 => sprintf(__('Episode scheduled for: %1$s. %2$sPreview episode%3$s.', 'simple-podcasting'), '<strong>' . date_i18n(__('M j, Y @ G:i', 'simple-podcasting'), strtotime($post->post_date)) . '</strong>', '<a target="_blank" href="' . esc_url(get_permalink($post_ID)) . '">', '</a>'),
-			10 => sprintf(__('Episode draft updated. %sPreview episode%s.', 'simple-podcasting'), '<a target="_blank" href="' . esc_url(add_query_arg('preview', 'true', get_permalink($post_ID))) . '">', '</a>'),
+			1 => sprintf(__('Episode updated. %sView episode%s.', 'pds-podcast'), '<a href="' . esc_url(get_permalink($post_ID)) . '">', '</a>'),
+			2 => __('Custom field updated.', 'pds-podcast'),
+			3 => __('Custom field deleted.', 'pds-podcast'),
+			4 => __('Episode updated.', 'pds-podcast'),
+			5 => isset($_GET['revision']) ? sprintf(__('Episode restored to revision from %s.', 'pds-podcast'), wp_post_revision_title((int)$_GET['revision'], false)) : false,
+			6 => sprintf(__('Episode published. %sView episode%s.', 'pds-podcast'), '<a href="' . esc_url(get_permalink($post_ID)) . '">', '</a>'),
+			7 => __('Episode saved.', 'pds-podcast'),
+			8 => sprintf(__('Episode submitted. %sPreview episode%s.', 'pds-podcast'), '<a target="_blank" href="' . esc_url(add_query_arg('preview', 'true', get_permalink($post_ID))) . '">', '</a>'),
+			9 => sprintf(__('Episode scheduled for: %1$s. %2$sPreview episode%3$s.', 'pds-podcast'), '<strong>' . date_i18n(__('M j, Y @ G:i', 'pds-podcast'), strtotime($post->post_date)) . '</strong>', '<a target="_blank" href="' . esc_url(get_permalink($post_ID)) . '">', '</a>'),
+			10 => sprintf(__('Episode draft updated. %sPreview episode%s.', 'pds-podcast'), '<a target="_blank" href="' . esc_url(add_query_arg('preview', 'true', get_permalink($post_ID))) . '">', '</a>'),
 		);
 
 		return $messages;
@@ -689,13 +689,13 @@ HTML;
 	public function meta_box_setup($post)
 	{
 		global $pagenow;
-		add_meta_box('podcast-episode-data', __('Podcast Episode Details', 'simple-podcasting'), array(
+		add_meta_box('podcast-episode-data', __('Podcast Episode Details', 'pds-podcast'), array(
 			$this,
 			'meta_box_content'
 		), $post->post_type, 'normal', 'high');
 
 		if ('post.php' == $pagenow && 'publish' == $post->post_status && function_exists('get_post_embed_html')) {
-			add_meta_box('episode-embed-code', __('Episode Embed Code', 'simple-podcasting'), array(
+			add_meta_box('episode-embed-code', __('Episode Embed Code', 'pds-podcast'), array(
 				$this,
 				'embed_code_meta_box_content'
 			), $post->post_type, 'side', 'low');
@@ -720,8 +720,8 @@ HTML;
 		$embed_code = get_post_embed_html(500, 350, $post);
 
 		// Generate markup for meta box
-		$html = '<p><em>' . __('Customise the size of your episode embed below, then copy the HTML to your clipboard.', 'simple-podcasting') . '</em></p>';
-		$html .= '<p><label for="episode_embed_code_width">' . __('Width:', 'simple-podcasting') . '</label> <input id="episode_embed_code_width" class="episode_embed_code_size_option" type="number" value="500" length="3" min="0" step="1" /> &nbsp;&nbsp;&nbsp;&nbsp;<label for="episode_embed_code_height">' . __('Height:', 'simple-podcasting') . '</label> <input id="episode_embed_code_height" class="episode_embed_code_size_option" type="number" value="350" length="3" min="0" step="1" /></p>';
+		$html = '<p><em>' . __('Customise the size of your episode embed below, then copy the HTML to your clipboard.', 'pds-podcast') . '</em></p>';
+		$html .= '<p><label for="episode_embed_code_width">' . __('Width:', 'pds-podcast') . '</label> <input id="episode_embed_code_width" class="episode_embed_code_size_option" type="number" value="500" length="3" min="0" step="1" /> &nbsp;&nbsp;&nbsp;&nbsp;<label for="episode_embed_code_height">' . __('Height:', 'pds-podcast') . '</label> <input id="episode_embed_code_height" class="episode_embed_code_size_option" type="number" value="350" length="3" min="0" step="1" /></p>';
 		$html .= '<p><textarea readonly id="episode_embed_code">' . esc_textarea($embed_code) . '</textarea></p>';
 
 		echo $html;
@@ -765,7 +765,7 @@ HTML;
 
 				switch ($v['type']) {
 					case 'file':
-						$upload_button = '<input type="button" class="button" id="upload_' . esc_attr($k) . '_button" value="' . __('Upload File', 'simple-podcasting') . '" data-uploader_title="' . __('Choose a file', 'simple-podcasting') . '" data-uploader_button_text="' . __('Insert podcast file', 'simple-podcasting') . '" />';
+						$upload_button = '<input type="button" class="button" id="upload_' . esc_attr($k) . '_button" value="' . __('Upload File', 'pds-podcast') . '" data-uploader_title="' . __('Choose a file', 'pds-podcast') . '" data-uploader_button_text="' . __('Insert podcast file', 'pds-podcast') . '" />';
 						if (ssp_is_connected_to_castos()) {
 							$upload_button = '<div id="ssp_upload_container" style="display: inline;">';
 							$upload_button .= '  <button id="ssp_select_file" href="javascript:">Select podcast file</button>';
@@ -776,7 +776,7 @@ HTML;
 									<label class="ssp-episode-details-label" for="' . esc_attr($k) . '">' . wp_kses_post($v['name']) . '</label>';
 
 						if (ssp_is_connected_to_castos()) {
-							$html .= '<div id="ssp_upload_notification">' . __('An error has occurred with the file upload functionality. Please check your site for any plugin or theme conflicts.', 'simple-podcasting') . '</div>';
+							$html .= '<div id="ssp_upload_notification">' . __('An error has occurred with the file upload functionality. Please check your site for any plugin or theme conflicts.', 'pds-podcast') . '</div>';
 						}
 
 						$html .= '<input name="' . esc_attr($k) . '" type="text" id="upload_' . esc_attr($k) . '" value="' . esc_attr($data) . '" />
@@ -978,51 +978,51 @@ HTML;
 
 		if ($is_buzzsprout_enabled && $is_buzzsprout_enabled == 'on') {
 			$fields['buzzsprout_id'] = array(
-				'name' => __('Buzzsprout episode ID:', 'simple-podcasting'),
-				'description' => __('The episode ID on Buzzsprout used to embed the player.', 'simple-podcasting'),
+				'name' => __('Buzzsprout episode ID:', 'pds-podcast'),
+				'description' => __('The episode ID on Buzzsprout used to embed the player.', 'pds-podcast'),
 				'type' => 'text',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('The episode ID on Buzzsprout used to embed the player.', 'simple-podcasting'),
+				'meta_description' => __('The episode ID on Buzzsprout used to embed the player.', 'pds-podcast'),
 			);
 			$fields['buzzsprout_slug'] = array(
-				'name' => __('Buzzsprout episode slug:', 'simple-podcasting'),
-				'description' => __('The episode slug on Buzzsprout used to embed the player.', 'simple-podcasting'),
+				'name' => __('Buzzsprout episode slug:', 'pds-podcast'),
+				'description' => __('The episode slug on Buzzsprout used to embed the player.', 'pds-podcast'),
 				'type' => 'text',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('the episode slug on Buzzsprout used to embed the player.', 'simple-podcasting'),
+				'meta_description' => __('the episode slug on Buzzsprout used to embed the player.', 'pds-podcast'),
 			);
 			$fields['date_recorded'] = array(
-				'name' => __('Date recorded:', 'simple-podcasting'),
-				'description' => __('The date on which this episode was recorded.', 'simple-podcasting'),
+				'name' => __('Date recorded:', 'pds-podcast'),
+				'description' => __('The date on which this episode was recorded.', 'pds-podcast'),
 				'type' => 'datepicker',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('The date on which the podcast episode was recorded.', 'simple-podcasting'),
+				'meta_description' => __('The date on which the podcast episode was recorded.', 'pds-podcast'),
 			);
 		} else {
 			$fields['episode_type'] = array(
-				'name' => __('Episode type:', 'simple-podcasting'),
+				'name' => __('Episode type:', 'pds-podcast'),
 				'description' => '',
 				'type' => 'radio',
 				'default' => 'audio',
 				'options' => array(
-					'audio' => __('Audio', 'simple-podcasting'),
-					'video' => __('Video', 'simple-podcasting')
+					'audio' => __('Audio', 'pds-podcast'),
+					'video' => __('Video', 'pds-podcast')
 				),
 				'section' => 'info',
-				'meta_description' => __('The type of podcast episode - either Audio or Video', 'simple-podcasting'),
+				'meta_description' => __('The type of podcast episode - either Audio or Video', 'pds-podcast'),
 			);
 
 			// In v1.14+ the `audio_file` field can actually be either audio or video, but we're keeping the field name here for backwards compatibility
 			$fields['audio_file'] = array(
-				'name' => __('Podcast file:', 'simple-podcasting'),
-				'description' => __('Upload the primary podcast file or paste the file URL here.', 'simple-podcasting'),
+				'name' => __('Podcast file:', 'pds-podcast'),
+				'description' => __('Upload the primary podcast file or paste the file URL here.', 'pds-podcast'),
 				'type' => 'file',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('The full URL for the podcast episode media file.', 'simple-podcasting'),
+				'meta_description' => __('The full URL for the podcast episode media file.', 'pds-podcast'),
 			);
 
 			//
@@ -1031,26 +1031,26 @@ HTML;
 					'type' => 'hidden',
 					'default' => '',
 					'section' => 'info',
-					'meta_description' => __('SimpleHosting file id.', 'simple-podcasting'),
+					'meta_description' => __('SimpleHosting file id.', 'pds-podcast'),
 				);
 			}
 
 			$fields['duration'] = array(
-				'name' => __('Duration:', 'simple-podcasting'),
-				'description' => __('Duration of podcast file for display (calculated automatically if possible).', 'simple-podcasting'),
+				'name' => __('Duration:', 'pds-podcast'),
+				'description' => __('Duration of podcast file for display (calculated automatically if possible).', 'pds-podcast'),
 				'type' => 'text',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('The duration of the file for display purposes.', 'simple-podcasting'),
+				'meta_description' => __('The duration of the file for display purposes.', 'pds-podcast'),
 			);
 
 			$fields['filesize'] = array(
-				'name' => __('File size:', 'simple-podcasting'),
-				'description' => __('Size of the podcast file for display (calculated automatically if possible).', 'simple-podcasting'),
+				'name' => __('File size:', 'pds-podcast'),
+				'description' => __('Size of the podcast file for display (calculated automatically if possible).', 'pds-podcast'),
 				'type' => 'text',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('The size of the podcast episode for display purposes.', 'simple-podcasting'),
+				'meta_description' => __('The size of the podcast episode for display purposes.', 'pds-podcast'),
 			);
 
 			if (ssp_is_connected_to_castos()) {
@@ -1058,35 +1058,35 @@ HTML;
 					'type' => 'hidden',
 					'default' => '',
 					'section' => 'info',
-					'meta_description' => __('Raw size of the podcast episode.', 'simple-podcasting'),
+					'meta_description' => __('Raw size of the podcast episode.', 'pds-podcast'),
 				);
 			}
 
 			$fields['date_recorded'] = array(
-				'name' => __('Date recorded:', 'simple-podcasting'),
-				'description' => __('The date on which this episode was recorded.', 'simple-podcasting'),
+				'name' => __('Date recorded:', 'pds-podcast'),
+				'description' => __('The date on which this episode was recorded.', 'pds-podcast'),
 				'type' => 'datepicker',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('The date on which the podcast episode was recorded.', 'simple-podcasting'),
+				'meta_description' => __('The date on which the podcast episode was recorded.', 'pds-podcast'),
 			);
 
 			$fields['explicit'] = array(
-				'name' => __('Explicit:', 'simple-podcasting'),
-				'description' => __('Mark this episode as explicit.', 'simple-podcasting'),
+				'name' => __('Explicit:', 'pds-podcast'),
+				'description' => __('Mark this episode as explicit.', 'pds-podcast'),
 				'type' => 'checkbox',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('Indicates whether the episode is explicit.', 'simple-podcasting'),
+				'meta_description' => __('Indicates whether the episode is explicit.', 'pds-podcast'),
 			);
 
 			$fields['block'] = array(
-				'name' => __('Block:', 'simple-podcasting'),
-				'description' => __('Block this episode from appearing in the iTunes & Google Play podcast libraries.', 'simple-podcasting'),
+				'name' => __('Block:', 'pds-podcast'),
+				'description' => __('Block this episode from appearing in the iTunes & Google Play podcast libraries.', 'pds-podcast'),
 				'type' => 'checkbox',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('Indicates whether this specific episode should be blocked from the iTunes and Google Play Podcast libraries.', 'simple-podcasting'),
+				'meta_description' => __('Indicates whether this specific episode should be blocked from the iTunes and Google Play Podcast libraries.', 'pds-podcast'),
 			);
 		}
 		if ($is_itunes_fields_enabled && $is_itunes_fields_enabled == 'on') {
@@ -1094,54 +1094,54 @@ HTML;
 			 * New iTunes Tag Announced At WWDC 2017
 			 */
 			$fields['itunes_episode_number'] = array(
-				'name' => __('iTunes Episode Number:', 'simple-podcasting'),
-				'description' => __('The iTunes Episode Number. Leave Blank If None.', 'simple-podcasting'),
+				'name' => __('iTunes Episode Number:', 'pds-podcast'),
+				'description' => __('The iTunes Episode Number. Leave Blank If None.', 'pds-podcast'),
 				'type' => 'number',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('The iTunes Episode Number. Leave Blank If None.', 'simple-podcasting'),
+				'meta_description' => __('The iTunes Episode Number. Leave Blank If None.', 'pds-podcast'),
 			);
 
 			/**
 			 * New iTunes Tag Announced At WWDC 2017
 			 */
 			$fields['itunes_title'] = array(
-				'name' => __('iTunes Episode Title (Exclude Your Series / Show Number):', 'simple-podcasting'),
-				'description' => __('The iTunes Episode Title. NO Series / Show Number Should Be Included.', 'simple-podcasting'),
+				'name' => __('iTunes Episode Title (Exclude Your Series / Show Number):', 'pds-podcast'),
+				'description' => __('The iTunes Episode Title. NO Series / Show Number Should Be Included.', 'pds-podcast'),
 				'type' => 'text',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('The iTunes Episode Title. NO Series / Show Number Should Be Included', 'simple-podcasting'),
+				'meta_description' => __('The iTunes Episode Title. NO Series / Show Number Should Be Included', 'pds-podcast'),
 			);
 
 			/**
 			 * New iTunes Tag Announced At WWDC 2017
 			 */
 			$fields['itunes_season_number'] = array(
-				'name' => __('iTunes Season Number:', 'simple-podcasting'),
-				'description' => __('The iTunes Season Number. Leave Blank If None.', 'simple-podcasting'),
+				'name' => __('iTunes Season Number:', 'pds-podcast'),
+				'description' => __('The iTunes Season Number. Leave Blank If None.', 'pds-podcast'),
 				'type' => 'number',
 				'default' => '',
 				'section' => 'info',
-				'meta_description' => __('The iTunes Season Number. Leave Blank If None.', 'simple-podcasting'),
+				'meta_description' => __('The iTunes Season Number. Leave Blank If None.', 'pds-podcast'),
 			);
 
 			/**
 			 * New iTunes Tag Announced At WWDC 2017
 			 */
 			$fields['itunes_episode_type'] = array(
-				'name' => __('iTunes Episode Type:', 'simple-podcasting'),
+				'name' => __('iTunes Episode Type:', 'pds-podcast'),
 				'description' => '',
 				'type' => 'select',
 				'default' => '',
 				'options' => array(
-					'' => __('Please Select', 'simple-podcasting'),
-					'full' => __('Full: For Normal Episodes', 'simple-podcasting'),
-					'trailer' => __('Trailer: Promote an Upcoming Show', 'simple-podcasting'),
-					'bonus' => __('Bonus: For Extra Content Related To a Show', 'simple-podcasting')
+					'' => __('Please Select', 'pds-podcast'),
+					'full' => __('Full: For Normal Episodes', 'pds-podcast'),
+					'trailer' => __('Trailer: Promote an Upcoming Show', 'pds-podcast'),
+					'bonus' => __('Bonus: For Extra Content Related To a Show', 'pds-podcast')
 				),
 				'section' => 'info',
-				'meta_description' => __('The iTunes Episode Type', 'simple-podcasting'),
+				'meta_description' => __('The iTunes Episode Type', 'pds-podcast'),
 			);
 		}
 
@@ -1241,7 +1241,7 @@ HTML;
 		$num_posts = count(ssp_episodes(-1, '', false, 'glance'));
 
 		$post_type_object = get_post_type_object($this->token);
-		$text = _n('%s Episode', '%s Episodes', $num_posts, 'simple-podcasting');
+		$text = _n('%s Episode', '%s Episodes', $num_posts, 'pds-podcast');
 		$text = sprintf($text, number_format_i18n($num_posts));
 
 		if ($post_type_object && current_user_can($post_type_object->cap->edit_posts)) {
@@ -1269,9 +1269,9 @@ HTML;
 		if (!isset($plugin_data['slug']) || $this->plugin_slug != $plugin_data['slug']) {
 			return $plugin_meta;
 		}
-		$plugin_meta['docs'] = '<a href="https://support.castos.com/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019" target="_blank">' . __('Documentation', 'simple-podcasting') . '</a>';
-		$plugin_meta['addons'] = '<a href="https://castos.com/add-ons/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019" target="_blank">' . __('Add-ons', 'simple-podcasting') . '</a>';
-		$plugin_meta['review'] = '<a href="https://wordpress.org/support/view/plugin-reviews/' . $plugin_data['slug'] . '?rate=5#postform" target="_blank">' . __('Write a review', 'simple-podcasting') . '</a>';
+		$plugin_meta['docs'] = '<a href="https://support.castos.com/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019" target="_blank">' . __('Documentation', 'pds-podcast') . '</a>';
+		$plugin_meta['addons'] = '<a href="https://castos.com/add-ons/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019" target="_blank">' . __('Add-ons', 'pds-podcast') . '</a>';
+		$plugin_meta['review'] = '<a href="https://wordpress.org/support/view/plugin-reviews/' . $plugin_data['slug'] . '?rate=5#postform" target="_blank">' . __('Write a review', 'pds-podcast') . '</a>';
 		return $plugin_meta;
 	}
 
@@ -1285,7 +1285,7 @@ HTML;
 	public function enter_title_here($title)
 	{
 		if (get_post_type() == $this->token) {
-			$title = __('Enter episode title here', 'simple-podcasting');
+			$title = __('Enter episode title here', 'pds-podcast');
 		}
 
 		return $title;
@@ -1544,25 +1544,6 @@ HTML;
 	 */
 	public function admin_footer_text($footer_text)
 	{
-
-		// Check to make sure we're on a SSP settings page
-		if ((isset($_GET['page']) && 'podcast_settings' == esc_attr($_GET['page'])) && apply_filters('ssp_display_admin_footer_text', true)) {
-
-			// Change the footer text
-			if (!get_option('ssp_admin_footer_text_rated')) {
-				$footer_text = sprintf(__('If you like %1$sSimple Podcasting%2$s please leave a %3$s&#9733;&#9733;&#9733;&#9733;&#9733;%4$s rating. A huge thank you in advance!', 'simple-podcasting'), '<strong>', '</strong>', '<a href="https://wordpress.org/support/plugin/simple-podcasting/reviews/?rate=5#new-post" target="_blank" class="ssp-rating-link" data-rated="' . __('Thanks!', 'simple-podcasting') . '">', '</a>');
-				$footer_text .= "<script type='text/javascript'>
-					jQuery('a.ssp-rating-link').click(function() {
-						jQuery.post( '" . admin_url('admin-ajax.php') . "', { action: 'ssp_rated' } );
-						jQuery(this).parent().text( jQuery(this).data( 'rated' ) );
-					});
-				</script>";
-			} else {
-				$footer_text = sprintf(__('%1$sThank you for publishing with %2$sSimple Podcasting%3$s.%4$s', 'simple-podcasting'), '<span id="footer-thankyou">', '<a href="http://www.simplepodcasting.com/" target="_blank">', '</a>', '</span>');
-			}
-
-		}
-
 		return $footer_text;
 	}
 
@@ -1775,7 +1756,7 @@ HTML;
 		}
 
 		// The user has submitted the Import your podcast setting
-		$trigger_import_submit = __('Trigger import', 'simple-podcasting');
+		$trigger_import_submit = __('Trigger import', 'pds-podcast');
 		if ($trigger_import_submit === $submit) {
 			$import = sanitize_text_field($_POST['ss_podcasting_podmotor_import']);
 			if ('on' === $import) {
@@ -1794,7 +1775,7 @@ HTML;
 		}
 
 		// The user has submitted the external import form
-		$begin_import_submit = __('Begin Import Now', 'simple-podcasting');
+		$begin_import_submit = __('Begin Import Now', 'pds-podcast');
 		if ($begin_import_submit === $submit) {
 			$external_rss = wp_strip_all_tags(
 				stripslashes(
@@ -1828,7 +1809,7 @@ HTML;
 	{
 		?>
 		<div class="notice notice-info is-dismissible">
-			<p><?php esc_attr_e('An error occurred starting your podcast import. Please contact support at hello@castos.com.', 'simple-podcasting'); ?></p>
+			<p><?php esc_attr_e('An error occurred starting your podcast import. Please contact support at hello@castos.com.', 'pds-podcast'); ?></p>
 		</div>
 		<?php
 	}
@@ -1840,7 +1821,7 @@ HTML;
 	{
 		?>
 		<div class="notice notice-info is-dismissible">
-			<p><?php esc_attr_e('Your podcast import triggered successfully, please check your email for details.', 'simple-podcasting'); ?></p>
+			<p><?php esc_attr_e('Your podcast import triggered successfully, please check your email for details.', 'pds-podcast'); ?></p>
 		</div>
 		<?php
 	}
@@ -1852,7 +1833,7 @@ HTML;
 	{
 		?>
 		<div class="notice notice-info is-dismissible">
-			<p><?php esc_attr_e('Thanks, your external RSS feed will start importing', 'simple-podcasting'); ?></p>
+			<p><?php esc_attr_e('Thanks, your external RSS feed will start importing', 'pds-podcast'); ?></p>
 		</div>
 		<?php
 	}

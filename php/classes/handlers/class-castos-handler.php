@@ -1,8 +1,8 @@
 <?php
 
-namespace SimplePodcasting\Handlers;
+namespace PdSPodcast\Handlers;
 
-use SimplePodcasting\Helpers\Log_Helper;
+use PdSPodcast\Helpers\Log_Helper;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

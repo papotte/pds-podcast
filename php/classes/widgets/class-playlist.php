@@ -1,6 +1,6 @@
 <?php
 
-namespace SimplePodcasting\Widgets;
+namespace PdSPodcast\Widgets;
 
 use WP_Widget;
 
@@ -10,11 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Simple Podcasting Podcast Playlist Widget
+ * PdS Podcast Podcast Playlist Widget
  *
  * @author    Hugh Lashbrooke
- * @package   SimplePodcasting
- * @category  SimplePodcasting/Widgets
+ * @package   PdSPodcast
+ * @category  PdSPodcast/Widgets
  * @since     1.9.0
  */
 class Playlist extends WP_Widget {
@@ -30,9 +30,9 @@ class Playlist extends WP_Widget {
 	public function __construct() {
 		// Widget variable settings
 		$this->widget_cssclass = 'widget_podcast_playlist';
-		$this->widget_description = __( 'Display a playlist of episodes.', 'simple-podcasting' );
+		$this->widget_description = __( 'Display a playlist of episodes.', 'pds-podcast' );
 		$this->widget_idbase = 'ss_podcast';
-		$this->widget_title = __( 'Simple Podcast: Playlist', 'simple-podcasting' );
+		$this->widget_title = __( 'PdS Podcast: Playlist', 'pds-podcast' );
 
 		// Widget settings
 		$widget_ops = array(
@@ -132,15 +132,15 @@ class Playlist extends WP_Widget {
 		// Get all podcast series
 		$series = get_terms( 'series' );
 ?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title (optional):', 'simple-podcasting' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" placeholder="<?php _e( 'Widget title', 'simple-podcasting' ); ?>" value="<?php echo $title; ?>" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title (optional):', 'pds-podcast' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" placeholder="<?php _e( 'Widget title', 'pds-podcast' ); ?>" value="<?php echo $title; ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'episodes' ); ?>"><?php _e( 'Episodes (comma-separated IDs):', 'simple-podcasting' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'episodes' ); ?>" name="<?php echo $this->get_field_name( 'episodes' ); ?>" type="text" placeholder="<?php _e( 'Display all episodes', 'simple-podcasting' ); ?>" value="<?php echo $episodes; ?>" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'episodes' ); ?>"><?php _e( 'Episodes (comma-separated IDs):', 'pds-podcast' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'episodes' ); ?>" name="<?php echo $this->get_field_name( 'episodes' ); ?>" type="text" placeholder="<?php _e( 'Display all episodes', 'pds-podcast' ); ?>" value="<?php echo $episodes; ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'series_slug' ); ?>"><?php _e( 'Series:', 'simple-podcasting' ); ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'series_slug' ); ?>"><?php _e( 'Series:', 'pds-podcast' ); ?></label>
 		<select id="<?php echo $this->get_field_id( 'series_slug' ); ?>" name="<?php echo $this->get_field_name( 'series_slug' ); ?>">
-			<option value=""><?php _e( 'Use episodes specified above', 'simple-podcasting' ); ?></option>
+			<option value=""><?php _e( 'Use episodes specified above', 'pds-podcast' ); ?></option>
 			<?php
 			foreach ( $series as $s ) {
 				echo '<option value="' . esc_attr( $s->slug ) . '" ' . selected( $series_slug, $s->slug, false ) . '>' . $s->name . '</option>' . "\n";

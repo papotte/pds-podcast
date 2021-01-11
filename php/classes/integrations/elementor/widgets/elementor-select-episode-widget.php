@@ -1,8 +1,8 @@
 <?php
 
-namespace SimplePodcasting\Integrations\Elementor\Widgets;
+namespace PdSPodcast\Integrations\Elementor\Widgets;
 
-use SimplePodcasting\Controllers\Episode_Controller;
+use PdSPodcast\Controllers\Episode_Controller;
 
 class Elementor_Select_Episode_Widget extends \Elementor\Widget_Base {
 	public function get_name() {
@@ -10,7 +10,7 @@ class Elementor_Select_Episode_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Select Episode', 'simple-podcasting' );
+		return __( 'Select Episode', 'pds-podcast' );
 	}
 
 	public function get_icon() {
@@ -42,7 +42,7 @@ class Elementor_Select_Episode_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => __( 'Content', 'simple-podcasting' ),
+				'label' => __( 'Content', 'pds-podcast' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);

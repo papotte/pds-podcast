@@ -1,1 +1,1 @@
-Based on [Seriously Simple Podcasting](http://www.castos.com/seriously-simple-podcasting), a podcasting plugin for WordPress that takes the complexity out of running your own podcast without sacrificing any powerful (and necessary) features.
+Based on [Seriously Simple Podcasting](http://www.castos.com/seriously-pds-podcast), a podcasting plugin for WordPress that takes the complexity out of running your own podcast without sacrificing any powerful (and necessary) features.

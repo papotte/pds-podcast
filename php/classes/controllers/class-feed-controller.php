@@ -1,6 +1,6 @@
 <?php
 
-namespace SimplePodcasting\Controllers;
+namespace PdSPodcast\Controllers;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Jonathan Bossenger
  * @category    Class
- * @package     SimplePodcasting/Controllers
+ * @package     PdSPodcast/Controllers
  * @since       1.20.7
  */
 class Feed_Controller extends Controller {

@@ -3,7 +3,7 @@
  * Podcast RSS feed template
  *
  * @package WordPress
- * @subpackage SimplePodcasting
+ * @subpackage PdSPodcast
  */
 
 // Exit if accessed directly.
@@ -66,7 +66,7 @@ $give_access = apply_filters( 'ssp_feed_access', $give_access, $series_id );
 if ( ! $give_access ) {
 
 	// Set default message
-	$message = __( 'You are not permitted to view this podcast feed.', 'simple-podcasting' );
+	$message = __( 'You are not permitted to view this podcast feed.', 'pds-podcast' );
 
 	// Check message option from plugin settings
 	$message_option = get_option( 'ss_podcasting_protection_no_access_message' );

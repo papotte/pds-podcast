@@ -1,8 +1,8 @@
 <?php
 
-namespace SimplePodcasting\Integrations\Elementor\Widgets;
+namespace PdSPodcast\Integrations\Elementor\Widgets;
 
-use SimplePodcasting\Controllers\Episode_Controller;
+use PdSPodcast\Controllers\Episode_Controller;
 use WP_Query;
 
 class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
@@ -11,7 +11,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Episode List', 'simple-podcasting' );
+		return __( 'Episode List', 'pds-podcast' );
 	}
 
 	public function get_icon() {
@@ -44,7 +44,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => __( 'Content', 'simple-podcasting' ),
+				'label' => __( 'Content', 'pds-podcast' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -52,7 +52,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_featured_image',
 			[
-				'label'   => __( 'Show Featured Image', 'simple-podcasting' ),
+				'label'   => __( 'Show Featured Image', 'pds-podcast' ),
 				'type'    => \Elementor\Controls_Manager::SWITCHER,
 				'default' => 'yes'
 			]
@@ -60,7 +60,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_episode_player',
 			[
-				'label'   => __( 'Show Episode Player', 'simple-podcasting' ),
+				'label'   => __( 'Show Episode Player', 'pds-podcast' ),
 				'type'    => \Elementor\Controls_Manager::SWITCHER,
 				'default' => 'yes'
 			]
@@ -68,7 +68,7 @@ class Elementor_Episode_List_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_episode_excerpt',
 			[
-				'label'   => __( 'Show Episode Excerpt', 'simple-podcasting' ),
+				'label'   => __( 'Show Episode Excerpt', 'pds-podcast' ),
 				'type'    => \Elementor\Controls_Manager::SWITCHER,
 				'default' => 'yes'
 			]

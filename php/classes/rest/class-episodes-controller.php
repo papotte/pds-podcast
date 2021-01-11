@@ -1,6 +1,6 @@
 <?php
 
-namespace SimplePodcasting\Rest;
+namespace PdSPodcast\Rest;
 
 use WP_REST_Controller;
 use WP_REST_Posts_Controller;
@@ -16,7 +16,7 @@ use WP_Query;
  *    from the request parameters.
  *
  * @author Jonathan Bossenger
- * @package Simple Podcasting
+ * @package PdS Podcast
  * @since 1.19.12
  */
 

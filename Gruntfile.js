@@ -2,7 +2,7 @@ module.exports = function (a) {
 	a.initConfig({
 		pkg: a.file.readJSON("package.json"),
 		addtextdomain: {
-			options: {textdomain: "simple-podcasting"},
+			options: {textdomain: "pds-podcast"},
 			update_all_domains: {
 				options: {updateDomains: true},
 				src: ["*.php", "**/*.php", "!.git/**/*", "!bin/**/*", "!node_modules/**/*", "!tests/**/*"]
@@ -14,8 +14,8 @@ module.exports = function (a) {
 				options: {
 					domainPath: "/languages",
 					exclude: [".git/*", "bin/*", "node_modules/*", "tests/*"],
-					mainFile: "simple-podcasting.php",
-					potFilename: "simple-podcasting.pot",
+					mainFile: "pds-podcast.php",
+					potFilename: "pds-podcast.pot",
 					potHeaders: {poedit: true, "x-poedit-keywordslist": true},
 					type: "wp-plugin",
 					updateTimestamp: true

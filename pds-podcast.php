@@ -1,20 +1,20 @@
 <?php
 /**
- * Plugin Name: Simple Podcasting
- * Version: 3.0.0
- * Plugin URI: https://github.com/papotte/simple-podcasting
- * Description: Based on Simple Podcasing
+ * Plugin Name: PdS Podcast
+ * Version: 1.0.0
+ * Plugin URI: https://github.com/papotte/pds-podcast
+ * Description: Based on Seriously Simple Podcasing
  * Author: papotte
  * Author URI: https://github.com/papotte
  * Requires PHP: 5.6
  * Requires at least: 4.4
  * Tested up to: 5.5.3
  *
- * Text Domain: simple-podcasting
+ * Text Domain: pds-podcast
  *
- * @package Simple Podcasting
+ * @package PdS Podcast
  *
- * GitHub Plugin URI: https://github.com/papotte/simple-podcasting
+ * GitHub Plugin URI: https://github.com/papotte/pds-podcast
  *
  */
 
@@ -23,14 +23,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use SimplePodcasting\Blocks\Castos_Blocks;
-use SimplePodcasting\Controllers\Admin_Controller;
-use SimplePodcasting\Controllers\Frontend_Controller;
-use SimplePodcasting\Controllers\Settings_Controller;
-use SimplePodcasting\Controllers\Options_Controller;
-use SimplePodcasting\Rest\Rest_Api_Controller;
-use SimplePodcasting\Controllers\Players_Controller;
-use SimplePodcasting\Integrations\Elementor\Elementor_Widgets;
+use PdSPodcast\Blocks\Castos_Blocks;
+use PdSPodcast\Controllers\Admin_Controller;
+use PdSPodcast\Controllers\Frontend_Controller;
+use PdSPodcast\Controllers\Settings_Controller;
+use PdSPodcast\Controllers\Options_Controller;
+use PdSPodcast\Rest\Rest_Api_Controller;
+use PdSPodcast\Controllers\Players_Controller;
+use PdSPodcast\Integrations\Elementor\Elementor_Widgets;
 
 define( 'SSP_VERSION', '2.5.2' );
 define( 'SSP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

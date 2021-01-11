@@ -1,6 +1,6 @@
 <?php
 
-use SimplePodcasting\Controllers\Players_Controller;
+use PdSPodcast\Controllers\Players_Controller;
 
 class Players_Controller_Test extends \Codeception\TestCase\WPTestCase
 {

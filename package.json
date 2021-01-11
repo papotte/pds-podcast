@@ -1,5 +1,5 @@
 {
-  "name": "simple-podcasting",
+  "name": "pds-podcast",
   "version": "2.2.0",
   "main": "build/index.js",
   "author": "papotte",
@@ -9,7 +9,7 @@
     "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-uglify": "^5.0.0"
   },
-  "description": "[Simple Podcasting](https://castos.com/simple-podcasting/?utm_medium=sspodcasting&utm_source=wordpress&utm_campaign=wpplugin_08_2019) is an easy-to-use podcasting solution for WordPress that is as powerful as it is simple. It uses a native WordPress interface and has minimal settings so as not to distract you from what you really need to do - publish your content.",
+  "description": "[PdS Podcast](https://github.com/pds-podcast/",
   "directories": {
     "test": "tests"
   },
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CastosHQ/simple-podcasting.git"
+    "url": "git+https://github.com/papotte/pds-podcast.git"
   },
   "keywords": [
     "podcast",
@@ -42,9 +42,9 @@
   ],
   "license": "GPL-2.0-only",
   "bugs": {
-    "url": "https://github.com/CastosHQ/simple-podcasting/issues"
+    "url": "https://github.com/papotte/pds-podcast/issues"
   },
-  "homepage": "https://github.com/CastosHQ/simple-podcasting#readme",
+  "homepage": "https://github.com/papotte/pds-podcast#readme",
   "dependencies": {
     "classnames": "^2.2.6",
     "interweave": "^12.5.0",

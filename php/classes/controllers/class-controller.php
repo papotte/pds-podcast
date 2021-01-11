@@ -1,6 +1,6 @@
 <?php
 
-namespace SimplePodcasting\Controllers;
+namespace PdSPodcast\Controllers;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @author      Jonathan Bossenger
  * @category    Class
- * @package     SimplePodcasting/Controllers
+ * @package     PdSPodcast/Controllers
  * @since       1.0
  */
 class Controller {
@@ -111,7 +111,7 @@ class Controller {
 		$this->home_url      = trailingslashit( home_url() );
 		$this->site_url      = trailingslashit( site_url() );
 		$this->token         = 'podcast';
-		$this->plugin_slug   = 'simple-podcasting';
+		$this->plugin_slug   = 'pds-podcast';
 		$this->script_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 	}

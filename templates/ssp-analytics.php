@@ -3,7 +3,7 @@
 
 ?>
 <div style="padding-right: 20px;overflow:hidden;">
-    <h1 style="width:70%;float:left"><?php echo __( 'Podcast Analytics', 'simple-podcasting' ); ?></h1>
+    <h1 style="width:70%;float:left"><?php echo __( 'Podcast Analytics', 'pds-podcast' ); ?></h1>
     <div style="overflow: auto; text-align:right; padding-top:20px;">
         <div style="width:100%;">
             <div style="width:45%;float:left; text-align:left">
@@ -34,13 +34,13 @@ if ( ! empty( $series ) ) {
     }
 
     $html .= '<div class="feed-series-list-container">' . "\n";
-    $html .= '<span id="feed-series-toggle" class="series-open" title="' . __( 'Toggle series list display', 'simple-podcasting' ) . '"></span>' . "\n";
+    $html .= '<span id="feed-series-toggle" class="series-open" title="' . __( 'Toggle series list display', 'pds-podcast' ) . '"></span>' . "\n";
 
     $html .= '<ul id="feed-series-list" class="subsubsub series-open">' . "\n";
     $html .= '<li><a href="' . add_query_arg( array(
             'feed-series' => 'all',
             'settings-updated' => false
-        ) ) . '" class="' . $series_class . '">' . __( 'All Series', 'simple-podcasting' ) . '</a></li>';
+        ) ) . '" class="' . $series_class . '">' . __( 'All Series', 'pds-podcast' ) . '</a></li>';
 
     foreach ( $series as $s ) {
 
