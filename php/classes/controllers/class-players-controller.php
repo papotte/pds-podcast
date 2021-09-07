@@ -65,9 +65,14 @@ class Players_Controller extends Controller {
 	 *
 	 * @param int $id
 	 *
-	 * @return string
+	 * @return array
 	 */
-	public function html_player( $id ) {
+	public function get_html_player_data( $id ) {
+		$audio_file = get_post_meta( $id, 'audio_file', true );
+		if ( empty( $audio_file ) ) {
+			return apply_filters( 'ssp_html_player_data', array() );
+		}
+
 		/**
 		 * Get the episode (post) object
 		 * If the id passed is empty or 0, get_post will return the current post
@@ -75,27 +80,31 @@ class Players_Controller extends Controller {
 		$episode          = get_post( $id );
 		$episode_duration = get_post_meta( $id, 'duration', true );
 		$episode_url      = get_post_permalink( $id );
-		$audio_file       = get_post_meta( $id, 'audio_file', true );
+		$audio_file       = $this->episode_controller->get_episode_player_link( $id );
 		$album_art        = $this->episode_controller->get_album_art( $id );
 		$podcast_title    = get_option( 'ss_podcasting_data_title' );
 		$feed_url         = $this->episode_repository->get_feed_url( $id );
 		$embed_code       = preg_replace( '/(\r?\n){2,}/', '\n\n', get_post_embed_html( 500, 350, $episode ) );
 		$player_mode      = get_option( 'ss_podcasting_player_mode', 'dark' );
+		$show_subscribe_button  = 'on' === get_option( 'ss_podcasting_subscribe_button_enabled', 'on' );
+		$show_share_button      = 'on' === get_option( 'ss_podcasting_share_button_enabled', 'on' );
 		$subscribe_links  = $this->options_handler->get_subscribe_urls( $id, 'subscribe_buttons' );
 
 		// set any other info
 		$template_data = array(
-			'episode'         => $episode,
-			'episode_id'      => $episode->ID,
-			'duration'        => $episode_duration,
-			'episode_url'      => $episode_url,
-			'audio_file'       => $audio_file,
-			'album_art'        => $album_art,
-			'podcast_title'    => $podcast_title,
-			'feed_url'         => $feed_url,
-			'subscribe_links' => $subscribe_links,
-			'embed_code'      => $embed_code,
-			'player_mode'     => $player_mode,
+			'episode'               => $episode,
+			'episode_id'            => $episode->ID,
+			'duration'              => $episode_duration,
+			'episode_url'           => $episode_url,
+			'audio_file'            => $audio_file,
+			'album_art'             => $album_art,
+			'podcast_title'         => $podcast_title,
+			'feed_url'              => $feed_url,
+			'subscribe_links'       => $subscribe_links,
+			'embed_code'            => $embed_code,
+			'player_mode'           => $player_mode,
+			'show_subscribe_button' => $show_subscribe_button,
+			'show_share_button'     => $show_share_button,
 		);
 
 		$template_data = apply_filters( 'ssp_html_player_data', $template_data );
@@ -109,16 +118,20 @@ class Players_Controller extends Controller {
 	 *
 	 * @param $episode_id
 	 *
-	 * @return mixed|void
+	 * @return string
 	 */
 	public function render_html_player( $episode_id ) {
+		$template_data = $this->get_html_player_data( $episode_id );
+		if ( ! array_key_exists( 'audio_file', $template_data ) ) {
+			return '';
+		}
+
 		if ( wp_script_is( 'ssp-castos-player', 'registered' ) && ! wp_script_is( 'ssp-castos-player', 'enqueued' ) ) {
 			wp_enqueue_script( 'ssp-castos-player' );
 		}
 		if ( wp_style_is( 'ssp-castos-player', 'registered' ) && ! wp_style_is( 'ssp-castos-player', 'enqueued' ) ) {
 			wp_enqueue_style( 'ssp-castos-player' );
 		}
-		$template_data = $this->html_player( $episode_id );
 
 		return $this->renderer->render( $template_data, 'players/castos-player' );
 	}
@@ -155,7 +168,7 @@ class Players_Controller extends Controller {
 		 * If the id passed is empty or 0, get_post will return the current post
 		 */
 		$episode  = get_post( $id );
-		$src_file = get_post_meta( $episode->ID, 'audio_file', true );
+		$src_file = $this->episode_controller->get_episode_player_link( $id );
 		$params   = array(
 			'src'     => $src_file,
 			'preload' => 'none',

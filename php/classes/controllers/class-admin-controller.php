@@ -3,10 +3,14 @@
 namespace PdSPodcast\Controllers;
 
 use PdSPodcast\Handlers\Admin_Notifications_Handler;
+use PdSPodcast\Handlers\CPT_Podcast_Handler;
+use PdSPodcast\Handlers\Roles_Handler;
+use PdSPodcast\Handlers\Settings_Handler;
 use PdSPodcast\Handlers\Upgrade_Handler;
 use PdSPodcast\Ajax\Ajax_Handler;
 use PdSPodcast\Handlers\Castos_Handler;
 use PdSPodcast\Helpers\Log_Helper;
+use PdSPodcast\Renderers\Renderer;
 
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
@@ -25,26 +29,55 @@ class Admin_Controller extends Controller
 {
 
 	/**
-	 * @var object instance of Ajax_Handler
+	 * @var Ajax_Handler
 	 */
 	protected $ajax_handler;
 
 	/**
-	 * @var object instance of Upgrade_Handler
+	 * @var Upgrade_Handler
 	 */
 	protected $upgrade_handler;
 
 	/**
-	 * @var object instance of the Admin_Notices_Handler
+	 * @var Admin_Notifications_Handler
 	 */
 	protected $admin_notices_handler;
 
 	/**
-	 * @var object instance of Feed_Controller
+	 * @var Feed_Controller
 	 */
 	protected $feed_controller;
 
+	/**
+	 * @var Onboarding_Controller
+	 */
+	protected $onboarding_controller;
+
+	/**
+	 * @var Log_Helper
+	 * */
 	protected $logger;
+
+	/**
+	 * @var Cron_Controller
+	 */
+	protected $cron_controller;
+
+	/**
+	 * @var Schema_Controller
+	 */
+	protected $schema_controller;
+
+	/**
+	 * @var CPT_Podcast_Handler
+	 */
+	protected $cpt_podcast_handler;
+
+	/**
+	 * @var Roles_Handler
+	 */
+	protected $roles_handler;
+
 
 	/**
 	 * Admin_Controller constructor.
@@ -70,10 +103,21 @@ class Admin_Controller extends Controller
 
 		$this->feed_controller = new Feed_Controller($this->file, $this->version);
 
+		// Todo: dependency injection for other controllers as well
+		$this->onboarding_controller = new Onboarding_Controller($this->file, $this->version, new Renderer(), new Settings_Handler());
+
+		$this->roles_handler = new Roles_Handler();
+
+		$this->cpt_podcast_handler = new CPT_Podcast_Handler($this->roles_handler);
+
 		$this->logger = new Log_Helper();
 
+		$this->cron_controller = new Cron_Controller();
+
+		$this->schema_controller = new Schema_Controller($this->file, $this->version);
+
 		if (is_admin()) {
-			$this->admin_notices_handler = new Admin_Notifications_Handler($this->token);
+			$this->admin_notices_handler = (new Admin_Notifications_Handler($this->token))->bootstrap();
 		}
 
 		// Handle localisation.
@@ -90,11 +134,8 @@ class Admin_Controller extends Controller
 		// Run any updates required
 		add_action('init', array($this, 'update'), 11);
 
-		// Dismiss the upgrade screen and redirect to the last screen the user was on
-		add_action('init', array($this, 'dismiss_upgrade_screen'));
-
 		// Dismiss the categories update screen
-		add_action('init', array($this, 'dismiss_categories_update'));
+		add_action('init', array($this, 'dismiss_categories_update')); //todo: can we move it to 'admin_init'?
 
 		// Dismiss the categories update screen
 		add_action('init', array($this, 'disable_elementor_template_notice'));
@@ -112,13 +153,15 @@ class Admin_Controller extends Controller
 			// process the import form submission
 			add_action('admin_init', array($this, 'submit_import_form'));
 
+			// prevent copying some meta fields
+			add_action('admin_init', array($this, 'prevent_copy_meta'));
+
 			// Episode meta box.
 			add_action('admin_init', array($this, 'register_meta_boxes'));
 			add_action('save_post', array($this, 'meta_box_save'), 10, 1);
 
 			// Update podcast details to Castos when a post is updated or saved
-			add_action('post_updated', array($this, 'update_podcast_details'), 10, 2);
-			add_action('save_post', array($this, 'update_podcast_details'), 10, 2);
+			add_action('save_post', array($this, 'update_podcast_details'), 20, 2);
 
 			// Episode edit screen.
 			add_filter('enter_title_here', array($this, 'enter_title_here'));
@@ -161,9 +204,6 @@ class Admin_Controller extends Controller
 			// Check for, setup or ignore import of existing podcasts.
 			add_action('admin_init', array($this, 'ignore_importing_existing_podcasts'));
 
-			// Show upgrade screen
-			add_action('current_screen', array($this, 'show_upgrade_screen'), 12);
-
 			// Filter Embed HTML Code
 			add_filter('embed_html', array($this, 'ssp_filter_embed_code'), 10, 1);
 
@@ -201,153 +241,13 @@ class Admin_Controller extends Controller
 	}
 
 	/**
-	 * Register 'podcast' post type
+	 * Register SSP_CPT_PODCAST post type
 	 *
 	 * @return void
 	 */
 	public function register_post_type()
 	{
-
-		$labels = array(
-			'name' => _x('Podcast', 'post type general name', 'pds-podcast'),
-			'singular_name' => _x('Podcast', 'post type singular name', 'pds-podcast'),
-			'add_new' => _x('Add New', 'podcast', 'pds-podcast'),
-			'add_new_item' => sprintf(__('Add New %s', 'pds-podcast'), __('Episode', 'pds-podcast')),
-			'edit_item' => sprintf(__('Edit %s', 'pds-podcast'), __('Episode', 'pds-podcast')),
-			'new_item' => sprintf(__('New %s', 'pds-podcast'), __('Episode', 'pds-podcast')),
-			'all_items' => sprintf(__('All %s', 'pds-podcast'), __('Episodes', 'pds-podcast')),
-			'view_item' => sprintf(__('View %s', 'pds-podcast'), __('Episode', 'pds-podcast')),
-			'search_items' => sprintf(__('Search %a', 'pds-podcast'), __('Episodes', 'pds-podcast')),
-			'not_found' => sprintf(__('No %s Found', 'pds-podcast'), __('Episodes', 'pds-podcast')),
-			'not_found_in_trash' => sprintf(__('No %s Found In Trash', 'pds-podcast'), __('Episodes', 'pds-podcast')),
-			'parent_item_colon' => '',
-			'menu_name' => __('Podcast', 'pds-podcast'),
-			'filter_items_list' => sprintf(__('Filter %s list', 'pds-podcast'), __('Episode', 'pds-podcast')),
-			'items_list_navigation' => sprintf(__('%s list navigation', 'pds-podcast'), __('Episode', 'pds-podcast')),
-			'items_list' => sprintf(__('%s list', 'pds-podcast'), __('Episode', 'pds-podcast')),
-		);
-		$slug = apply_filters('ssp_archive_slug', __('podcast', 'pds-podcast'));
-		$args = array(
-			'labels' => $labels,
-			'public' => true,
-			'publicly_queryable' => true,
-			'exclude_from_search' => false,
-			'show_ui' => true,
-			'show_in_menu' => true,
-			'show_in_nav_menus' => true,
-			'query_var' => true,
-			'can_export' => true,
-			'rewrite' => array('slug' => $slug, 'feeds' => true),
-			'capability_type' => 'post',
-			'has_archive' => true,
-			'hierarchical' => false,
-			'supports' => array(
-				'title',
-				'editor',
-				'excerpt',
-				'thumbnail',
-				'page-attributes',
-				'comments',
-				'author',
-				'custom-fields',
-				'publicize',
-			),
-			'menu_position' => 5,
-			'menu_icon' => 'dashicons-microphone',
-			'show_in_rest' => true,
-		);
-
-		$args = apply_filters('ssp_register_post_type_args', $args);
-
-		register_post_type($this->token, $args);
-
-		$this->register_taxonomies();
-		$this->register_meta();
-	}
-
-	/**
-	 * Register taxonomies
-	 * @return void
-	 */
-	private function register_taxonomies()
-	{
-		$podcast_post_types = ssp_post_types(true);
-
-		$series_labels = array(
-			'name' => __('Podcast Series', 'pds-podcast'),
-			'singular_name' => __('Series', 'pds-podcast'),
-			'search_items' => __('Search Series', 'pds-podcast'),
-			'all_items' => __('All Series', 'pds-podcast'),
-			'parent_item' => __('Parent Series', 'pds-podcast'),
-			'parent_item_colon' => __('Parent Series:', 'pds-podcast'),
-			'edit_item' => __('Edit Series', 'pds-podcast'),
-			'update_item' => __('Update Series', 'pds-podcast'),
-			'add_new_item' => __('Add New Series', 'pds-podcast'),
-			'new_item_name' => __('New Series Name', 'pds-podcast'),
-			'menu_name' => __('Series', 'pds-podcast'),
-			'view_item' => __('View Series', 'pds-podcast'),
-			'popular_items' => __('Popular Series', 'pds-podcast'),
-			'separate_items_with_commas' => __('Separate series with commas', 'pds-podcast'),
-			'add_or_remove_items' => __('Add or remove Series', 'pds-podcast'),
-			'choose_from_most_used' => __('Choose from the most used Series', 'pds-podcast'),
-			'not_found' => __('No Series Found', 'pds-podcast'),
-			'items_list_navigation' => __('Series list navigation', 'pds-podcast'),
-			'items_list' => __('Series list', 'pds-podcast'),
-		);
-
-		$series_args = array(
-			'public' => true,
-			'hierarchical' => true,
-			'rewrite' => array('slug' => apply_filters('ssp_series_slug', 'series')),
-			'labels' => $series_labels,
-			'show_in_rest' => true,
-			'show_admin_column' => true,
-		);
-
-		$series_args = apply_filters('ssp_register_taxonomy_args', $series_args, 'series');
-
-		register_taxonomy(apply_filters('ssp_series_taxonomy', 'series'), $podcast_post_types, $series_args);
-
-		$labels = array(
-			'name' => __('Tags', 'pds-podcast'),
-			'singular_name' => __('Tag', 'pds-podcast'),
-			'search_items' => __('Search Tags', 'pds-podcast'),
-			'popular_items' => __('Popular Tags', 'pds-podcast'),
-			'all_items' => __('All Tags', 'pds-podcast'),
-			'parent_item' => null,
-			'parent_item_colon' => null,
-			'edit_item' => __('Edit Tag', 'pds-podcast'),
-			'update_item' => __('Update Tag', 'pds-podcast'),
-			'add_new_item' => __('Add New Tag', 'pds-podcast'),
-			'new_item_name' => __('New Tag Name', 'pds-podcast'),
-			'separate_items_with_commas' => __('Separate tags with commas', 'pds-podcast'),
-			'add_or_remove_items' => __('Add or remove tags', 'pds-podcast'),
-			'choose_from_most_used' => __('Choose from the most used tags', 'pds-podcast'),
-			'not_found' => __('No tags found.', 'pds-podcast'),
-			'menu_name' => __('Tags', 'pds-podcast'),
-		);
-
-		$args = array(
-			'hierarchical' => false,
-			'labels' => $labels,
-			'show_ui' => true,
-			'show_admin_column' => true,
-			'update_count_callback' => '_update_post_term_count',
-			'query_var' => true,
-			'rewrite' => array('slug' => 'podcast_tags'),
-		);
-
-		// Add Tags to podcast post type
-		if (apply_filters('ssp_use_post_tags', true)) {
-			register_taxonomy_for_object_type('post_tag', $this->token);
-		} else {
-			/**
-			 * Uses post tags by default. Alternative option added in as some users
-			 * want to filter by podcast tags only
-			 */
-			register_taxonomy('podcast_tags', $podcast_post_types, $args);
-		}
-
+		$this->cpt_podcast_handler->register_post_type();
 	}
 
 	/**
@@ -369,26 +269,58 @@ class Admin_Controller extends Controller
 	}
 
 	/**
+	 * @param \WP_Term $term
+	 *
+	 * @return int|null
+	 * @since 2.7.3
+	 *
+	 */
+	public function get_series_image_id($term = null)
+	{
+		if (empty($term)) {
+			return null;
+		}
+
+		return get_term_meta($term->term_id, $this->token . '_series_image_settings', true);
+	}
+
+	/**
+	 * @param \WP_Term $term
+	 *
+	 * @return int|null
+	 * @since 2.7.3
+	 *
+	 */
+	public function get_series_image_src($term)
+	{
+		$media_id = $this->get_series_image_id($term);
+
+		$default_image = esc_url($this->assets_url . 'images/no-image.png');
+
+		if (empty($media_id)) {
+			return $default_image;
+		}
+
+		$image_width = "auto";
+		$image_height = "auto";
+
+		$src = wp_get_attachment_image_src($media_id, array($image_width, $image_height));
+
+		return !empty($src[0]) ? $src[0] : $default_image;
+	}
+
+	/**
 	 * Series Image Uploader metabox for add/edit.
 	 */
 	public function series_image_uploader($taxonomy, $mode = 'CREATE', $term = null)
 	{
 		$series_settings = $this->token . '_series_image_settings';
-		// Define a default image.
+
 		$default_image = esc_url($this->assets_url . 'images/no-image.png');
-		if ($term !== null) {
-			$media_id = get_term_meta($term->term_id, $series_settings, true);
-		}
+		$media_id = $this->get_series_image_id($term) ?: '';
+		$src = $this->get_series_image_src($term);
 		$image_width = "auto";
 		$image_height = "auto";
-
-		if ($mode == 'UPDATE' && !empty($media_id)) {
-			$image_attributes = wp_get_attachment_image_src($media_id, array($image_width, $image_height));
-			$src = $image_attributes[0];
-		} else {
-			$src = $default_image;
-			$media_id = '';
-		}
 
 		$series_img_title = __('Series Image', 'pds-podcast');
 		$upload_btn_text = __('Choose series image', 'pds-podcast');
@@ -484,36 +416,6 @@ HTML;
 		$castos_handler->upload_series_to_podmotor($series_data);
 	}
 
-	public function register_meta()
-	{
-		global $wp_version;
-
-		// The enhanced register_meta function is only available for WordPress 4.6+
-		if (version_compare($wp_version, '4.6', '<')) {
-			return;
-		}
-
-		// Get all displayed custom fields
-		$fields = $this->custom_fields();
-
-		// Add 'filesize_raw' as this is not included in the displayed field options
-		$fields['filesize_raw'] = array(
-			'meta_description' => __('The raw file size of the podcast episode media file in bytes.', 'pds-podcast'),
-		);
-
-		foreach ($fields as $key => $data) {
-
-			$args = array(
-				'type' => 'string',
-				'description' => isset($data['meta_description']) ? $data['meta_description'] : "",
-				'single' => true,
-				'show_in_rest' => true,
-			);
-
-			register_meta('post', $key, $args);
-		}
-
-	}
 
 	/**
 	 * Register columns for podcast list table
@@ -605,30 +507,13 @@ HTML;
 		switch ($column_name) {
 			case 'series_feed_url':
 				$series = get_term($term_id, 'series');
-				$series_slug = $series->slug;
-
-				if (get_option('permalink_structure')) {
-					$feed_slug = apply_filters('ssp_feed_slug', $this->token);
-					$feed_url = $this->home_url . 'feed/' . $feed_slug . '/' . $series_slug;
-				} else {
-					$feed_url = add_query_arg(
-						array(
-							'feed' => $this->token,
-							'podcast_series' => $series_slug,
-						),
-						$this->home_url
-					);
-				}
+				$feed_url = $this->get_series_feed_url($series);
 
 				$column_data = '<a href="' . esc_attr($feed_url) . '" target="_blank">' . esc_html($feed_url) . '</a>';
 				break;
 			case 'series_image':
 				$series = get_term($term_id, 'series');
-				$series_settings = $this->token . '_series_image_settings';
-				$default_image = esc_url($this->assets_url . 'images/no-image.png');
-				$media_id = get_term_meta($term_id, $series_settings, true);
-				$image_attributes = wp_get_attachment_image_src($media_id);
-				$source = (!is_null($image_attributes[0])) ? $image_attributes[0] : $default_image;
+				$source = $this->get_series_image_src($series);
 				$column_data = <<<HTML
 <img id="{$series->name}_image_preview" src="{$source}" width="auto" height="auto" style="max-width:50px;" />
 HTML;
@@ -636,6 +521,33 @@ HTML;
 		}
 
 		return $column_data;
+	}
+
+	/**
+	 * @param \WP_Term $term
+	 *
+	 * @return string
+	 * @since 2.7.3
+	 *
+	 */
+	public function get_series_feed_url($term)
+	{
+		$series_slug = $term->slug;
+
+		if (get_option('permalink_structure')) {
+			$feed_slug = apply_filters('ssp_feed_slug', $this->token);
+			$feed_url = $this->home_url . 'feed/' . $feed_slug . '/' . $series_slug;
+		} else {
+			$feed_url = add_query_arg(
+				array(
+					'feed' => $this->token,
+					'podcast_series' => $series_slug,
+				),
+				$this->home_url
+			);
+		}
+
+		return $feed_url;
 	}
 
 	/**
@@ -740,11 +652,11 @@ HTML;
 
 		$html = '';
 
-		$html .= '<input type="hidden" name="simple_' . $this->token . '_nonce" id="simple_' . $this->token . '_nonce" value="' . wp_create_nonce(plugin_basename($this->dir)) . '" />';
+		$html .= '<input type="hidden" name="pds_' . $this->token . '_nonce" id="pds_' . $this->token . '_nonce" value="' . wp_create_nonce(plugin_basename($this->dir)) . '" />';
 
 		if (0 < count($field_data)) {
 
-			$html .= '<input id="simple_post_id" type="hidden" value="' . $post_id . '" />';
+			$html .= '<input id="pds_post_id" type="hidden" value="' . $post_id . '" />';
 
 			foreach ($field_data as $k => $v) {
 				$data = $v['default'];
@@ -768,7 +680,7 @@ HTML;
 						$upload_button = '<input type="button" class="button" id="upload_' . esc_attr($k) . '_button" value="' . __('Upload File', 'pds-podcast') . '" data-uploader_title="' . __('Choose a file', 'pds-podcast') . '" data-uploader_button_text="' . __('Insert podcast file', 'pds-podcast') . '" />';
 						if (ssp_is_connected_to_castos()) {
 							$upload_button = '<div id="ssp_upload_container" style="display: inline;">';
-							$upload_button .= '  <button id="ssp_select_file" href="javascript:">Select podcast file</button>';
+							$upload_button .= '  <button id="ssp_select_file" href="javascript:">Select file</button>';
 							$upload_button .= '</div>';
 						}
 
@@ -785,7 +697,18 @@ HTML;
 									<span class="description">' . wp_kses_post($v['description']) . '</span>
 								</p>' . "\n";
 						break;
-
+					case 'image':
+						$html .= '<p>
+									<span class="ssp-episode-details-label">' . wp_kses_post($v['name']) . '</span><br/>
+									<img id="' . esc_attr($k) . '_preview" src="' . esc_attr($data) . '" style="max-width:200px;height:auto;margin:20px 0;" />
+									<br/>
+									<input id="' . esc_attr($k) . '_button" type="button" class="button" value="' . __('Upload new image', 'pds-podcast') . '" />
+									<input id="' . esc_attr($k) . '_delete" type="button" class="button" value="' . __('Remove image', 'pds-podcast') . '" />
+									<input id="' . esc_attr($k) . '" type="hidden" name="' . esc_attr($k) . '" value="' . esc_attr($data) . '"/>
+									<br/>
+									<span class="description">' . wp_kses_post($v['description']) . '</span>
+								<p/>' . "\n";
+						break;
 					case 'checkbox':
 						$html .= '<p><input name="' . esc_attr($k) . '" type="checkbox" class="' . esc_attr($class) . '" id="' . esc_attr($k) . '" ' . checked('on', $data, false) . ' /> <label for="' . esc_attr($k) . '"><span>' . wp_kses_post($v['description']) . '</span></label></p>' . "\n";
 						break;
@@ -889,7 +812,7 @@ HTML;
 		}
 
 		// Security check
-		if (!isset($_POST['simple_' . $this->token . '_nonce']) || !(isset($_POST['simple_' . $this->token . '_nonce']) && wp_verify_nonce($_POST['simple_' . $this->token . '_nonce'], plugin_basename($this->dir)))) {
+		if (!isset($_POST['pds' . $this->token . '_nonce']) || !(isset($_POST['pds_' . $this->token . '_nonce']) && wp_verify_nonce($_POST['pds_' . $this->token . '_nonce'], plugin_basename($this->dir)))) {
 			return $post_id;
 		}
 
@@ -971,181 +894,7 @@ HTML;
 	 */
 	public function custom_fields()
 	{
-		global $pagenow;
-		$is_itunes_fields_enabled = get_option('ss_podcasting_itunes_fields_enabled');
-		$is_buzzsprout_enabled = get_option('ss_podcasting_buzzsprout_enabled');
-		$fields = array();
-
-		if ($is_buzzsprout_enabled && $is_buzzsprout_enabled == 'on') {
-			$fields['buzzsprout_id'] = array(
-				'name' => __('Buzzsprout episode ID:', 'pds-podcast'),
-				'description' => __('The episode ID on Buzzsprout used to embed the player.', 'pds-podcast'),
-				'type' => 'text',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('The episode ID on Buzzsprout used to embed the player.', 'pds-podcast'),
-			);
-			$fields['buzzsprout_slug'] = array(
-				'name' => __('Buzzsprout episode slug:', 'pds-podcast'),
-				'description' => __('The episode slug on Buzzsprout used to embed the player.', 'pds-podcast'),
-				'type' => 'text',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('the episode slug on Buzzsprout used to embed the player.', 'pds-podcast'),
-			);
-			$fields['date_recorded'] = array(
-				'name' => __('Date recorded:', 'pds-podcast'),
-				'description' => __('The date on which this episode was recorded.', 'pds-podcast'),
-				'type' => 'datepicker',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('The date on which the podcast episode was recorded.', 'pds-podcast'),
-			);
-		} else {
-			$fields['episode_type'] = array(
-				'name' => __('Episode type:', 'pds-podcast'),
-				'description' => '',
-				'type' => 'radio',
-				'default' => 'audio',
-				'options' => array(
-					'audio' => __('Audio', 'pds-podcast'),
-					'video' => __('Video', 'pds-podcast')
-				),
-				'section' => 'info',
-				'meta_description' => __('The type of podcast episode - either Audio or Video', 'pds-podcast'),
-			);
-
-			// In v1.14+ the `audio_file` field can actually be either audio or video, but we're keeping the field name here for backwards compatibility
-			$fields['audio_file'] = array(
-				'name' => __('Podcast file:', 'pds-podcast'),
-				'description' => __('Upload the primary podcast file or paste the file URL here.', 'pds-podcast'),
-				'type' => 'file',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('The full URL for the podcast episode media file.', 'pds-podcast'),
-			);
-
-			//
-			if (ssp_is_connected_to_castos()) {
-				$fields['podmotor_file_id'] = array(
-					'type' => 'hidden',
-					'default' => '',
-					'section' => 'info',
-					'meta_description' => __('SimpleHosting file id.', 'pds-podcast'),
-				);
-			}
-
-			$fields['duration'] = array(
-				'name' => __('Duration:', 'pds-podcast'),
-				'description' => __('Duration of podcast file for display (calculated automatically if possible).', 'pds-podcast'),
-				'type' => 'text',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('The duration of the file for display purposes.', 'pds-podcast'),
-			);
-
-			$fields['filesize'] = array(
-				'name' => __('File size:', 'pds-podcast'),
-				'description' => __('Size of the podcast file for display (calculated automatically if possible).', 'pds-podcast'),
-				'type' => 'text',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('The size of the podcast episode for display purposes.', 'pds-podcast'),
-			);
-
-			if (ssp_is_connected_to_castos()) {
-				$fields['filesize_raw'] = array(
-					'type' => 'hidden',
-					'default' => '',
-					'section' => 'info',
-					'meta_description' => __('Raw size of the podcast episode.', 'pds-podcast'),
-				);
-			}
-
-			$fields['date_recorded'] = array(
-				'name' => __('Date recorded:', 'pds-podcast'),
-				'description' => __('The date on which this episode was recorded.', 'pds-podcast'),
-				'type' => 'datepicker',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('The date on which the podcast episode was recorded.', 'pds-podcast'),
-			);
-
-			$fields['explicit'] = array(
-				'name' => __('Explicit:', 'pds-podcast'),
-				'description' => __('Mark this episode as explicit.', 'pds-podcast'),
-				'type' => 'checkbox',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('Indicates whether the episode is explicit.', 'pds-podcast'),
-			);
-
-			$fields['block'] = array(
-				'name' => __('Block:', 'pds-podcast'),
-				'description' => __('Block this episode from appearing in the iTunes & Google Play podcast libraries.', 'pds-podcast'),
-				'type' => 'checkbox',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('Indicates whether this specific episode should be blocked from the iTunes and Google Play Podcast libraries.', 'pds-podcast'),
-			);
-		}
-		if ($is_itunes_fields_enabled && $is_itunes_fields_enabled == 'on') {
-			/**
-			 * New iTunes Tag Announced At WWDC 2017
-			 */
-			$fields['itunes_episode_number'] = array(
-				'name' => __('iTunes Episode Number:', 'pds-podcast'),
-				'description' => __('The iTunes Episode Number. Leave Blank If None.', 'pds-podcast'),
-				'type' => 'number',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('The iTunes Episode Number. Leave Blank If None.', 'pds-podcast'),
-			);
-
-			/**
-			 * New iTunes Tag Announced At WWDC 2017
-			 */
-			$fields['itunes_title'] = array(
-				'name' => __('iTunes Episode Title (Exclude Your Series / Show Number):', 'pds-podcast'),
-				'description' => __('The iTunes Episode Title. NO Series / Show Number Should Be Included.', 'pds-podcast'),
-				'type' => 'text',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('The iTunes Episode Title. NO Series / Show Number Should Be Included', 'pds-podcast'),
-			);
-
-			/**
-			 * New iTunes Tag Announced At WWDC 2017
-			 */
-			$fields['itunes_season_number'] = array(
-				'name' => __('iTunes Season Number:', 'pds-podcast'),
-				'description' => __('The iTunes Season Number. Leave Blank If None.', 'pds-podcast'),
-				'type' => 'number',
-				'default' => '',
-				'section' => 'info',
-				'meta_description' => __('The iTunes Season Number. Leave Blank If None.', 'pds-podcast'),
-			);
-
-			/**
-			 * New iTunes Tag Announced At WWDC 2017
-			 */
-			$fields['itunes_episode_type'] = array(
-				'name' => __('iTunes Episode Type:', 'pds-podcast'),
-				'description' => '',
-				'type' => 'select',
-				'default' => '',
-				'options' => array(
-					'' => __('Please Select', 'pds-podcast'),
-					'full' => __('Full: For Normal Episodes', 'pds-podcast'),
-					'trailer' => __('Trailer: Promote an Upcoming Show', 'pds-podcast'),
-					'bonus' => __('Bonus: For Extra Content Related To a Show', 'pds-podcast')
-				),
-				'section' => 'info',
-				'meta_description' => __('The iTunes Episode Type', 'pds-podcast'),
-			);
-		}
-
-		return apply_filters('ssp_episode_fields', $fields);
+		return $this->cpt_podcast_handler->custom_fields();
 	}
 
 	/**
@@ -1298,7 +1047,7 @@ HTML;
 	public function enqueue_admin_styles($hook)
 	{
 
-		wp_register_style('ssp-admin', esc_url($this->assets_url . 'css/admin.css'), array(), $this->version);
+		wp_register_style('ssp-admin', esc_url($this->assets_url . 'admin/css/admin.css'), array(), $this->version);
 		wp_enqueue_style('ssp-admin');
 
 		// Datepicker
@@ -1458,6 +1207,7 @@ HTML;
 	public function deactivate()
 	{
 		flush_rewrite_rules();
+		$this->roles_handler->remove_custom_roles();
 	}
 
 	/**
@@ -1480,10 +1230,16 @@ HTML;
 
 	/**
 	 * Update 'enclosure' meta field to 'audio_file' meta field
+	 * Todo: I don't see any place where 'ssp_update_enclosures' query is generated. Is this function obsolete?
+	 *
 	 * @return void
 	 */
 	public function update_enclosures()
 	{
+
+		if (!current_user_can('manage_podcast')) {
+			return;
+		}
 
 		// Allow forced re-run of update if necessary
 		if (isset($_GET['ssp_update_enclosures'])) {
@@ -1544,6 +1300,26 @@ HTML;
 	 */
 	public function admin_footer_text($footer_text)
 	{
+
+		// Check to make sure we're on a SSP settings page
+		if ((isset($_GET['page']) && 'podcast_settings' == esc_attr($_GET['page'])) && apply_filters('ssp_display_admin_footer_text', true)) {
+
+			// Change the footer text
+			if (!get_option('ssp_admin_footer_text_rated')) {
+				$footer_text = sprintf(__('If you like %1$sPdS Podcast%2$s please leave a %3$s&#9733;&#9733;&#9733;&#9733;&#9733;%4$s rating. A huge thank you in advance!', 'pds-podcast'), '<strong>', '</strong>', '<a href="https://wordpress.org/support/plugin/pds-podcast/reviews/?rate=5#new-post" target="_blank" class="ssp-rating-link" data-rated="' . __('Thanks!', 'pds-podcast') . '">', '</a>');
+				$footer_text .= sprintf("<script type='text/javascript'>
+					(function($){
+					  $('a.ssp-rating-link').click(function() {
+						$.post( '" . admin_url('admin-ajax.php') . "', { action: 'ssp_rated', nonce: '%s' } );
+						$(this).parent().text( $(this).data( 'rated' ) );
+					})})(jQuery);
+				</script>", wp_create_nonce('ssp_rated'));
+			} else {
+				$footer_text = sprintf(__('%1$sThank you for publishing with %2$sPdS Podcast%3$s.%4$s', 'pds-podcast'), '<span id="footer-thankyou">', '<a href="http://www.PdSPodcast.com/" target="_blank">', '</a>', '</span>');
+			}
+
+		}
+
 		return $footer_text;
 	}
 
@@ -1568,8 +1344,8 @@ HTML;
 	/**
 	 * Send the podcast details to Castos
 	 *
-	 * @param $id
-	 * @param $post
+	 * @param int $id
+	 * @param \WP_Post $post
 	 */
 	public function update_podcast_details($id, $post)
 	{
@@ -1626,16 +1402,24 @@ HTML;
 		$response = $castos_handler->upload_podcast_to_podmotor($post);
 
 		if ('success' === $response['status']) {
-			set_transient($cache_key, true, 60);
+			set_transient($cache_key, true, 30);
 			$podmotor_episode_id = $response['episode_id'];
 			if ($podmotor_episode_id) {
 				update_post_meta($id, 'podmotor_episode_id', $podmotor_episode_id);
 			}
-			add_action('admin_notices', array($this->admin_notices_handler, 'castos_api_episode_success'));
-		} else {
-			add_action('admin_notices', array($this->admin_notices_handler, 'castos_api_error'));
-		}
+			$this->admin_notices_handler->add_predefined_flash_notice(
+				Admin_Notifications_Handler::NOTICE_API_EPISODE_SUCCESS
+			);
 
+			// if uploading was scheduled before, lets unschedule it
+			delete_post_meta($id, 'podmotor_schedule_upload');
+		} else {
+			// schedule uploading with a cronjob
+			update_post_meta($id, 'podmotor_schedule_upload', true);
+			$this->admin_notices_handler->add_predefined_flash_notice(
+				Admin_Notifications_Handler::NOTICE_API_EPISODE_ERROR
+			);
+		}
 	}
 
 	/**
@@ -1645,14 +1429,6 @@ HTML;
 	 */
 	public function delete_post($post_id)
 	{
-
-		/**
-		 * Don't trigger this if we're not connected to Podcast Motor
-		 */
-		if (!ssp_is_connected_to_castos()) {
-			return;
-		}
-
 		$post = get_post($post_id);
 
 		/**
@@ -1662,8 +1438,19 @@ HTML;
 			return;
 		}
 
+		/**
+		 * Don't trigger this if we're not connected to Podcast Motor
+		 */
+		if (!ssp_is_connected_to_castos()) {
+			return;
+		}
+
 		$castos_handler = new Castos_Handler();
+
 		$castos_handler->delete_podcast($post);
+
+		delete_post_meta($post_id, 'podmotor_file_id');
+		delete_post_meta($post_id, 'podmotor_episode_id');
 	}
 
 	/**
@@ -1671,69 +1458,12 @@ HTML;
 	 */
 	public function ignore_importing_existing_podcasts()
 	{
-		if (isset($_GET['podcast_import_action']) && 'ignore' == $_GET['podcast_import_action']) {
+		if ('ignore' === filter_input(INPUT_GET, 'podcast_import_action') &&
+			wp_verify_nonce($_GET['nonce'], 'podcast_import_action') &&
+			current_user_can('manage_podcast')
+		) {
 			update_option('ss_podcasting_podmotor_import_podcasts', 'false');
 		}
-	}
-
-	/**
-	 * Show upgrade screen when users upgrade from 1.15.1
-	 */
-	public function show_upgrade_screen()
-	{
-		// first check that we should show the screen
-		$post_type = (isset($_GET['post_type']) ? filter_var($_GET['post_type'], FILTER_SANITIZE_STRING) : '');
-		if (empty($post_type) || $this->token !== $post_type) {
-			return;
-		}
-
-		$page = (isset($_GET['page']) ? filter_var($_GET['page'], FILTER_SANITIZE_STRING) : '');
-		if (!empty($page) && 'upgrade' === $page) {
-			return;
-		}
-
-		// check if the user has dismissed this page previously
-		$ssp_upgrade_page_visited = get_option('ssp_upgrade_page_visited', '');
-		if ('true' === $ssp_upgrade_page_visited) {
-			return;
-		}
-
-		// check version number is upgraded
-		$ssp_version = get_option('ssp_version', '');
-
-		// The enhanced register_meta function is only available for WordPress 4.6+
-		if (version_compare($ssp_version, '1.15.1', '<')) {
-			return;
-		}
-
-		$current_url = rawurlencode((isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-
-		// redirect
-		$url = add_query_arg(array(
-			'post_type' => $this->token,
-			'page' => 'upgrade',
-			'ssp_redirect' => $current_url
-		), admin_url('edit.php'));
-		wp_redirect($url);
-		exit;
-	}
-
-	/**
-	 * Dismiss upgrade screen when user clicks 'Dismiss' link
-	 */
-	public function dismiss_upgrade_screen()
-	{
-		// Check if the ssp_dismiss_upgrade variable exists
-		$ssp_dismiss_upgrade = (isset($_GET['ssp_dismiss_upgrade']) ? filter_var($_GET['ssp_dismiss_upgrade'], FILTER_SANITIZE_STRING) : '');
-		if (empty($ssp_dismiss_upgrade)) {
-			return;
-		}
-
-		$ssp_redirect = (isset($_GET['ssp_redirect']) ? filter_var($_GET['ssp_redirect'], FILTER_SANITIZE_STRING) : '');
-
-		update_option('ssp_upgrade_page_visited', 'true');
-		wp_redirect($ssp_redirect);
-		exit;
 	}
 
 	/**
@@ -1783,7 +1513,7 @@ HTML;
 				)
 			);
 			if (!empty($external_rss)) {
-				$import_post_type = 'podcast';
+				$import_post_type = SSP_CPT_PODCAST;
 				if (isset($_POST['import_post_type'])) {
 					$import_post_type = sanitize_text_field($_POST['import_post_type']);
 				}
@@ -1845,9 +1575,13 @@ HTML;
 	{
 		// Check if the ssp_dismiss_categories_update variable exists
 		$ssp_dismiss_categories_update = (isset($_GET['ssp_dismiss_categories_update']) ? sanitize_text_field($_GET['ssp_dismiss_categories_update']) : '');
-		if (empty($ssp_dismiss_categories_update)) {
+		if (!$ssp_dismiss_categories_update ||
+			!wp_verify_nonce($_GET['nonce'], 'dismiss_categories_update') ||
+			!current_user_can('manage_podcast')
+		) {
 			return;
 		}
+
 		update_option('ssp_categories_update_dismissed', 'true');
 	}
 
@@ -1862,6 +1596,34 @@ HTML;
 			return;
 		}
 		update_option('ss_podcasting_elementor_templates_disabled', 'true');
+	}
+
+	/**
+	 * Prevents copying some podcast meta fields
+	 */
+	public function prevent_copy_meta()
+	{
+		add_action('wp_insert_post', function ($post_id, $post, $update) {
+			if ($update || $this->token != $post->post_type) {
+				return;
+			}
+
+			// All the main copy plugins use redirection after creating the post and it's meta
+			add_filter('wp_redirect', function ($location) use ($post_id) {
+				$exclusions = [
+					'podmotor_file_id',
+					'podmotor_episode_id',
+					'audio_file',
+					'enclosure'
+				];
+
+				foreach ($exclusions as $exclusion) {
+					delete_post_meta($post_id, $exclusion);
+				}
+
+				return $location;
+			});
+		}, 10, 3);
 	}
 
 }

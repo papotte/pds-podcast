@@ -1,5 +1,184 @@
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Roboto:wght@400;500&display=swap');
+/* devanagari */
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/poppins-400-devanagari.woff2) format('woff2');
+	unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+/* latin-ext */
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/poppins-400-latin-ext.woff2) format('woff2');
+	unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/poppins-400-latin.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* devanagari */
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/poppins-500-devanagari.woff2) format('woff2');
+	unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+/* latin-ext */
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/poppins-500-latin-ext.woff2) format('woff2');
+	unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/poppins-500-latin.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/roboto-400-cirillic-ext.woff2) format('woff2');
+	unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/roboto-400-cirillic.woff2) format('woff2');
+	unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/roboto-400-greek-ext.woff2) format('woff2');
+	unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/roboto-400-greek.woff2) format('woff2');
+	unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/roboto-400-vietnamese.woff2) format('woff2');
+	unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/roboto-400-latin-ext.woff2) format('woff2');
+	unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/roboto-400-latin.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/roboto-500-cyrillic-ext.woff2) format('woff2');
+	unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/roboto-500-cyrillic.woff2) format('woff2');
+	unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/roboto-500-greek-ext.woff2) format('woff2');
+	unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/roboto-500-greek.woff2) format('woff2');
+	unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/roboto-500-vietnamese.woff2) format('woff2');
+	unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/roboto-500-latin-ext.woff2) format('woff2');
+	unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/roboto-500-latin.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 /* Defaults */
 .castos-player {
@@ -31,6 +210,8 @@
 .castos-player .player__artwork {
     line-height: 0;
     z-index: 0;
+	height: 150px;
+	width: 150px;
 }
 .castos-player .player__artwork:hover {
     cursor: pointer;
@@ -238,7 +419,7 @@
     height: 20px;
     background-color: #fff;
 }
-.castos-player .subscribe-icons .apple-podcasts span,
+.castos-player .subscribe-icons .apple_podcasts span,
 .castos-player .subscribe-icons .itunes span {
     mask-image: url('images/player/images/brands/icon-brand-apple-podcasts.svg');
     -webkit-mask-image: url('images/player/images/brands/icon-brand-apple-podcasts.svg');
@@ -265,7 +446,7 @@
     -webkit-mask-image: url('images/player/images/brands/icon-brand-castro.svg');
 }
 
-.castos-player .subscribe-icons .google-play span {
+.castos-player .subscribe-icons .google_play span {
     mask-image: url('images/player/images/brands/icon-brand-google-play.svg');
     -webkit-mask-image: url('images/player/images/brands/icon-brand-google-play.svg');
 }
@@ -276,14 +457,195 @@
 }
 
 .castos-player .subscribe-icons .tunein span {
-    mask-image: url('images/player/images/brands/tunein.svg');
-    -webkit-mask-image: url('images/player/images/brands/tunein.svg');
+    mask-image: url('images/player/images/brands/icon-brand-tunein.svg');
+    -webkit-mask-image: url('images/player/images/brands/icon-brand-tunein.svg');
 }
 
 .castos-player .subscribe-icons .castbox span {
     mask-image: url('images/player/images/brands/castbox.svg');
     -webkit-mask-image: url('images/player/images/brands/castbox.svg');
 }
+.castos-player .subscribe-icons .acast span {
+	mask-image: url('images/player/images/brands/acast.svg');
+	-webkit-mask-image: url('images/player/images/brands/acast.svg');
+}
+.castos-player .subscribe-icons .amazon span {
+	mask-image: url('images/player/images/brands/amazon.svg');
+	-webkit-mask-image: url('images/player/images/brands/amazon.svg');
+}
+.castos-player .subscribe-icons .anchor span {
+	mask-image: url('images/player/images/brands/anchor.svg');
+	-webkit-mask-image: url('images/player/images/brands/anchor.svg');
+}
+.castos-player .subscribe-icons .blubrry span {
+	mask-image: url('images/player/images/brands/blubrry.svg');
+	-webkit-mask-image: url('images/player/images/brands/blubrry.svg');
+}
+.castos-player .subscribe-icons .breaker span {
+	mask-image: url('images/player/images/brands/breaker.svg');
+	-webkit-mask-image: url('images/player/images/brands/breaker.svg');
+}
+.castos-player .subscribe-icons .bullhorn span {
+	mask-image: url('images/player/images/brands/bullhorn.svg');
+	-webkit-mask-image: url('images/player/images/brands/bullhorn.svg');
+}
+.castos-player .subscribe-icons .clammr span {
+	mask-image: url('images/player/images/brands/clammr.svg');
+	-webkit-mask-image: url('images/player/images/brands/clammr.svg');
+}
+.castos-player .subscribe-icons .downcast span {
+	mask-image: url('images/player/images/brands/downcast.svg');
+	-webkit-mask-image: url('images/player/images/brands/downcast.svg');
+}
+.castos-player .subscribe-icons .google_podcasts span {
+	mask-image: url('images/player/images/brands/google-podcasts.svg');
+	-webkit-mask-image: url('images/player/images/brands/google-podcasts.svg');
+}
+.castos-player .subscribe-icons .himalaya_com span {
+	mask-image: url('images/player/images/brands/himalaya-com.svg');
+	-webkit-mask-image: url('images/player/images/brands/himalaya-com.svg');
+}
+.castos-player .subscribe-icons .libsyn span {
+	mask-image: url('images/player/images/brands/libsyn.svg');
+	-webkit-mask-image: url('images/player/images/brands/libsyn.svg');
+}
+.castos-player .subscribe-icons .miro span {
+	mask-image: url('images/player/images/brands/miro.svg');
+	-webkit-mask-image: url('images/player/images/brands/miro.svg');
+}
+.castos-player .subscribe-icons .mixcloud span {
+	mask-image: url('images/player/images/brands/mixcloud.svg');
+	-webkit-mask-image: url('images/player/images/brands/mixcloud.svg');
+}
+.castos-player .subscribe-icons .pandora span {
+	mask-image: url('images/player/images/brands/pandora.svg');
+	-webkit-mask-image: url('images/player/images/brands/pandora.svg');
+}
+.castos-player .subscribe-icons .patreon span {
+	mask-image: url('images/player/images/brands/patreon.svg');
+	-webkit-mask-image: url('images/player/images/brands/patreon.svg');
+}
+.castos-player .subscribe-icons .player_fm span {
+	mask-image: url('images/player/images/brands/player-fm.svg');
+	-webkit-mask-image: url('images/player/images/brands/player-fm.svg');
+}
+.castos-player .subscribe-icons .plex span {
+	mask-image: url('images/player/images/brands/plex.svg');
+	-webkit-mask-image: url('images/player/images/brands/plex.svg');
+}
+.castos-player .subscribe-icons .podbay span {
+	mask-image: url('images/player/images/brands/podbay.svg');
+	-webkit-mask-image: url('images/player/images/brands/podbay.svg');
+}
+.castos-player .subscribe-icons .podbean span {
+	mask-image: url('images/player/images/brands/podbean.svg');
+	-webkit-mask-image: url('images/player/images/brands/podbean.svg');
+}
+.castos-player .subscribe-icons .podcast_addict span {
+	mask-image: url('images/player/images/brands/podcast-addict.svg');
+	-webkit-mask-image: url('images/player/images/brands/podcast-addict.svg');
+}
+.castos-player .subscribe-icons .podchaser span {
+	mask-image: url('images/player/images/brands/podchaser.svg');
+	-webkit-mask-image: url('images/player/images/brands/podchaser.svg');
+}
+.castos-player .subscribe-icons .podfan span {
+	mask-image: url('images/player/images/brands/podfan.svg');
+	-webkit-mask-image: url('images/player/images/brands/podfan.svg');
+}
+.castos-player .subscribe-icons .podkicker span {
+	mask-image: url('images/player/images/brands/podkicker.svg');
+	-webkit-mask-image: url('images/player/images/brands/podkicker.svg');
+}
+.castos-player .subscribe-icons .podknife span {
+	mask-image: url('images/player/images/brands/podknife.svg');
+	-webkit-mask-image: url('images/player/images/brands/podknife.svg');
+}
+.castos-player .subscribe-icons .podtail span {
+	mask-image: url('images/player/images/brands/podtail.svg');
+	-webkit-mask-image: url('images/player/images/brands/podtail.svg');
+}
+.castos-player .subscribe-icons .rss span {
+	mask-image: url('images/player/images/brands/rss.svg');
+	-webkit-mask-image: url('images/player/images/brands/rss.svg');
+}
+.castos-player .subscribe-icons .rssradio span {
+	mask-image: url('images/player/images/brands/rssradio.svg');
+	-webkit-mask-image: url('images/player/images/brands/rssradio.svg');
+}
+.castos-player .subscribe-icons .radio_public span {
+	mask-image: url('images/player/images/brands/radio-public.svg');
+	-webkit-mask-image: url('images/player/images/brands/radio-public.svg');
+}
+.castos-player .subscribe-icons .radio_com span {
+	mask-image: url('images/player/images/brands/radio-com.svg');
+	-webkit-mask-image: url('images/player/images/brands/radio-com.svg');
+}
+.castos-player .subscribe-icons .redcircle span {
+	mask-image: url('images/player/images/brands/redcircle.svg');
+	-webkit-mask-image: url('images/player/images/brands/redcircle.svg');
+}
+.castos-player .subscribe-icons .soundcloud span {
+	mask-image: url('images/player/images/brands/soundcloud.svg');
+	-webkit-mask-image: url('images/player/images/brands/soundcloud.svg');
+}
+.castos-player .subscribe-icons .spreaker span {
+	mask-image: url('images/player/images/brands/spreaker.svg');
+	-webkit-mask-image: url('images/player/images/brands/spreaker.svg');
+}
+.castos-player .subscribe-icons .the_podcast_app span {
+	mask-image: url('images/player/images/brands/the-podcast-app.svg');
+	-webkit-mask-image: url('images/player/images/brands/the-podcast-app.svg');
+}
+.castos-player .subscribe-icons .vkontakte span {
+	mask-image: url('images/player/images/brands/vkontakte.svg');
+	-webkit-mask-image: url('images/player/images/brands/vkontakte.svg');
+}
+.castos-player .subscribe-icons .we_fo span {
+	mask-image: url('images/player/images/brands/we-fo.svg');
+	-webkit-mask-image: url('images/player/images/brands/we-fo.svg');
+}
+.castos-player .subscribe-icons .yandex span {
+	mask-image: url('images/player/images/brands/yandex.svg');
+	-webkit-mask-image: url('images/player/images/brands/yandex.svg');
+}
+.castos-player .subscribe-icons .youtube span {
+	mask-image: url('images/player/images/brands/youtube.svg');
+	-webkit-mask-image: url('images/player/images/brands/youtube.svg');
+}
+.castos-player .subscribe-icons .fyyd_de span {
+	mask-image: url('images/player/images/brands/fyyd-de.svg');
+	-webkit-mask-image: url('images/player/images/brands/fyyd-de.svg');
+}
+.castos-player .subscribe-icons .iheartradio span {
+	mask-image: url('images/player/images/brands/iheartradio.svg');
+	-webkit-mask-image: url('images/player/images/brands/iheartradio.svg');
+}
+.castos-player .subscribe-icons .itunes span {
+	mask-image: url('images/player/images/brands/itunes.svg');
+	-webkit-mask-image: url('images/player/images/brands/itunes.svg');
+}
+.castos-player .subscribe-icons .ivoox span {
+	mask-image: url('images/player/images/brands/ivoox.svg');
+	-webkit-mask-image: url('images/player/images/brands/ivoox.svg');
+}
+.castos-player .subscribe-icons .mytuner_radio span {
+	mask-image: url('images/player/images/brands/mytuner-radio.svg');
+	-webkit-mask-image: url('images/player/images/brands/mytuner-radio.svg');
+}
+.castos-player .subscribe-icons .laughable span,
+.castos-player .subscribe-icons .listen_notes span,
+.castos-player .subscribe-icons .owltail span,
+.castos-player .subscribe-icons .podcast_republic span,
+.castos-player .subscribe-icons .podcast_de span,
+.castos-player .subscribe-icons .podcoin span,
+.castos-player .subscribe-icons .custom span
+{
+	mask-image: url('images/player/images/brands/share.svg');
+	-webkit-mask-image: url('images/player/images/brands/share.svg');
+}
+
+
 /* Currently Playing */
 .castos-player .currently-playing {
     overflow: hidden;
@@ -383,7 +745,7 @@
     }
 }
 
-.castos-player .progress {
+.castos-player .progress, .castos-player .ssp-progress {
     flex: 10;
     position: relative;
     display: flex;
@@ -564,7 +926,7 @@
     color: #4b4659;
     border: 1px solid #4b4659;
 }
-.castos-player.light-mode .progress {
+.castos-player.light-mode .ssp-progress {
     background-color: #d3d3d3;
 }
 .castos-player.light-mode .player-panel .player-panel-row button {
@@ -624,7 +986,7 @@
         color: #4b4659;
         border: 1px solid #4b4659;
     }
-    .castos-player .progress {
+	.castos-player .progress, .castos-player .ssp-progress {
         background-color: #d3d3d3;
     }
     .castos-player .player-panel .player-panel-row button {
@@ -682,7 +1044,7 @@
     color: #fff;
     border: 1px solid #fff;
 }
-.castos-player.dark-mode .progress {
+.castos-player.dark-mode .progress, .castos-player.dark-mode .ssp-progress {
     background-color: #4c4659;
 }
 .castos-player.dark-mode .player-panel .player-panel-row button {
@@ -836,14 +1198,14 @@
 .castos-player .subscribe-btn:focus,
 .castos-player .share-icon:active,
 .castos-player .share-icon:focus,
-.castos-player .apple-podcasts:active,
-.castos-player .apple-podcasts:focus,
+.castos-player .apple_podcasts:active,
+.castos-player .apple_podcasts:focus,
 .castos-player .sticher:active,
 .castos-player .sticher:focus,
 .castos-player .spotify:active,
 .castos-player .spotify:focus,
-.castos-player .google-play:active,
-.castos-player .google-play:focus {
+.castos-player .google_play:active,
+.castos-player .google_play:focus {
     outline: 0;
     border: none;
     -moz-outline-style: none;

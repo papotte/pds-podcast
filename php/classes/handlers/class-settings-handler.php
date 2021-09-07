@@ -30,7 +30,7 @@ class Settings_Handler
 				'revision',
 				'nav_menu_item',
 				'wooframework',
-				'podcast',
+				SSP_CPT_PODCAST,
 			);
 			if (in_array($post_type, $disallowed_post_types, true)) {
 				continue;
@@ -290,6 +290,10 @@ class Settings_Handler
 				'label' => __('Spirituality', 'pds-podcast'),
 				'group' => __('Religion & Spirituality', 'pds-podcast'),
 			),
+			'Religion'       => array(
+				'label' => __( 'Religion', 'pds-podcast' ),
+				'group' => __( 'Religion & Spirituality', 'pds-podcast' ),
+			),
 			'Astronomy' => array(
 				'label' => __('Astronomy', 'pds-podcast'),
 				'group' => __('Science', 'pds-podcast'),
@@ -519,21 +523,28 @@ class Settings_Handler
 					'default' => 'on',
 				),
 				array(
+					'id'          => 'player_subscribe_urls_enabled',
+					'label'       => __( 'Show subscribe urls', 'pds-podcast' ),
+					'description' => __( 'Turn on to display subscribe urls under the player', 'pds-podcast' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
+				),
+				array(
 					'id' => 'player_style',
 					'label' => __('Media player style', 'pds-podcast'),
 					'description' => __('Select the style of media player you wish to display on your site.', 'pds-podcast'),
 					'type' => 'radio',
 					'options' => array(
-						'standard' => __('Standard Compact Player', 'pds-podcast'),
-						'larger' => __('HTML5 Player With Album Art', 'pds-podcast'),
+						'larger'   => __( 'HTML5 Player With Album Art', 'pds-podcast' ),
+						'standard' => __( 'Standard Compact Player', 'pds-podcast' ),
 					),
-					'default' => 'standard',
+					'default' => 'larger',
 				),
 			),
 		);
 
-		$ss_podcasting_player_style = get_option('ss_podcasting_player_style', 'standard');
-		if ('standard' !== $ss_podcasting_player_style) {
+		$ss_podcasting_player_style = get_option('ss_podcasting_player_style', 'larger');
+		if ('larger' === $ss_podcasting_player_style) {
 			$html_5_player_settings = array(
 				array(
 					'id' => 'player_mode',
@@ -545,6 +556,20 @@ class Settings_Handler
 						'light' => __('Light Mode', 'pds-podcast'),
 					),
 					'default' => 'dark',
+				),
+				array(
+					'id'          => 'subscribe_button_enabled',
+					'label'       => __( 'Show subscribe button', 'pds-podcast' ),
+					'description' => __( 'Turn on to display the subscribe button', 'pds-podcast' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
+				),
+				array(
+					'id'          => 'share_button_enabled',
+					'label'       => __( 'Show share button', 'pds-podcast' ),
+					'description' => __( 'Turn on to display the share button', 'pds-podcast' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
 				),
 			);
 
@@ -596,6 +621,10 @@ class Settings_Handler
 				'type' => 'select',
 				'options' => $category_options,
 				'default' => '',
+				'class'       => 'js-parent-category',
+				'data'        => array(
+					'subcategory' => 'data_subcategory',
+				),
 				'callback' => 'wp_strip_all_tags',
 			),
 			array(
@@ -612,6 +641,10 @@ class Settings_Handler
 				'label' => __('Secondary Category', 'pds-podcast'),
 				'description' => __('Your podcast\'s secondary category.', 'pds-podcast'),
 				'type' => 'select',
+				'class'       => 'js-parent-category',
+				'data'        => array(
+					'subcategory' => 'data_subcategory2',
+				),
 				'options' => $category_options,
 				'default' => '',
 				'callback' => 'wp_strip_all_tags',
@@ -630,6 +663,10 @@ class Settings_Handler
 				'label' => __('Tertiary Category', 'pds-podcast'),
 				'description' => __('Your podcast\'s tertiary category.', 'pds-podcast'),
 				'type' => 'select',
+				'class'       => 'js-parent-category',
+				'data'        => array(
+					'subcategory' => 'data_subcategory3',
+				),
 				'options' => $category_options,
 				'default' => '',
 				'callback' => 'wp_strip_all_tags',
@@ -656,7 +693,7 @@ class Settings_Handler
 			array(
 				'id' => 'data_image',
 				'label' => __('Cover Image', 'pds-podcast'),
-				'description' => __('Your podcast cover image - must have a minimum size of 1400x1400 px.', 'pds-podcast'),
+				'description' => __('The podcast cover image must be between 1400x1400px and 3000x3000px in size and either .jpg or .png file format', 'pds-podcast'),
 				'type' => 'image',
 				'default' => '',
 				'placeholder' => '',
@@ -982,7 +1019,7 @@ class Settings_Handler
 
 		$settings['extensions'] = array(
 			'title' => __('Extensions', 'pds-podcast'),
-			'description' => __('These extensions add functionality to your Simple PdS Podcast powered podcast.', 'pds-podcast'),
+			'description' => __('These extensions add functionality to your PdS Podcast powered podcast.', 'pds-podcast'),
 			'fields' => array(),
 			'disable_save_button' => true,
 		);
@@ -1098,6 +1135,7 @@ class Settings_Handler
 
 	/**
 	 * Checks if a user role exists, used in the SettingsController add_caps method
+	 * @deprecated Use Roles_Handler::role_exists() instead
 	 *
 	 * @param $role
 	 *
@@ -1112,4 +1150,29 @@ class Settings_Handler
 		return false;
 	}
 
+	/**
+	 * Get the field option
+	 *
+	 * @param $field_id
+	 * @param bool $default
+	 *
+	 * @return false|mixed|void
+	 * @since 5.7.0
+	 */
+	public function get_field( $field_id, $default = false ) {
+		return get_option( 'ss_podcasting_' . $field_id, $default );
+	}
+
+	/**
+	 * Set the field option
+	 *
+	 * @param string $field_id
+	 * @param string $value
+	 *
+	 * @return bool
+	 * @since 5.7.0
+	 */
+	public function set_field( $field_id, $value ) {
+		return update_option( 'ss_podcasting_' . $field_id, $value );
+	}
 }

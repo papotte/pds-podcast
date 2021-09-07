@@ -6,10 +6,19 @@ use PdSPodcast\Handlers\Options_Handler;
 
 class Options_Controller extends Controller {
 
+	/**
+	 * @var Options_Handler
+	 */
 	protected $options_handler;
 
+	/**
+	 * @var string
+	 */
 	protected $options_base;
 
+	/**
+	 * @var array
+	 */
 	protected $options;
 
 	/**
@@ -63,7 +72,7 @@ class Options_Controller extends Controller {
 			return;
 		}
 		$post_type = ( isset( $_GET['post_type'] ) ? sanitize_text_field( $_GET['post_type'] ) : '' );
-		if ( 'podcast' !== $post_type ) {
+		if ( SSP_CPT_PODCAST !== $post_type ) {
 			return;
 		}
 		$page = ( isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : '' );
@@ -101,7 +110,7 @@ class Options_Controller extends Controller {
 			return;
 		}
 		$post_type = ( isset( $_GET['post_type'] ) ? sanitize_text_field( $_GET['post_type'] ) : '' );
-		if ( 'podcast' !== $post_type ) {
+		if ( SSP_CPT_PODCAST !== $post_type ) {
 			return;
 		}
 		$page = ( isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : '' );
@@ -217,6 +226,7 @@ class Options_Controller extends Controller {
 
 	/**
 	 * Update subscribe options after options saved
+	 * Todo: couldn't find any usage, and there is no $this->options_handler->update_subscribe_options() function. Remove?
 	 *
 	 * @return bool
 	 */
@@ -225,6 +235,10 @@ class Options_Controller extends Controller {
 			return false;
 		}
 		if ( ! isset( $_GET['settings-updated'] ) || 'true' !== $_GET['settings-updated'] ) {  //phpcs:ignore WordPress.Security
+			return false;
+		}
+
+		if ( ! current_user_can( 'manage_podcast' ) ) {
 			return false;
 		}
 		return $this->options_handler->update_subscribe_options();
@@ -593,7 +607,7 @@ class Options_Controller extends Controller {
 				$html .= esc_url( $url ) . "\n";
 				break;
 			case 'podcast_url':
-				$slug        = apply_filters( 'ssp_archive_slug', _x( 'podcast', 'Podcast URL slug', 'pds-podcast' ) );
+				$slug        = apply_filters( 'ssp_archive_slug', _x( SSP_CPT_PODCAST, 'Podcast URL slug', 'pds-podcast' ) );
 				$podcast_url = $this->home_url . $slug;
 
 				$html .= '<a href="' . esc_url( $podcast_url ) . '" target="_blank">' . $podcast_url . '</a>';

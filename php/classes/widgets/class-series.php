@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Simple PdS Podcast Podcast Series Widget
+ * PdS Podcast Podcast Series Widget
  *
  * @author    Hugh Lashbrooke
  * @package   PdSPodcast

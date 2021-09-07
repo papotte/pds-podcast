@@ -1,6 +1,7 @@
 <?php
 
 use PdSPodcast\Handlers\Castos_Handler;
+use PdSPodcast\Handlers\Images_Handler;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,7 +18,7 @@ if ( ! function_exists( 'ssp_beta_check' ) ) {
 		 */
 		add_action( 'admin_notices', 'ssp_beta_notice' );
 		function ssp_beta_notice() {
-			$beta_notice = __( 'You are using the Simple PdS Podcast beta, connected to ', 'pds-podcast' );
+			$beta_notice = __( 'You are using the PdS Podcast beta, connected to ', 'pds-podcast' );
 			?>
 			<div class="notice notice-warning">
 				<p>
@@ -48,7 +49,7 @@ if ( ! function_exists( 'ssp_is_php_version_ok' ) ) {
 		 */
 		add_action( 'admin_notices', 'ssp_php_version_notice' );
 		function ssp_php_version_notice() {
-			$error_notice = __( 'The Simple PdS Podcast plugin requires PHP version 5.6 or higher. Please contact your web host to upgrade your PHP version or deactivate the plugin.', 'pds-podcast' );
+			$error_notice = __( 'The PdS Podcast plugin requires PHP version 5.6 or higher. Please contact your web host to upgrade your PHP version or deactivate the plugin.', 'pds-podcast' );
 			$error_notice_apology = __( 'We apologise for any inconvenience.', 'pds-podcast' );
 			?>
 			<div class="error">
@@ -72,7 +73,7 @@ if ( ! function_exists( 'ssp_is_vendor_ok' ) ) {
 		}
 		add_action( 'admin_notices', 'ssp_vendor_notice' );
 		function ssp_vendor_notice() {
-			$error_notice         = __( 'The Simple PdS Podcast vendor directory is missing or broken, please re-download/reinstall the plugin.', 'pds-podcast' );
+			$error_notice         = __( 'The PdS Podcast vendor directory is missing or broken, please re-download/reinstall the plugin.', 'pds-podcast' );
 			$error_notice_apology = __( 'We apologise for any inconvenience.', 'pds-podcast' );
 			?>
 			<div class="error">
@@ -90,7 +91,7 @@ if ( ! function_exists( 'ssp_is_vendor_ok' ) ) {
 
 if ( ! function_exists( 'ssp_get_upload_directory' ) ) {
 	/**
-	 * Gets the temporary Simple PdS Podcast upload directory
+	 * Gets the temporary PdS Podcast upload directory
 	 * Typically ../wp-content/uploads/ssp
 	 * If it does not already exist, attempts to create it
 	 *
@@ -241,7 +242,7 @@ if ( ! function_exists( 'ss_podcast' ) ) {
 
 					setup_postdata( $post );
 
-					$class = 'podcast';
+					$class = SSP_CPT_PODCAST;
 
 					$title = get_the_title();
 					if ( 'true' === $args['link_title'] ) {
@@ -269,7 +270,7 @@ if ( ! function_exists( 'ss_podcast' ) ) {
 					$template = $tpl;
 					$i ++;
 
-					$class = 'podcast';
+					$class = SSP_CPT_PODCAST;
 
 					$title = $series->title;
 					if ( 'true' === $args['link_title'] ) {
@@ -324,7 +325,7 @@ if ( ! function_exists( 'ssp_episode_ids' ) ) {
 
 		// Setup the default args
 		$args = array(
-			'post_type'      => array( 'podcast' ),
+			'post_type'      => array( SSP_CPT_PODCAST ),
 			'post_status'    => 'publish',
 			'posts_per_page' => - 1,
 			'fields'         => 'ids',
@@ -471,7 +472,7 @@ if ( ! function_exists( 'ssp_post_types' ) ) {
 
 		// Add `podcast` post type to array if required
 		if ( $include_podcast ) {
-			$podcast_post_types[] = 'podcast';
+			$podcast_post_types[] = SSP_CPT_PODCAST;
 		}
 
 		if ( $verify ) {
@@ -745,7 +746,7 @@ if ( ! function_exists( 'ssp_get_importing_podcasts_count' ) ) {
 
 if ( ! function_exists( 'ssp_import_existing_podcasts' ) ) {
 	/**
-	 * Imports existing podcasts to Simple Simple Hosting
+	 * Imports existing podcasts to Simple Hosting
 	 *
 	 * @return bool
 	 */
@@ -903,6 +904,8 @@ if ( ! function_exists( 'ssp_setup_upload_credentials' ) ) {
 if ( ! function_exists( 'ssp_get_image_id_from_url' ) ) {
 	/**
 	 * Get image ID when only the URL of the image is known
+	 * @deprecated Do not use this function. Use attachment_url_to_postid() instead
+	 * @todo: remove it in the next versions
 	 *
 	 * @param $image_url
 	 *
@@ -1159,5 +1162,91 @@ if ( ! function_exists( 'ssp_is_elementor_ok' ) ) {
 			return true;
 		}
 		return false;
+	}
+}
+
+/**
+ * Checks if the feed image is valid
+ */
+if ( ! function_exists( 'ssp_is_feed_image_valid' ) ) {
+	/**
+	 * @param string $image_url
+	 *
+	 * @return bool
+	 */
+	function ssp_is_feed_image_valid( $image_url ) {
+		global $images_handler; /** @var Images_Handler $images_handler */
+		return $images_handler->is_feed_image_valid( $image_url );
+	}
+}
+
+/**
+ * Checks if the image is square
+ */
+if ( ! function_exists( 'ssp_is_image_square' ) ) {
+	/**
+	 * @param array $image_data_array Converted image data array with width and height keys
+	 *
+	 * @return bool
+	 * */
+	function ssp_is_image_square( $image_data_array = array() ) {
+		global $images_handler; /** @var Images_Handler $images_handler */
+		return $images_handler->is_image_square( $image_data_array );
+	}
+}
+
+
+/**
+ * Almost the same function as wp_get_attachment_image_src(), but returning the associative human readable array
+ */
+if ( ! function_exists( 'ssp_get_attachment_image_src' ) ) {
+	/**
+	 * @param int $attachment_id
+	 * @param string $size
+	 *
+	 * @return array
+	 */
+	function  ssp_get_attachment_image_src( $attachment_id, $size = "full" ) {
+		global $images_handler; /** @var Images_Handler $images_handler */
+		return $images_handler->get_attachment_image_src( $attachment_id, $size  );
+	}
+}
+
+
+/**
+ * Get the episode content for showing in the feed. Now Apple supports only p tags.
+ * This function removes iframes and shortcodes from the content and strips all tags except <p> and <a>
+ */
+if ( ! function_exists( 'ssp_get_the_feed_item_content' ) ) {
+	/**
+	 * @return string
+	 */
+	function ssp_get_the_feed_item_content() {
+		$content = get_the_content();
+		$blocks  = parse_blocks( $content );
+		if ( $blocks and is_array( $blocks ) ) {
+			$content = '';
+			$allowed_blocks = [
+				'core/paragraph',
+				'core/list',
+			];
+			foreach ( $blocks as $block ) {
+				if ( in_array( $block['blockName'], $allowed_blocks ) ) {
+					$content .= $block['innerHTML'];
+				}
+			}
+		} else {
+			$content = get_the_content_feed( 'rss2' );
+		}
+
+		$content = strip_shortcodes( $content );
+		$content = preg_replace( '/<\/?iframe(.|\s)*?>/', '', $content );
+		$content = str_replace( '<br>', PHP_EOL, $content );
+		$content = strip_tags( $content, '<p>,<a>,<ul>,<ol>,<li>' );
+
+		// Remove empty paragraphs as well.
+		$content = trim( str_replace( '<p></p>', '', $content ) );
+
+		return apply_filters( 'ssp_feed_item_content', $content, get_the_ID() );
 	}
 }

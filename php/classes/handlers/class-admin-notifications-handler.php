@@ -20,13 +20,34 @@ class Admin_Notifications_Handler {
 	public $token;
 
 	/**
+	 * Transient key to store flash notices
+	 * */
+	const NOTICES_KEY = 'castos_notices';
+
+	/**
+	 * Predefined notices
+	 * */
+	const NOTICE_API_EPISODE_ERROR = 'api_episode_error';
+	const NOTICE_API_EPISODE_SUCCESS = 'api_episode_success';
+
+	/**
+	 * Notice types
+	 * "info", "warning", "error" or "success"
+	 * */
+	const INFO = 'info';
+	const WARNING = 'warning';
+	const ERROR = 'error';
+	const SUCCESS = 'success';
+
+	/**
 	 * Admin_Notifications_Handler constructor.
 	 *
 	 * @param $token
 	 */
 	public function __construct( $token ) {
 		$this->token = $token;
-		$this->bootstrap();
+
+		return $this;
 	}
 
 	/**
@@ -55,32 +76,102 @@ class Admin_Notifications_Handler {
 		// Trigger the Elementor Templates message
 		add_action( 'admin_init', array( $this, 'show_elementor_templates_available' ) );
 
+		// Trigger the series helper message
+		add_action( 'series_pre_add_form', array( $this, 'show_series_helper_text' ) );
+
+		// Print flash notices
+		add_action( 'admin_notices', array( $this, 'display_flash_notices' ), 12 );
+
+		return $this;
 	}
 
 	/**
-	 * Admin notice if an episode sync is successful
+	 * Add a predefined flash notice
+	 * @see NOTICE_API_EPISODE_ERROR
+	 * @see NOTICE_API_EPISODE_SUCCESS
+	 *
+	 * @param string $notice Predefined notice
+	 *
+	 * @return bool If the notice is added or not
 	 */
-	public function castos_api_episode_success() {
-		?>
-		<div class="notice notice-info">
-			<p><?php _e( 'Your episode was successfully synced to your Castos account', 'pds-podcast' ); ?></p>
-		</div>
-		<?php
+	public function add_predefined_flash_notice( $notice ) {
+		$messages = $this->get_predefined_notices();
+
+		if ( isset( $messages[ $notice ] ) ) {
+			$this->add_flash_notice(
+				$messages[ $notice ]['msg'],
+				$messages[ $notice ]['type']
+			);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
-	 * Admin notice if anything goes wrong with an episode sync
+	 * Add a flash notice
+	 *
+	 * @param string $notice our notice message
+	 * @param string $type This can be "info", "warning", "error" or "success", "warning" as default
+	 * @param boolean $dismissible set this to TRUE to add is-dismissible functionality to your notice
+	 * @return void
 	 */
-	public function castos_api_episode_error() {
-		?>
-		<div class="notice notice-error">
-			<p><?php _e( 'An error occurred syncing your episode to your Castos account. Please contact Castos support at hello@castos.com.', 'pds-podcast' ); ?></p>
-		</div>
-		<?php
+	public function add_flash_notice( $notice = "", $type = "warning", $dismissible = true ) {
+		$notices = get_transient( self::NOTICES_KEY );
+		if ( ! $notices ) {
+			$notices = array();
+		}
+
+		$dismissible_text = ( $dismissible ) ? "is-dismissible" : "";
+
+		array_push( $notices, array(
+			"notice"      => $notice,
+			"type"        => $type,
+			"dismissible" => $dismissible_text
+		) );
+
+		set_transient( self::NOTICES_KEY, $notices, 10 );
 	}
+
+	/**
+	 * Prints flash notices
+	 */
+	public function display_flash_notices() {
+		$notices = get_transient( self::NOTICES_KEY );
+
+		if ( ! is_array( $notices ) ) {
+			return;
+		}
+
+		foreach ( $notices as $notice ) {
+			printf( '<div class="notice notice-%1$s %2$s"><p>%3$s</p></div>',
+				$notice['type'],
+				$notice['dismissible'],
+				$notice['notice']
+			);
+		}
+
+		if ( ! empty( $notices ) ) {
+			delete_transient( self::NOTICES_KEY );
+		}
+	}
+
+	/**
+	 * Admin notice for the add series page
+	 */
+	public function show_series_helper_text(){
+		$text = '
+		A new Series will create an entirely new Podcast Feed. <br>
+		Only do this if you want to have multiple shows within your WordPress site. <br>
+		If you just want to organize episodes within the same feed we suggest using Tags.';
+		echo sprintf('<div class="notice series-notice notice-warning"><p>%s</p></div>', $text);
+	}
+
 
 	/**
 	 * Show an error if the block assets have failed
+	 * @todo: investigate if it works and maybe replace it with add_predefined_flash_notice();
 	 */
 	public function blocks_error_notice() {
 		?>
@@ -133,7 +224,10 @@ class Admin_Notifications_Handler {
 			'page'      => 'podcast_settings',
 			'tab'       => 'import'
 		) );
-		$ignore_message_url = add_query_arg( array( 'podcast_import_action' => 'ignore' ) );
+		$ignore_message_url = add_query_arg( array(
+			'podcast_import_action' => 'ignore',
+			'nonce'                 => wp_create_nonce( 'podcast_import_action' ),
+		) );
 		$message            = '';
 		$message            .= '<p>You\'ve connected to your Castos account and you have existing podcasts that can be imported.</p>';
 		$message            .= '<p>You can <a href="' . $podcast_import_url . '">import your existing podcasts to Castos.</a></p>';
@@ -202,7 +296,7 @@ class Admin_Notifications_Handler {
 	 * Attempt to revalidate API credentials
 	 */
 	public function revalidate_api_credentials() {
-		if ( ! isset( $_GET['ssp_revalidate_api_credentials'] ) ) {
+		if ( ! isset( $_GET['ssp_revalidate_api_credentials'] ) || ! current_user_can( 'manage_podcast' ) ) {
 			return;
 		}
 		check_admin_referer( 'revalidate-api-credentials' );
@@ -250,9 +344,13 @@ class Admin_Notifications_Handler {
 
 	/**
 	 * Setup podcast import
+	 * Todo: couldn't find the place where podcast_import_action=start is generated. Does it work?
 	 */
 	public function start_importing_existing_podcasts() {
-		if ( isset( $_GET['podcast_import_action'] ) && 'start' == $_GET['podcast_import_action'] ) {
+		if ( isset( $_GET['podcast_import_action'] ) &&
+			 'start' == $_GET['podcast_import_action'] &&
+			 current_user_can( 'manage_podcast' )
+		) {
 			update_option( 'ss_podcasting_podmotor_import_podcasts', 'true' );
 			$castos_handler = new Castos_Handler();
 			$reponse          = $castos_handler->insert_podmotor_queue();
@@ -336,7 +434,10 @@ class Admin_Notifications_Handler {
 			admin_url( 'edit.php' )
 		);
 
-		$ignore_message_url = add_query_arg( array( 'ssp_dismiss_categories_update' => 'true' ) );
+		$ignore_message_url = add_query_arg( array(
+			'ssp_dismiss_categories_update' => 'true',
+			'nonce'                         => wp_create_nonce( 'dismiss_categories_update' ),
+		) );
 
 		$message            = __( 'PdS Podcast\'s feed categories have been updated.', 'pds-podcast' );
 		$feed_settings_link = sprintf(
@@ -535,7 +636,7 @@ class Admin_Notifications_Handler {
 	public function show_elementor_templates_available() {
 		// only show this on podcast list pages
 		$post_type = ( isset( $_GET['post_type'] ) ? filter_var( $_GET['post_type'], FILTER_SANITIZE_STRING ) : '' );
-		if ( empty( $post_type ) || 'podcast' !== $post_type ) {
+		if ( empty( $post_type ) || SSP_CPT_PODCAST !== $post_type ) {
 			return;
 		}
 		// only show this is elementor is installed
@@ -587,6 +688,27 @@ class Admin_Notifications_Handler {
 			<p><?php echo $ignore_message_link; ?></p>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Get predefined notices
+	 * @return array
+	 * */
+	public function get_predefined_notices() {
+		$notices = array(
+			self::NOTICE_API_EPISODE_SUCCESS => array(
+				'msg'  => __( 'Your episode was successfully synced to your Castos account', 'pds-podcast' ),
+				'type' => self::SUCCESS,
+			),
+			self::NOTICE_API_EPISODE_ERROR   => array(
+				'msg'  => __( "An error occurred in syncing this episode to your Castos account. <br>
+								We will keep attempting to sync your episode over the next 24 hours. <br>
+								If you don't see this episode in your Castos account at that time please contact our support team at hello@castos.com", 'pds-podcast' ),
+				'type' => self::ERROR,
+			),
+		);
+
+		return apply_filters( 'castos_predefined_notices', $notices );
 	}
 
 }

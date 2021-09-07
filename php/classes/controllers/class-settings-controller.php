@@ -4,7 +4,6 @@ namespace PdSPodcast\Controllers;
 
 use PdSPodcast\Handlers\Settings_Handler;
 use PdSPodcast\Handlers\Series_Handler;
-use PdSPodcast\Helpers\Log_Helper;
 
 /**
  * SSP Settings
@@ -45,11 +44,24 @@ class Settings_Controller extends Controller
 	 */
 	protected $settings;
 
+	/**
+	 * @var Settings_Handler
+	 * */
 	protected $settings_handler;
 
+	/**
+	 * @var Series_Handler
+	 * */
 	protected $series_handler;
 
+	/**
+	 * @var Import_Controller
+	 * */
 	protected $import_controller;
+
+	/**
+	 * @var Extensions_Controller
+	 * */
 	protected $extensions_controller;
 
 	/**
@@ -76,10 +88,15 @@ class Settings_Controller extends Controller
 	 * Set up all hooks and filters
 	 */
 	public function register_hooks_and_filters()
-	{
+
+{
 		add_action('init', array($this, 'load_settings'), 11);
 
-		add_action('init', array($this, 'maybe_feed_saved'), 11);
+		//Todo: Can we use pre_update_option_ss_podcasting_data_title action instead?
+		add_action('admin_init', array($this, 'maybe_feed_saved'), 11);
+
+		// Exclude series feed from the default feed
+		add_action( 'create_series', array( $this, 'exclude_feed_from_default' ) );
 
 		// Register podcast settings.
 		add_action('admin_init', array($this, 'register_settings'));
@@ -96,9 +113,6 @@ class Settings_Controller extends Controller
 
 		// Mark date on which feed redirection was activated.
 		add_action('update_option', array($this, 'mark_feed_redirect_date'), 10, 3);
-
-		// New caps for editors and above.
-		add_action('admin_init', array($this, 'add_caps'), 1);
 
 		// Trigger the disconnect action
 		add_action('update_option_' . $this->settings_base . 'podmotor_disconnect', array($this, 'maybe_disconnect_from_castos'), 10, 2);
@@ -127,6 +141,16 @@ class Settings_Controller extends Controller
 	}
 
 	/**
+	 * Adding it here, and not via default settings for the backward compatibility.
+	 * So if users have their old series included in the default feed, it should not affect them.
+	 * */
+	public function exclude_feed_from_default( $term_id ) {
+		$option_name = 'ss_podcasting_exclude_feed_' . $term_id;
+
+		update_option( $option_name, 'on' );
+	}
+
+	/**
 	 * Add settings page to menu
 	 *
 	 * @return void
@@ -149,68 +173,6 @@ class Settings_Controller extends Controller
 			 $this,
 			 'settings_page',
 		 ) );*/
-
-		/* Not needed
-		add_submenu_page( null, __( 'Upgrade', 'pds-podcast' ), __( 'Upgrade', 'pds-podcast' ), 'manage_podcast', 'upgrade', array(
-			$this,
-			'show_upgrade_page',
-		) );
-		*/
-	}
-
-	/**
-	 * Show the upgrade page
-	 */
-	public function show_upgrade_page()
-	{
-		$ssp_redirect = (isset($_GET['ssp_redirect']) ? filter_var($_GET['ssp_redirect'], FILTER_SANITIZE_STRING) : '');
-		$ssp_dismiss_url = add_query_arg(array('ssp_dismiss_upgrade' => 'dismiss', 'ssp_redirect' => rawurlencode($ssp_redirect)), admin_url('index.php'));
-		include($this->template_path . DIRECTORY_SEPARATOR . 'settings-upgrade-page.php');
-	}
-
-	/**
-	 * Add cabilities to edit podcast settings to admins, and editors.
-	 */
-	public function add_caps()
-	{
-
-		// Roles you'd like to have administer the podcast settings page.
-		// Admin and Editor, as default.
-		$roles = apply_filters('ssp_manage_podcast', array('administrator', 'editor'));
-
-		// Loop through each role and assign capabilities.
-		foreach ($roles as $the_role) {
-
-			if (!$this->settings_handler->role_exists($the_role)) {
-				continue;
-			}
-
-			$role = get_role($the_role);
-			$caps = array(
-				'manage_podcast',
-			);
-
-			// Add the caps.
-			foreach ($caps as $cap) {
-				$this->maybe_add_cap($role, $cap);
-			}
-		}
-	}
-
-	/**
-	 * Check to see if the given role has a cap, and add if it doesn't exist.
-	 *
-	 * @param object $role User Cap object, part of WP_User.
-	 * @param string $cap Cap to test against.
-	 *
-	 * @return void
-	 */
-	public function maybe_add_cap($role, $cap)
-	{
-		// Update the roles, if needed.
-		if (!$role->has_cap($cap)) {
-			$role->add_cap($cap);
-		}
 	}
 
 	/**
@@ -487,31 +449,39 @@ class Settings_Controller extends Controller
 			$parent_class = $field['parent_class'];
 		}
 
+		// Get data attributes if supplied
+		$data_attrs = '';
+		if ( ! empty( $field['data'] ) && is_array( $field['data'] ) ) {
+			foreach ( $field['data'] as $k => $v ) {
+				$data_attrs .= sprintf( ' data-%s="%s" ', $k, $v );
+			}
+		}
+
 		switch ($field['type']) {
 			case 'text':
 			case 'password':
 			case 'number':
-				$html .= '<input id="' . esc_attr($field['id']) . '" type="' . $field['type'] . '" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field['placeholder']) . '" value="' . esc_attr($data) . '" class="' . $class . '"/>' . "\n";
+				$html .= '<input id="' . esc_attr($field['id']) . '" type="' . $field['type'] . '" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field['placeholder']) . '" value="' . esc_attr($data) . '" class="' . $class . '"' . $data_attrs . '/>' . "\n";
 				break;
 			case 'colour-picker':
-				$html .= '<input id="' . esc_attr($field['id']) . '" type="' . $field['type'] . '" name="' . esc_attr($option_name) . '" value="' . esc_attr($data) . '" class="' . $class . '"/>' . "\n";
+				$html .= '<input id="' . esc_attr($field['id']) . '" type="' . $field['type'] . '" name="' . esc_attr($option_name) . '" value="' . esc_attr($data) . '" class="' . $class . '"' . $data_attrs . '/>' . "\n";
 				break;
 			case 'text_secret':
 				$placeholder = $field['placeholder'];
 				if ($data) {
 					$placeholder = __('Password stored securely', 'pds-podcast');
 				}
-				$html .= '<input id="' . esc_attr($field['id']) . '" type="text" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($placeholder) . '" value="" class="' . $class . '"/>' . "\n";
+				$html .= '<input id="' . esc_attr($field['id']) . '" type="text" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($placeholder) . '" value="" class="' . $class . '"' . $data_attrs . '/>' . "\n";
 				break;
 			case 'textarea':
-				$html .= '<textarea id="' . esc_attr($field['id']) . '" rows="5" cols="50" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field['placeholder']) . '" class="' . $class . '">' . $data . '</textarea><br/>' . "\n";
+				$html .= '<textarea id="' . esc_attr($field['id']) . '" rows="5" cols="50" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field['placeholder']) . '" class="' . $class . '"' . $data_attrs . '>' . $data . '</textarea><br/>' . "\n";
 				break;
 			case 'checkbox':
 				$checked = '';
 				if ($data && 'on' === $data) {
 					$checked = 'checked="checked"';
 				}
-				$html .= '<input id="' . esc_attr($field['id']) . '" type="' . $field['type'] . '" name="' . esc_attr($option_name) . '" ' . $checked . ' class="' . $class . '"/>' . "\n";
+				$html .= '<input id="' . esc_attr($field['id']) . '" type="' . $field['type'] . '" name="' . esc_attr($option_name) . '" ' . $checked . ' class="' . $class . '"' . $data_attrs . '/>' . "\n";
 				break;
 			case 'checkbox_multi':
 				foreach ($field['options'] as $k => $v) {
@@ -528,11 +498,11 @@ class Settings_Controller extends Controller
 					if ($k === $data) {
 						$checked = true;
 					}
-					$html .= '<label for="' . esc_attr($field['id'] . '_' . $k) . '"><input type="radio" ' . checked($checked, true, false) . ' name="' . esc_attr($option_name) . '" value="' . esc_attr($k) . '" id="' . esc_attr($field['id'] . '_' . $k) . '" class="' . $class . '" /> ' . $v . '</label><br/>';
+					$html .= '<label for="' . esc_attr($field['id'] . '_' . $k) . '"><input type="radio" ' . checked($checked, true, false) . ' name="' . esc_attr($option_name) . '" value="' . esc_attr($k) . '" id="' . esc_attr($field['id'] . '_' . $k) . '" class="' . $class . '"' . $data_attrs . ' /> ' . $v . '</label><br/>';
 				}
 				break;
 			case 'select':
-				$html .= '<select name="' . esc_attr($option_name) . '" id="' . esc_attr($field['id']) . '" class="' . $class . '">';
+				$html .= '<select name="' . esc_attr($option_name) . '" id="' . esc_attr($field['id']) . '" class="' . $class . '"' . $data_attrs . '>';
 				$prev_group = '';
 				foreach ($field['options'] as $k => $v) {
 
@@ -564,7 +534,7 @@ class Settings_Controller extends Controller
 				$html .= '</select> ';
 				break;
 			case 'image':
-				$html .= '<img id="' . esc_attr($default_option_name) . '_preview" src="' . esc_attr($data) . '" style="max-width:400px;height:auto;" /><br/>' . "\n";
+				$html .= '<img id="' . esc_attr($default_option_name) . '_preview" src="' . esc_attr($data) . '" style="max-width:400px;height:auto;"' . $data_attrs . ' /><br/>' . "\n";
 				$html .= '<input id="' . esc_attr($default_option_name) . '_button" type="button" class="button" value="' . __('Upload new image', 'pds-podcast') . '" />' . "\n";
 				$html .= '<input id="' . esc_attr($default_option_name) . '_delete" type="button" class="button" value="' . __('Remove image', 'pds-podcast') . '" />' . "\n";
 				$html .= '<input id="' . esc_attr($default_option_name) . '" type="hidden" name="' . esc_attr($option_name) . '" value="' . esc_attr($data) . '"/><br/>' . "\n";
@@ -592,14 +562,14 @@ class Settings_Controller extends Controller
 				$html .= esc_url($url) . "\n";
 				break;
 			case 'podcast_url':
-				$slug = apply_filters('ssp_archive_slug', _x('podcast', 'Podcast URL slug', 'pds-podcast'));
+				$slug = apply_filters('ssp_archive_slug', _x(SSP_CPT_PODCAST, 'Podcast URL slug', 'pds-podcast'));
 				$podcast_url = $this->home_url . $slug;
 
 				$html .= '<a href="' . esc_url($podcast_url) . '" target="_blank">' . $podcast_url . '</a>';
 				break;
 			case 'importing_podcasts':
 				$data = ssp_get_importing_podcasts_count();
-				$html .= '<input type="input" value="' . esc_attr($data) . '" class="' . $class . '" disabled/>' . "\n";
+				$html .= '<input type="input" value="' . esc_attr($data) . '" class="' . $class . '" disabled' . $data_attrs . '/>' . "\n";
 				break;
 		}
 
@@ -797,7 +767,7 @@ class Settings_Controller extends Controller
 		if (isset($tab) && 'import' == $tab) {
 			$current_admin_url = add_query_arg(
 				array(
-					'post_type' => 'podcast',
+					'post_type' => SSP_CPT_PODCAST,
 					'page' => 'podcast_settings',
 					'tab' => 'import',
 				),
@@ -805,7 +775,8 @@ class Settings_Controller extends Controller
 			);
 			$html .= '<form method="post" action="' . esc_url_raw($current_admin_url) . '" enctype="multipart/form-data">' . "\n";
 			$html .= '<input type="hidden" name="action" value="post_import_form" />';
-			$html .= wp_nonce_field('ss_podcasting_import');
+			$html .= wp_nonce_field( 'ss_podcasting_import', '_wpnonce', true, false );
+			$html .= wp_nonce_field( 'ss_podcasting_import', 'podcast_settings_tab_nonce', false, false );
 		} else {
 			$html .= '<form method="post" action="options.php" enctype="multipart/form-data">' . "\n";
 		}
@@ -821,6 +792,7 @@ class Settings_Controller extends Controller
 		ob_start();
 		if (isset($tab) && 'import' !== $tab) {
 			settings_fields('ss_podcasting');
+			wp_nonce_field( 'ss_podcasting_' . $tab, 'podcast_settings_tab_nonce', false );
 		}
 		do_settings_sections('ss_podcasting');
 		$html .= ob_get_clean();

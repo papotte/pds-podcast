@@ -8,7 +8,7 @@
  * Author URI: https://github.com/papotte
  * Requires PHP: 5.6
  * Requires at least: 4.4
- * Tested up to: 5.5.3
+ * Tested up to: 5.7
  *
  * Text Domain: pds-podcast
  *
@@ -28,11 +28,12 @@ use PdSPodcast\Controllers\Admin_Controller;
 use PdSPodcast\Controllers\Frontend_Controller;
 use PdSPodcast\Controllers\Settings_Controller;
 use PdSPodcast\Controllers\Options_Controller;
+use PdSPodcast\Handlers\Images_Handler;
 use PdSPodcast\Rest\Rest_Api_Controller;
 use PdSPodcast\Controllers\Players_Controller;
 use PdSPodcast\Integrations\Elementor\Elementor_Widgets;
 
-define( 'SSP_VERSION', '2.5.2' );
+define( 'SSP_VERSION', '2.7.3' );
 define( 'SSP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SSP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -42,17 +43,29 @@ if ( ! defined( 'SSP_CASTOS_APP_URL' ) ) {
 if ( ! defined( 'SSP_CASTOS_EPISODES_URL' ) ) {
 	define( 'SSP_CASTOS_EPISODES_URL', 'https://episodes.castos.com/' );
 }
+if ( ! defined( 'SSP_CPT_PODCAST' ) ) {
+	define( 'SSP_CPT_PODCAST', 'podcast' );
+}
+if ( ! defined( 'SSP_DOMAIN' ) ) {
+	define('SSP_DOMAIN', 'pds-podcast');
+}
+
+require SSP_PLUGIN_PATH . 'vendor/autoload.php';
+
+global $images_handler;
+$images_handler = new Images_Handler();
 
 require_once SSP_PLUGIN_PATH . 'php/includes/ssp-functions.php';
+
 if ( ! ssp_is_php_version_ok() ) {
 	return;
 }
+
 if ( ! ssp_is_vendor_ok() ) {
 	return;
 }
 
 ssp_beta_check();
-require SSP_PLUGIN_PATH . 'vendor/autoload.php';
 
 /**
  * @todo refactor these globals

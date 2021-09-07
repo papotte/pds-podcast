@@ -54,7 +54,7 @@ class Extensions_Controller extends Controller {
 						'plugin-install.php'
 					)
 				),
-				'description' => __( 'Simple Simple Stats offers integrated analytics for your podcast, giving you access to incredibly useful information about who is listening to your podcast and how they are accessing it.', 'pds-podcast' ),
+				'description' => __( 'Simple Stats offers integrated analytics for your podcast, giving you access to incredibly useful information about who is listening to your podcast and how they are accessing it.', 'pds-podcast' ),
 			),
 			'transcripts' => array(
 				'title'       => __( 'PdS Podcast Transcripts', 'pds-podcast' ),
@@ -62,7 +62,7 @@ class Extensions_Controller extends Controller {
 				'url'         => add_query_arg(
 					array(
 						'tab'       => 'plugin-information',
-						'plugin'    => 'simple--transcripts',
+						'plugin'    => 'simple-transcripts',
 						'TB_iframe' => 'true',
 						'width'     => '772',
 						'height'    => '859',
@@ -71,15 +71,15 @@ class Extensions_Controller extends Controller {
 						'plugin-install.php'
 					)
 				),
-				'description' => __( 'Simple Simple Transcripts gives you a simple and automated way for you to add downloadable transcripts to your podcast episodes. It’s an easy way for you to provide episode transcripts to your listeners without taking up valuable space in your episode content.', 'pds-podcast' ),
+				'description' => __( 'Simple Transcripts gives you a simple and automated way for you to add downloadable transcripts to your podcast episodes. It’s an easy way for you to provide episode transcripts to your listeners without taking up valuable space in your episode content.', 'pds-podcast' ),
 			),
 			'speakers'    => array(
-				'title'       => __( 'Simple PdS Podcast Speakers', 'pds-podcast' ),
+				'title'       => __( 'PdS Podcast Speakers', 'pds-podcast' ),
 				'image'       => $image_dir . 'ssp-speakers.jpg',
 				'url'         => add_query_arg(
 					array(
 						'tab'       => 'plugin-information',
-						'plugin'    => 'simple--speakers',
+						'plugin'    => 'simple-speakers',
 						'TB_iframe' => 'true',
 						'width'     => '772',
 						'height'    => '859',
@@ -88,10 +88,10 @@ class Extensions_Controller extends Controller {
 						'plugin-install.php'
 					)
 				),
-				'description' => __( 'Does your podcast have a number of different speakers? Or maybe a different guest each week? Perhaps you have unique hosts for each episode? If any of those options describe your podcast then Simple Simple Speakers is the add-on for you!', 'pds-podcast' ),
+				'description' => __( 'Does your podcast have a number of different speakers? Or maybe a different guest each week? Perhaps you have unique hosts for each episode? If any of those options describe your podcast then Simple Speakers is the add-on for you!', 'pds-podcast' ),
 			),
 			'genesis'     => array(
-				'title'       => __( 'Simple PdS Podcast Genesis Support ', 'pds-podcast' ),
+				'title'       => __( 'PdS Podcast Genesis Support ', 'pds-podcast' ),
 				'image'       => $image_dir . 'ssp-genesis.jpg',
 				'url'         => add_query_arg(
 					array(
@@ -105,13 +105,13 @@ class Extensions_Controller extends Controller {
 						'plugin-install.php'
 					)
 				),
-				'description' => __( 'The Genesis compatibility add-on for Simple PdS Podcast gives you full support for the Genesis theme framework. It adds support to the podcast post type for the features that Genesis requires. If you are using Genesis and Simple PdS Podcast together then this plugin will make your website look and work much more smoothly.', 'pds-podcast' ),
+				'description' => __( 'The Genesis compatibility add-on for PdS Podcast gives you full support for the Genesis theme framework. It adds support to the podcast post type for the features that Genesis requires. If you are using Genesis and PdS Podcast together then this plugin will make your website look and work much more smoothly.', 'pds-podcast' ),
 			),
 			'second-line' => array(
 				'title'       => __( 'Second Line Themes', 'pds-podcast' ),
 				'image'       => $image_dir . 'second-line-themes.png',
 				'url'         => 'https://secondlinethemes.com/?utm_source=ssp-settings',
-				'description' => __( 'Looking for a dedicated podcast theme to use with Simple PdS Podcast? Check out SecondLineThemes!', 'pds-podcast' ),
+				'description' => __( 'Looking for a dedicated podcast theme to use with PdS Podcast? Check out SecondLineThemes!', 'pds-podcast' ),
 				'new_window'  => true,
 				'button_text' => __( 'Get Second Line Themes', 'pds-podcast' ),
 			),
@@ -122,7 +122,7 @@ class Extensions_Controller extends Controller {
 				'title'       => __( 'Elementor Templates', 'pds-podcast' ),
 				'image'       => $image_dir . 'elementor.jpg',
 				'url'         => wp_nonce_url( admin_url( 'edit.php?post_type=podcast&page=podcast_settings&tab=extensions&elementor_import_templates=true' ), '', 'import_template_nonce' ),
-				'description' => __( 'Looking for a custom elementor template to use with Simple PdS Podcast? Click here to import all of them righ now!', 'pds-podcast' ),
+				'description' => __( 'Looking for a custom elementor template to use with PdS Podcast? Click here to import all of them righ now!', 'pds-podcast' ),
 				'button_text' => __( 'Import Templates', 'pds-podcast' ),
 				'new_window'  => 'redirect'
 			);
