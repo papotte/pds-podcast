@@ -55,8 +55,8 @@
 	}
 }
 
-
-.widget_podcast_episode .widget-title .post-meta-span + .post-meta-span:before {
+.widget_podcast_episode .widget-title .post-meta-span + .post-meta-span:before,
+.widget_podcast_episode .widgettitle .post-meta-span + .post-meta-span:before {
 	content: '|';
 	display: inline-block;
 	font-size: .75rem;
@@ -64,6 +64,7 @@
 	margin: 0 .875rem;
 }
 
-.widget_podcast_episode .widget-title .episode-date {
+.widget_podcast_episode .widget-title .episode-date,
+.widget_podcast_episode .widgettitle .episode-date {
 	text-transform: none;
 }
