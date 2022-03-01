@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: PdS Podcast
- * Version: 1.0.0
+ * Version: 1.0.1
  * Plugin URI: https://github.com/papotte/pds-podcast
  * Description: Based on Seriously Simple Podcasing
  * Author: papotte
